@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService {
         //若不存在
         //User newUser = new User(userid,username,password,0);
         //存数据库
+
         userMapper.insert(user);
 
         return ServerResponse.createBySuccessMessage("注册成功");
