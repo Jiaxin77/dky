@@ -5,15 +5,12 @@ public class User {
 
     private String userName;
 
-    private String password;
+    private String userPassword;
 
-    private Integer age;
-
-    public User(Long userId, String userName, String password, Integer age) {
+    public User(Long userId, String userName, String userPassword) {
         this.userId = userId;
         this.userName = userName;
-        this.password = password;
-        this.age = age;
+        this.userPassword = userPassword;
     }
 
     public User() {
@@ -36,19 +33,11 @@ public class User {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 }

@@ -3,12 +3,12 @@ spring:
     # 如果存在多个数据源，监控的时候可以通过名字来区分开来
     name: mysql
     # 连接数据库的url
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&verifyServerCertificate=false
+    url: jdbc:mysql://localhost:3306/dky?useUnicode=true&characterEncoding=utf-8&useSSL=true&verifyServerCertificate=false
     # 连接数据库的账号
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     #  连接数据库的密码
-    password: 19971019
+    password: 13541362
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     # 扩展插件
