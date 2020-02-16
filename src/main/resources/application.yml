@@ -1,14 +1,16 @@
+
+
 spring:
   datasource:
     # 如果存在多个数据源，监控的时候可以通过名字来区分开来
     name: mysql
     # 连接数据库的url
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&verifyServerCertificate=false
+    url: jdbc:mysql://localhost:3306/dkytest?useUnicode=true&characterEncoding=utf-8&useSSL=true&verifyServerCertificate=false
     # 连接数据库的账号
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     #  连接数据库的密码
-    password: 19971019
+    password: bupt20427
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     # 扩展插件
@@ -39,11 +41,11 @@ spring:
     # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true
     maxOpenPreparedStatements: -1
 
-  data:
-    mongodb:
-      host: 127.0.0.1
-      port: 27017
-      database: testmongo1
+#  data:
+#    mongodb:
+#      host: 127.0.0.1
+#      port: 27017
+#      database: testmongo1
 
 # pagehelper分页插件
 pagehelper:
@@ -55,3 +57,5 @@ pagehelper:
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: hci.dky.pojo
+server:
+  port: 8081
