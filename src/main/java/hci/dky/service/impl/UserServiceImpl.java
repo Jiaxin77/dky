@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andUserNameEqualTo(user.getUserName());
-        criteria.andPasswordEqualTo(user.getPassword());
+        criteria.andUserPasswordEqualTo(user.getUserPassword());
 
         List<User> uList = userMapper.selectByExample(example);
 

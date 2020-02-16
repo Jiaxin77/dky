@@ -5,8 +5,7 @@
     <constructor >
       <idArg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="user_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="age" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_password" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -68,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, user_name, password, age
+    user_id, user_name, user_password
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.UserExample" >
     select
@@ -102,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.User" >
-    insert into user (user_id, user_name, password, 
-      age)
-    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{age,jdbcType=INTEGER})
+    insert into user (user_id, user_name, user_password
+      )
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="hci.dky.pojo.User" >
     insert into user
@@ -116,11 +115,8 @@
       <if test="userName != null" >
         user_name,
       </if>
-      <if test="password != null" >
-        password,
-      </if>
-      <if test="age != null" >
-        age,
+      <if test="userPassword != null" >
+        user_password,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -130,11 +126,8 @@
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="age != null" >
-        #{age,jdbcType=INTEGER},
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -153,11 +146,8 @@
       <if test="record.userName != null" >
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null" >
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.age != null" >
-        age = #{record.age,jdbcType=INTEGER},
+      <if test="record.userPassword != null" >
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -168,8 +158,7 @@
     update user
     set user_id = #{record.userId,jdbcType=BIGINT},
       user_name = #{record.userName,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      age = #{record.age,jdbcType=INTEGER}
+      user_password = #{record.userPassword,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -180,11 +169,8 @@
       <if test="userName != null" >
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="age != null" >
-        age = #{age,jdbcType=INTEGER},
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
       </if>
     </set>
     where user_id = #{userId,jdbcType=BIGINT}
@@ -192,8 +178,7 @@
   <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.User" >
     update user
     set user_name = #{userName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER}
+      user_password = #{userPassword,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
 </mapper>
