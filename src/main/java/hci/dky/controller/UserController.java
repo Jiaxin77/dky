@@ -4,12 +4,15 @@ import hci.dky.common.ServerResponse;
 import hci.dky.pojo.User;
 import hci.dky.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(value = "/home")
+//@RequestMapping(value = "/home")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -42,5 +45,11 @@ public class UserController {
     @PostMapping("/add")
     public int add(User user) {
         return userService.add(user);
+    }
+
+    @GetMapping("/getalluser")
+    public ServerResponse<List<User>> getalluser()
+    {
+        return userService.getalluser();
     }
 }

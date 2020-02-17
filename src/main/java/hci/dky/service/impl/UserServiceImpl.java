@@ -80,4 +80,12 @@ public class UserServiceImpl implements UserService {
     public int add(User user) {
         return userMapper.insert(user);
     }
+
+    public ServerResponse<List<User>> getalluser()
+    {
+        UserExample userExample = new UserExample();
+        List<User> userList = userMapper.selectByExample(userExample);
+        return ServerResponse.createBySuccess("获取成功",userList);
+
+    }
 }
