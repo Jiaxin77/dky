@@ -54,6 +54,7 @@ public class HardwareServiceImpl implements HardwareService {
                 if (hw.getSecondObjectName()!=null)
                 data.put("secondAssessObject",hw.getSecondObjectName());
                 data.put("firstIndex",hw.getFirstIndexName());
+                data.put("secondIndex",hw.getSecondIndexName());
                 data.put("unit",hw.getHardwareUnit());
                 data.put("userValue",0);
                 //未放二级指标
