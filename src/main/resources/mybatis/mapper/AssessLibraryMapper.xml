@@ -108,6 +108,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.AssessLibrary" >
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into assess_library (assess_id, assess_name, assess_des, 
       assess_object, creator, begin_time, 
       assess_state, is_model, index_list

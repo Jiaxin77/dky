@@ -101,6 +101,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.User" >
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into user (user_id, user_name, user_password
       )
     values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}

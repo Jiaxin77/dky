@@ -39,12 +39,12 @@ public class HardwareServiceImpl implements HardwareService {
         HardwareExample hardwareExample = new HardwareExample();
 
         hardwareExample.setDistinct(false);
-        System.out.println(hardwareExample);
+       // System.out.println(hardwareExample);
 
         List<Hardware> hardwares = hardwareMapper.selectByExample(hardwareExample);
 
         ArrayList<Object> hwList = new ArrayList<Object>();
-        if(hardwares.isEmpty() !=true )
+        if(!hardwares.isEmpty())
         {
             for (Hardware hw:hardwares)
             {
@@ -52,7 +52,7 @@ public class HardwareServiceImpl implements HardwareService {
                 data.put("id",hw.getHardwareId());
                 data.put("firstAssessObject",hw.getFirstObjectName());
                 if (hw.getSecondObjectName()!=null)
-                data.put("secondAssessObject",hw.getSecondObjectName());
+                    data.put("secondAssessObject",hw.getSecondObjectName());
                 data.put("firstIndex",hw.getFirstIndexName());
                 data.put("secondIndex",hw.getSecondIndexName());
                 data.put("unit",hw.getHardwareUnit());

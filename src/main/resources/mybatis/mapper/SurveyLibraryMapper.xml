@@ -103,7 +103,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.SurveyLibrary" >
+  <insert id="insert"  parameterType="hci.dky.pojo.SurveyLibrary" >
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into survey_library (id, survey_title, survey_des, 
       now_people_num, is_model, assess_id
       )

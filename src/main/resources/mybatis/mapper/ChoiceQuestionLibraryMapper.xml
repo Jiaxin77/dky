@@ -102,6 +102,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.ChoiceQuestionLibrary" >
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into choice_question_library (id, choice_title, choice_id, 
       question_id)
     values (#{id,jdbcType=BIGINT}, #{choiceTitle,jdbcType=VARCHAR}, #{choiceId,jdbcType=VARCHAR}, 
