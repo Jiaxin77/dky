@@ -8,8 +8,8 @@ import org.apdplat.word.WordSegmenter;
 import org.apdplat.word.segmentation.Word;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.ArrayList;
@@ -45,6 +45,8 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
 
 
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public ServerResponse<ArrayList> getFibModel()
     {
         /**
@@ -68,6 +70,8 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
                 data.put("title",fb.getFibTitle());
                 modelList.add(data);
 
+                //可以直接用对象返回 不用一个一个put了 （已经给前端文档了，先不改了）
+
             }
             return ServerResponse.createBySuccess("获取成功",modelList);
         }
@@ -78,6 +82,8 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
     public ServerResponse<Long> createQuestionNaire(int assessId, String title, String des, List<Integer> modelid, List<Object> questionList)
     {
         SurveyLibrary surveyLibrary = new SurveyLibrary();
@@ -160,10 +166,10 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
 
 
-        }
+    }
 
-
-
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public ServerResponse<HashMap<String, Object>> getQuestionNaire(Long id)
     {
         /**
@@ -225,6 +231,9 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
     }
 
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
     public ServerResponse<Boolean> postSurveyPaper(int id,List<Object> questionList)
     {
         /**
@@ -274,6 +283,8 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
     }
 
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public ServerResponse<HashMap<String, Object>> getSurveyResult(int id) {
         /**
          * @Author jiaxin

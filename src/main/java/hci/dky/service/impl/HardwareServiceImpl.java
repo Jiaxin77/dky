@@ -10,6 +10,8 @@ import hci.dky.pojo.User;
 import hci.dky.service.HardwareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public class HardwareServiceImpl implements HardwareService {
 
 
    //获取参数信息
+   @Override
+   @Transactional(propagation = Propagation.SUPPORTS)
     public ServerResponse<ArrayList> getParam()
     {
         /**
@@ -86,6 +90,8 @@ public class HardwareServiceImpl implements HardwareService {
 
 
     //提交数值获取结果
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public ServerResponse<ArrayList> postParamResult(List<Map<String,Object>> array)
     {
         //读取arrayList每个评估对象
@@ -110,6 +116,7 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     //每个评估对象比较大小
+
     public HashMap<String,Object> compareParam(Object hw)
     {
         /**
@@ -181,21 +188,7 @@ public class HardwareServiceImpl implements HardwareService {
 
                 if(userNum.compareTo(maxNum)!= 1)
                 {
-                    if(minNum!=null)
-                    {
-                        if(userNum.compareTo(minNum)!=-1)
-                        {
-                            result.put("result", 1);//符合
-                        }
-                        else
-                        {
-                            result.put("result", 0);//不符合
-                        }
-                    }
-                    else
-                    {
-                        result.put("result", 1);//符合
-                    }
+                    result.put("result", 1);//符合
                 }
                 else
                 {
@@ -220,7 +213,8 @@ public class HardwareServiceImpl implements HardwareService {
         return result;
         
     }
-    public static String getType(Object o){ //获取变量类型方法
+
+    private static String getType(Object o){ //获取变量类型方法
         return o.getClass().toString(); //使用int类型的getClass()方法
     }
 
