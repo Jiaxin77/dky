@@ -21,7 +21,9 @@ public class AssessLibrary {
 
     private String indexList;
 
-    public AssessLibrary(Long assessId, String assessName, String assessDes, String assessObject, String creator, Date beginTime, String assessState, Boolean isModel, String indexList) {
+    private Boolean isExist;
+
+    public AssessLibrary(Long assessId, String assessName, String assessDes, String assessObject, String creator, Date beginTime, String assessState, Boolean isModel, String indexList, Boolean isExist) {
         this.assessId = assessId;
         this.assessName = assessName;
         this.assessDes = assessDes;
@@ -31,6 +33,7 @@ public class AssessLibrary {
         this.assessState = assessState;
         this.isModel = isModel;
         this.indexList = indexList;
+        this.isExist = isExist;
     }
 
     public AssessLibrary() {
@@ -107,5 +110,13 @@ public class AssessLibrary {
 
     public void setIndexList(String indexList) {
         this.indexList = indexList == null ? null : indexList.trim();
+    }
+
+    public Boolean getIsExist() {
+        return isExist;
+    }
+
+    public void setIsExist(Boolean isExist) {
+        this.isExist = isExist;
     }
 }

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hci.dky.dao.RecordTableMapper" >
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.RecordTable" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="system_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="recorder" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="begin_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="end_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="day_count" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="record_period" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_break_down" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="break_down_count" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="breakdown_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="hci.dky.pojo.RecordTableWithBLOBs" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="system_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="recorder" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="begin_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="end_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="day_count" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="record_period" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_break_down" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="break_down_count" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="breakdown_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="basic_situation" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="break_down_des" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="others" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, system_name, recorder, begin_date, end_date, day_count, record_period, is_break_down, 
+    break_down_count, breakdown_type
+  </sql>
+  <sql id="Blob_Column_List" >
+    basic_situation, break_down_des, others
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="hci.dky.pojo.RecordTableExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from record_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.RecordTableExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from record_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from record_table
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from record_table
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.RecordTableExample" >
+    delete from record_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="hci.dky.pojo.RecordTableWithBLOBs" >
+    insert into record_table (id, system_name, recorder, 
+      begin_date, end_date, day_count, 
+      record_period, is_break_down, break_down_count, 
+      breakdown_type, basic_situation, break_down_des, 
+      others)
+    values (#{id,jdbcType=BIGINT}, #{systemName,jdbcType=VARCHAR}, #{recorder,jdbcType=VARCHAR}, 
+      #{beginDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{dayCount,jdbcType=BIGINT}, 
+      #{recordPeriod,jdbcType=VARCHAR}, #{isBreakDown,jdbcType=BIT}, #{breakDownCount,jdbcType=BIGINT}, 
+      #{breakdownType,jdbcType=VARCHAR}, #{basicSituation,jdbcType=LONGVARCHAR}, #{breakDownDes,jdbcType=LONGVARCHAR}, 
+      #{others,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="hci.dky.pojo.RecordTableWithBLOBs" >
+    insert into record_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="systemName != null" >
+        system_name,
+      </if>
+      <if test="recorder != null" >
+        recorder,
+      </if>
+      <if test="beginDate != null" >
+        begin_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="dayCount != null" >
+        day_count,
+      </if>
+      <if test="recordPeriod != null" >
+        record_period,
+      </if>
+      <if test="isBreakDown != null" >
+        is_break_down,
+      </if>
+      <if test="breakDownCount != null" >
+        break_down_count,
+      </if>
+      <if test="breakdownType != null" >
+        breakdown_type,
+      </if>
+      <if test="basicSituation != null" >
+        basic_situation,
+      </if>
+      <if test="breakDownDes != null" >
+        break_down_des,
+      </if>
+      <if test="others != null" >
+        others,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="systemName != null" >
+        #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="recorder != null" >
+        #{recorder,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dayCount != null" >
+        #{dayCount,jdbcType=BIGINT},
+      </if>
+      <if test="recordPeriod != null" >
+        #{recordPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="isBreakDown != null" >
+        #{isBreakDown,jdbcType=BIT},
+      </if>
+      <if test="breakDownCount != null" >
+        #{breakDownCount,jdbcType=BIGINT},
+      </if>
+      <if test="breakdownType != null" >
+        #{breakdownType,jdbcType=VARCHAR},
+      </if>
+      <if test="basicSituation != null" >
+        #{basicSituation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="breakDownDes != null" >
+        #{breakDownDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="others != null" >
+        #{others,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="hci.dky.pojo.RecordTableExample" resultType="java.lang.Integer" >
+    select count(*) from record_table
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update record_table
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.systemName != null" >
+        system_name = #{record.systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recorder != null" >
+        recorder = #{record.recorder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginDate != null" >
+        begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endDate != null" >
+        end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dayCount != null" >
+        day_count = #{record.dayCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.recordPeriod != null" >
+        record_period = #{record.recordPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isBreakDown != null" >
+        is_break_down = #{record.isBreakDown,jdbcType=BIT},
+      </if>
+      <if test="record.breakDownCount != null" >
+        break_down_count = #{record.breakDownCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.breakdownType != null" >
+        breakdown_type = #{record.breakdownType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basicSituation != null" >
+        basic_situation = #{record.basicSituation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.breakDownDes != null" >
+        break_down_des = #{record.breakDownDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.others != null" >
+        others = #{record.others,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update record_table
+    set id = #{record.id,jdbcType=BIGINT},
+      system_name = #{record.systemName,jdbcType=VARCHAR},
+      recorder = #{record.recorder,jdbcType=VARCHAR},
+      begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      day_count = #{record.dayCount,jdbcType=BIGINT},
+      record_period = #{record.recordPeriod,jdbcType=VARCHAR},
+      is_break_down = #{record.isBreakDown,jdbcType=BIT},
+      break_down_count = #{record.breakDownCount,jdbcType=BIGINT},
+      breakdown_type = #{record.breakdownType,jdbcType=VARCHAR},
+      basic_situation = #{record.basicSituation,jdbcType=LONGVARCHAR},
+      break_down_des = #{record.breakDownDes,jdbcType=LONGVARCHAR},
+      others = #{record.others,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update record_table
+    set id = #{record.id,jdbcType=BIGINT},
+      system_name = #{record.systemName,jdbcType=VARCHAR},
+      recorder = #{record.recorder,jdbcType=VARCHAR},
+      begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      day_count = #{record.dayCount,jdbcType=BIGINT},
+      record_period = #{record.recordPeriod,jdbcType=VARCHAR},
+      is_break_down = #{record.isBreakDown,jdbcType=BIT},
+      break_down_count = #{record.breakDownCount,jdbcType=BIGINT},
+      breakdown_type = #{record.breakdownType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.RecordTableWithBLOBs" >
+    update record_table
+    <set >
+      <if test="systemName != null" >
+        system_name = #{systemName,jdbcType=VARCHAR},
+      </if>
+      <if test="recorder != null" >
+        recorder = #{recorder,jdbcType=VARCHAR},
+      </if>
+      <if test="beginDate != null" >
+        begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dayCount != null" >
+        day_count = #{dayCount,jdbcType=BIGINT},
+      </if>
+      <if test="recordPeriod != null" >
+        record_period = #{recordPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="isBreakDown != null" >
+        is_break_down = #{isBreakDown,jdbcType=BIT},
+      </if>
+      <if test="breakDownCount != null" >
+        break_down_count = #{breakDownCount,jdbcType=BIGINT},
+      </if>
+      <if test="breakdownType != null" >
+        breakdown_type = #{breakdownType,jdbcType=VARCHAR},
+      </if>
+      <if test="basicSituation != null" >
+        basic_situation = #{basicSituation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="breakDownDes != null" >
+        break_down_des = #{breakDownDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="others != null" >
+        others = #{others,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="hci.dky.pojo.RecordTableWithBLOBs" >
+    update record_table
+    set system_name = #{systemName,jdbcType=VARCHAR},
+      recorder = #{recorder,jdbcType=VARCHAR},
+      begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      day_count = #{dayCount,jdbcType=BIGINT},
+      record_period = #{recordPeriod,jdbcType=VARCHAR},
+      is_break_down = #{isBreakDown,jdbcType=BIT},
+      break_down_count = #{breakDownCount,jdbcType=BIGINT},
+      breakdown_type = #{breakdownType,jdbcType=VARCHAR},
+      basic_situation = #{basicSituation,jdbcType=LONGVARCHAR},
+      break_down_des = #{breakDownDes,jdbcType=LONGVARCHAR},
+      others = #{others,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.RecordTable" >
+    update record_table
+    set system_name = #{systemName,jdbcType=VARCHAR},
+      recorder = #{recorder,jdbcType=VARCHAR},
+      begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      day_count = #{dayCount,jdbcType=BIGINT},
+      record_period = #{recordPeriod,jdbcType=VARCHAR},
+      is_break_down = #{isBreakDown,jdbcType=BIT},
+      break_down_count = #{breakDownCount,jdbcType=BIGINT},
+      breakdown_type = #{breakdownType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

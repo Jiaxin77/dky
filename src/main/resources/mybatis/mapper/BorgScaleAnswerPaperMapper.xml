@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hci.dky.dao.BorgScaleAnswerPaperMapper" >
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.BorgScaleAnswerPaper" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="borg_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="date" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="complete_person" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="charge_person" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="position" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="task_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="score" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, borg_id, date, complete_person, charge_person, position, task_name, score
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.BorgScaleAnswerPaperExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from borg_scale_answer_paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from borg_scale_answer_paper
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from borg_scale_answer_paper
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.BorgScaleAnswerPaperExample" >
+    delete from borg_scale_answer_paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" >
+    insert into borg_scale_answer_paper (id, borg_id, date, 
+      complete_person, charge_person, position, 
+      task_name, score)
+    values (#{id,jdbcType=BIGINT}, #{borgId,jdbcType=BIGINT}, #{date,jdbcType=VARCHAR}, 
+      #{completePerson,jdbcType=VARCHAR}, #{chargePerson,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{taskName,jdbcType=VARCHAR}, #{score,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" >
+    insert into borg_scale_answer_paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="borgId != null" >
+        borg_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="completePerson != null" >
+        complete_person,
+      </if>
+      <if test="chargePerson != null" >
+        charge_person,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="taskName != null" >
+        task_name,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="borgId != null" >
+        #{borgId,jdbcType=BIGINT},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="completePerson != null" >
+        #{completePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="chargePerson != null" >
+        #{chargePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null" >
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="hci.dky.pojo.BorgScaleAnswerPaperExample" resultType="java.lang.Integer" >
+    select count(*) from borg_scale_answer_paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update borg_scale_answer_paper
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.borgId != null" >
+        borg_id = #{record.borgId,jdbcType=BIGINT},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.completePerson != null" >
+        complete_person = #{record.completePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargePerson != null" >
+        charge_person = #{record.chargePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null" >
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskName != null" >
+        task_name = #{record.taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update borg_scale_answer_paper
+    set id = #{record.id,jdbcType=BIGINT},
+      borg_id = #{record.borgId,jdbcType=BIGINT},
+      date = #{record.date,jdbcType=VARCHAR},
+      complete_person = #{record.completePerson,jdbcType=VARCHAR},
+      charge_person = #{record.chargePerson,jdbcType=VARCHAR},
+      position = #{record.position,jdbcType=VARCHAR},
+      task_name = #{record.taskName,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" >
+    update borg_scale_answer_paper
+    <set >
+      <if test="borgId != null" >
+        borg_id = #{borgId,jdbcType=BIGINT},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="completePerson != null" >
+        complete_person = #{completePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="chargePerson != null" >
+        charge_person = #{chargePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null" >
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" >
+    update borg_scale_answer_paper
+    set borg_id = #{borgId,jdbcType=BIGINT},
+      date = #{date,jdbcType=VARCHAR},
+      complete_person = #{completePerson,jdbcType=VARCHAR},
+      charge_person = #{chargePerson,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      score = #{score,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

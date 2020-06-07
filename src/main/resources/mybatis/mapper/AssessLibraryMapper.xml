@@ -12,6 +12,7 @@
       <arg column="assess_state" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="is_model" jdbcType="BIT" javaType="java.lang.Boolean" />
       <arg column="index_list" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="is_exist" jdbcType="BIT" javaType="java.lang.Boolean" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -74,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List" >
     assess_id, assess_name, assess_des, assess_object, creator, begin_time, assess_state, 
-    is_model, index_list
+    is_model, index_list, is_exist
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.AssessLibraryExample" >
     select
@@ -108,17 +109,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.AssessLibrary" >
-    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into assess_library (assess_id, assess_name, assess_des, 
       assess_object, creator, begin_time, 
-      assess_state, is_model, index_list
-      )
+      assess_state, is_model, index_list, 
+      is_exist)
     values (#{assessId,jdbcType=BIGINT}, #{assessName,jdbcType=VARCHAR}, #{assessDes,jdbcType=VARCHAR}, 
       #{assessObject,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, 
-      #{assessState,jdbcType=VARCHAR}, #{isModel,jdbcType=BIT}, #{indexList,jdbcType=VARCHAR}
-      )
+      #{assessState,jdbcType=VARCHAR}, #{isModel,jdbcType=BIT}, #{indexList,jdbcType=VARCHAR}, 
+      #{isExist,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="hci.dky.pojo.AssessLibrary" >
     insert into assess_library
@@ -150,6 +148,9 @@
       <if test="indexList != null" >
         index_list,
       </if>
+      <if test="isExist != null" >
+        is_exist,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="assessId != null" >
@@ -178,6 +179,9 @@
       </if>
       <if test="indexList != null" >
         #{indexList,jdbcType=VARCHAR},
+      </if>
+      <if test="isExist != null" >
+        #{isExist,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -217,6 +221,9 @@
       <if test="record.indexList != null" >
         index_list = #{record.indexList,jdbcType=VARCHAR},
       </if>
+      <if test="record.isExist != null" >
+        is_exist = #{record.isExist,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -232,7 +239,8 @@
       begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
       assess_state = #{record.assessState,jdbcType=VARCHAR},
       is_model = #{record.isModel,jdbcType=BIT},
-      index_list = #{record.indexList,jdbcType=VARCHAR}
+      index_list = #{record.indexList,jdbcType=VARCHAR},
+      is_exist = #{record.isExist,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -264,6 +272,9 @@
       <if test="indexList != null" >
         index_list = #{indexList,jdbcType=VARCHAR},
       </if>
+      <if test="isExist != null" >
+        is_exist = #{isExist,jdbcType=BIT},
+      </if>
     </set>
     where assess_id = #{assessId,jdbcType=BIGINT}
   </update>
@@ -276,7 +287,8 @@
       begin_time = #{beginTime,jdbcType=TIMESTAMP},
       assess_state = #{assessState,jdbcType=VARCHAR},
       is_model = #{isModel,jdbcType=BIT},
-      index_list = #{indexList,jdbcType=VARCHAR}
+      index_list = #{indexList,jdbcType=VARCHAR},
+      is_exist = #{isExist,jdbcType=BIT}
     where assess_id = #{assessId,jdbcType=BIGINT}
   </update>
 </mapper>

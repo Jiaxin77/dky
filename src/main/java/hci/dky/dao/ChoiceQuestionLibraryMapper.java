@@ -3,8 +3,6 @@ package hci.dky.dao;
 import hci.dky.pojo.ChoiceQuestionLibrary;
 import hci.dky.pojo.ChoiceQuestionLibraryExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
 public interface ChoiceQuestionLibraryMapper {
@@ -14,7 +12,6 @@ public interface ChoiceQuestionLibraryMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
     int insert(ChoiceQuestionLibrary record);
 
     int insertSelective(ChoiceQuestionLibrary record);

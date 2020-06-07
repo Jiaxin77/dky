@@ -101,9 +101,6 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.PaperList" >
-    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into paper_list (id, survey_id, user
       )
     values (#{id,jdbcType=BIGINT}, #{surveyId,jdbcType=BIGINT}, #{user,jdbcType=VARCHAR}

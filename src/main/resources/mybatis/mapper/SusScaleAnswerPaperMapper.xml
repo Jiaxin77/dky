@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.dky.dao.SurveyLibraryMapper" >
-  <resultMap id="BaseResultMap" type="hci.dky.pojo.SurveyLibrary" >
+<mapper namespace="hci.dky.dao.SusScaleAnswerPaperMapper" >
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.SusScaleAnswerPaper" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="survey_title" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="survey_des" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="now_people_num" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="is_model" jdbcType="BIT" javaType="java.lang.Boolean" />
-      <arg column="assess_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="answer_name" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -70,16 +66,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, survey_title, survey_des, now_people_num, is_model, assess_id
+    id, answer_name
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.SurveyLibraryExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.SusScaleAnswerPaperExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from survey_library
+    from sus_scale_answer_paper
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,96 +86,56 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from survey_library
+    from sus_scale_answer_paper
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from survey_library
+    delete from sus_scale_answer_paper
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.dky.pojo.SurveyLibraryExample" >
-    delete from survey_library
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.SusScaleAnswerPaperExample" >
+    delete from sus_scale_answer_paper
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.SurveyLibrary" >
-    insert into survey_library (id, survey_title, survey_des, 
-      now_people_num, is_model, assess_id
-      )
-    values (#{id,jdbcType=BIGINT}, #{surveyTitle,jdbcType=VARCHAR}, #{surveyDes,jdbcType=VARCHAR}, 
-      #{nowPeopleNum,jdbcType=BIGINT}, #{isModel,jdbcType=BIT}, #{assessId,jdbcType=BIGINT}
-      )
+  <insert id="insert" parameterType="hci.dky.pojo.SusScaleAnswerPaper" >
+    insert into sus_scale_answer_paper (id, answer_name)
+    values (#{id,jdbcType=BIGINT}, #{answerName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="hci.dky.pojo.SurveyLibrary" >
-    insert into survey_library
+  <insert id="insertSelective" parameterType="hci.dky.pojo.SusScaleAnswerPaper" >
+    insert into sus_scale_answer_paper
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="surveyTitle != null" >
-        survey_title,
-      </if>
-      <if test="surveyDes != null" >
-        survey_des,
-      </if>
-      <if test="nowPeopleNum != null" >
-        now_people_num,
-      </if>
-      <if test="isModel != null" >
-        is_model,
-      </if>
-      <if test="assessId != null" >
-        assess_id,
+      <if test="answerName != null" >
+        answer_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="surveyTitle != null" >
-        #{surveyTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="surveyDes != null" >
-        #{surveyDes,jdbcType=VARCHAR},
-      </if>
-      <if test="nowPeopleNum != null" >
-        #{nowPeopleNum,jdbcType=BIGINT},
-      </if>
-      <if test="isModel != null" >
-        #{isModel,jdbcType=BIT},
-      </if>
-      <if test="assessId != null" >
-        #{assessId,jdbcType=BIGINT},
+      <if test="answerName != null" >
+        #{answerName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.dky.pojo.SurveyLibraryExample" resultType="java.lang.Integer" >
-    select count(*) from survey_library
+  <select id="countByExample" parameterType="hci.dky.pojo.SusScaleAnswerPaperExample" resultType="java.lang.Integer" >
+    select count(*) from sus_scale_answer_paper
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update survey_library
+    update sus_scale_answer_paper
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.surveyTitle != null" >
-        survey_title = #{record.surveyTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="record.surveyDes != null" >
-        survey_des = #{record.surveyDes,jdbcType=VARCHAR},
-      </if>
-      <if test="record.nowPeopleNum != null" >
-        now_people_num = #{record.nowPeopleNum,jdbcType=BIGINT},
-      </if>
-      <if test="record.isModel != null" >
-        is_model = #{record.isModel,jdbcType=BIT},
-      </if>
-      <if test="record.assessId != null" >
-        assess_id = #{record.assessId,jdbcType=BIGINT},
+      <if test="record.answerName != null" >
+        answer_name = #{record.answerName,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -187,45 +143,25 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update survey_library
+    update sus_scale_answer_paper
     set id = #{record.id,jdbcType=BIGINT},
-      survey_title = #{record.surveyTitle,jdbcType=VARCHAR},
-      survey_des = #{record.surveyDes,jdbcType=VARCHAR},
-      now_people_num = #{record.nowPeopleNum,jdbcType=BIGINT},
-      is_model = #{record.isModel,jdbcType=BIT},
-      assess_id = #{record.assessId,jdbcType=BIGINT}
+      answer_name = #{record.answerName,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.SurveyLibrary" >
-    update survey_library
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.SusScaleAnswerPaper" >
+    update sus_scale_answer_paper
     <set >
-      <if test="surveyTitle != null" >
-        survey_title = #{surveyTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="surveyDes != null" >
-        survey_des = #{surveyDes,jdbcType=VARCHAR},
-      </if>
-      <if test="nowPeopleNum != null" >
-        now_people_num = #{nowPeopleNum,jdbcType=BIGINT},
-      </if>
-      <if test="isModel != null" >
-        is_model = #{isModel,jdbcType=BIT},
-      </if>
-      <if test="assessId != null" >
-        assess_id = #{assessId,jdbcType=BIGINT},
+      <if test="answerName != null" >
+        answer_name = #{answerName,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.SurveyLibrary" >
-    update survey_library
-    set survey_title = #{surveyTitle,jdbcType=VARCHAR},
-      survey_des = #{surveyDes,jdbcType=VARCHAR},
-      now_people_num = #{nowPeopleNum,jdbcType=BIGINT},
-      is_model = #{isModel,jdbcType=BIT},
-      assess_id = #{assessId,jdbcType=BIGINT}
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.SusScaleAnswerPaper" >
+    update sus_scale_answer_paper
+    set answer_name = #{answerName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -704,6 +704,66 @@ public class AssessLibraryExample {
             addCriterion("index_list not between", value1, value2, "indexList");
             return (Criteria) this;
         }
+
+        public Criteria andIsExistIsNull() {
+            addCriterion("is_exist is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistIsNotNull() {
+            addCriterion("is_exist is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistEqualTo(Boolean value) {
+            addCriterion("is_exist =", value, "isExist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistNotEqualTo(Boolean value) {
+            addCriterion("is_exist <>", value, "isExist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistGreaterThan(Boolean value) {
+            addCriterion("is_exist >", value, "isExist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_exist >=", value, "isExist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistLessThan(Boolean value) {
+            addCriterion("is_exist <", value, "isExist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_exist <=", value, "isExist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistIn(List<Boolean> values) {
+            addCriterion("is_exist in", values, "isExist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistNotIn(List<Boolean> values) {
+            addCriterion("is_exist not in", values, "isExist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_exist between", value1, value2, "isExist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsExistNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_exist not between", value1, value2, "isExist");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
