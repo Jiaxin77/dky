@@ -7,6 +7,8 @@ import hci.dky.pojo.UserExample;
 import hci.dky.service.UserService;
 import io.swagger.annotations.Example;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,11 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+
 
     @Override
     public ServerResponse<User> login(User user){
@@ -34,12 +41,12 @@ public class UserServiceImpl implements UserService {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andUserNameEqualTo(user.getUserName());
-        criteria.andUserPasswordEqualTo(user.getUserPassword());
+      //  criteria.andUserPasswordEqualTo(user.getUserPassword());
 
         List<User> uList = userMapper.selectByExample(example);
 
 
-        if(!uList.isEmpty()){
+        if(!uList.isEmpty() && encoder.matches(user.getUserPassword(),uList.get(0).getUserPassword())){
                 User thisuser = uList.get(0);
                 return ServerResponse.createBySuccess("登录成功",thisuser);
             }
@@ -73,6 +80,8 @@ public class UserServiceImpl implements UserService {
         //若不存在
         //User newUser = new User(userid,username,password,0);
         //存数据库
+
+
 
         userMapper.insert(user);
 

@@ -1,5 +1,7 @@
 package hci.dky.pojo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class IndexLibrary {
     private Long id;
 
@@ -7,6 +9,7 @@ public class IndexLibrary {
 
     private String firstIndex;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL) // 为空的话不会显示给前端
     private String secondIndex;
 
     public IndexLibrary(Long id, String category, String firstIndex, String secondIndex) {
