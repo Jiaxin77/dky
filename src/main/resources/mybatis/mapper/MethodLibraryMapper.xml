@@ -6,6 +6,8 @@
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="method_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="method_table" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="data_form" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="need_people" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, method_name, method_table
+    id, method_name, method_table, data_form, need_people
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.MethodLibraryExample" >
     select
@@ -101,10 +103,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.MethodLibrary" >
-    insert into method_library (id, method_name, method_table
-      )
-    values (#{id,jdbcType=BIGINT}, #{methodName,jdbcType=VARCHAR}, #{methodTable,jdbcType=VARCHAR}
-      )
+    insert into method_library (id, method_name, method_table, 
+      data_form, need_people)
+    values (#{id,jdbcType=BIGINT}, #{methodName,jdbcType=VARCHAR}, #{methodTable,jdbcType=VARCHAR}, 
+      #{dataForm,jdbcType=VARCHAR}, #{needPeople,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="hci.dky.pojo.MethodLibrary" >
     insert into method_library
@@ -118,6 +120,12 @@
       <if test="methodTable != null" >
         method_table,
       </if>
+      <if test="dataForm != null" >
+        data_form,
+      </if>
+      <if test="needPeople != null" >
+        need_people,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -128,6 +136,12 @@
       </if>
       <if test="methodTable != null" >
         #{methodTable,jdbcType=VARCHAR},
+      </if>
+      <if test="dataForm != null" >
+        #{dataForm,jdbcType=VARCHAR},
+      </if>
+      <if test="needPeople != null" >
+        #{needPeople,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -149,6 +163,12 @@
       <if test="record.methodTable != null" >
         method_table = #{record.methodTable,jdbcType=VARCHAR},
       </if>
+      <if test="record.dataForm != null" >
+        data_form = #{record.dataForm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needPeople != null" >
+        need_people = #{record.needPeople,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -158,7 +178,9 @@
     update method_library
     set id = #{record.id,jdbcType=BIGINT},
       method_name = #{record.methodName,jdbcType=VARCHAR},
-      method_table = #{record.methodTable,jdbcType=VARCHAR}
+      method_table = #{record.methodTable,jdbcType=VARCHAR},
+      data_form = #{record.dataForm,jdbcType=VARCHAR},
+      need_people = #{record.needPeople,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -172,13 +194,21 @@
       <if test="methodTable != null" >
         method_table = #{methodTable,jdbcType=VARCHAR},
       </if>
+      <if test="dataForm != null" >
+        data_form = #{dataForm,jdbcType=VARCHAR},
+      </if>
+      <if test="needPeople != null" >
+        need_people = #{needPeople,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.MethodLibrary" >
     update method_library
     set method_name = #{methodName,jdbcType=VARCHAR},
-      method_table = #{methodTable,jdbcType=VARCHAR}
+      method_table = #{methodTable,jdbcType=VARCHAR},
+      data_form = #{dataForm,jdbcType=VARCHAR},
+      need_people = #{needPeople,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

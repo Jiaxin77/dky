@@ -744,6 +744,66 @@ public class RecordTableExample {
             addCriterion("breakdown_type not between", value1, value2, "breakdownType");
             return (Criteria) this;
         }
+
+        public Criteria andAssessIdIsNull() {
+            addCriterion("assess_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdIsNotNull() {
+            addCriterion("assess_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdEqualTo(Long value) {
+            addCriterion("assess_id =", value, "assessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdNotEqualTo(Long value) {
+            addCriterion("assess_id <>", value, "assessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdGreaterThan(Long value) {
+            addCriterion("assess_id >", value, "assessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("assess_id >=", value, "assessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdLessThan(Long value) {
+            addCriterion("assess_id <", value, "assessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdLessThanOrEqualTo(Long value) {
+            addCriterion("assess_id <=", value, "assessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdIn(List<Long> values) {
+            addCriterion("assess_id in", values, "assessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdNotIn(List<Long> values) {
+            addCriterion("assess_id not in", values, "assessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdBetween(Long value1, Long value2) {
+            addCriterion("assess_id between", value1, value2, "assessId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAssessIdNotBetween(Long value1, Long value2) {
+            addCriterion("assess_id not between", value1, value2, "assessId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
