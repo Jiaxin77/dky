@@ -7,10 +7,19 @@ public class AssessAndPlan {
 
     private Long assessId;
 
-    public AssessAndPlan(Long id, String planType, Long assessId) {
+    private String assessObject;
+
+    private String indexList;
+
+    private String tableId;
+
+    public AssessAndPlan(Long id, String planType, Long assessId, String assessObject, String indexList, String tableId) {
         this.id = id;
         this.planType = planType;
         this.assessId = assessId;
+        this.assessObject = assessObject;
+        this.indexList = indexList;
+        this.tableId = tableId;
     }
 
     public AssessAndPlan() {
@@ -39,5 +48,29 @@ public class AssessAndPlan {
 
     public void setAssessId(Long assessId) {
         this.assessId = assessId;
+    }
+
+    public String getAssessObject() {
+        return assessObject;
+    }
+
+    public void setAssessObject(String assessObject) {
+        this.assessObject = assessObject == null ? null : assessObject.trim();
+    }
+
+    public String getIndexList() {
+        return indexList;
+    }
+
+    public void setIndexList(String indexList) {
+        this.indexList = indexList == null ? null : indexList.trim();
+    }
+
+    public String getTableId() {
+        return tableId;
+    }
+
+    public void setTableId(String tableId) {
+        this.tableId = tableId == null ? null : tableId.trim();
     }
 }

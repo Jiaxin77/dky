@@ -16,15 +16,21 @@ public interface AssessAndPlanMapper {
 
     int insertSelective(AssessAndPlan record);
 
+    List<AssessAndPlan> selectByExampleWithBLOBs(AssessAndPlanExample example);
+
     List<AssessAndPlan> selectByExample(AssessAndPlanExample example);
 
     AssessAndPlan selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") AssessAndPlan record, @Param("example") AssessAndPlanExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") AssessAndPlan record, @Param("example") AssessAndPlanExample example);
+
     int updateByExample(@Param("record") AssessAndPlan record, @Param("example") AssessAndPlanExample example);
 
     int updateByPrimaryKeySelective(AssessAndPlan record);
+
+    int updateByPrimaryKeyWithBLOBs(AssessAndPlan record);
 
     int updateByPrimaryKey(AssessAndPlan record);
 }

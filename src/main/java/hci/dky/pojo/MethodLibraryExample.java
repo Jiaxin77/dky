@@ -303,6 +303,146 @@ public class MethodLibraryExample {
             addCriterion("method_table not between", value1, value2, "methodTable");
             return (Criteria) this;
         }
+
+        public Criteria andDataFormIsNull() {
+            addCriterion("data_form is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormIsNotNull() {
+            addCriterion("data_form is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormEqualTo(String value) {
+            addCriterion("data_form =", value, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormNotEqualTo(String value) {
+            addCriterion("data_form <>", value, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormGreaterThan(String value) {
+            addCriterion("data_form >", value, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormGreaterThanOrEqualTo(String value) {
+            addCriterion("data_form >=", value, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormLessThan(String value) {
+            addCriterion("data_form <", value, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormLessThanOrEqualTo(String value) {
+            addCriterion("data_form <=", value, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormLike(String value) {
+            addCriterion("data_form like", value, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormNotLike(String value) {
+            addCriterion("data_form not like", value, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormIn(List<String> values) {
+            addCriterion("data_form in", values, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormNotIn(List<String> values) {
+            addCriterion("data_form not in", values, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormBetween(String value1, String value2) {
+            addCriterion("data_form between", value1, value2, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataFormNotBetween(String value1, String value2) {
+            addCriterion("data_form not between", value1, value2, "dataForm");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleIsNull() {
+            addCriterion("need_people is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleIsNotNull() {
+            addCriterion("need_people is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleEqualTo(String value) {
+            addCriterion("need_people =", value, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleNotEqualTo(String value) {
+            addCriterion("need_people <>", value, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleGreaterThan(String value) {
+            addCriterion("need_people >", value, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleGreaterThanOrEqualTo(String value) {
+            addCriterion("need_people >=", value, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleLessThan(String value) {
+            addCriterion("need_people <", value, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleLessThanOrEqualTo(String value) {
+            addCriterion("need_people <=", value, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleLike(String value) {
+            addCriterion("need_people like", value, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleNotLike(String value) {
+            addCriterion("need_people not like", value, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleIn(List<String> values) {
+            addCriterion("need_people in", values, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleNotIn(List<String> values) {
+            addCriterion("need_people not in", values, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleBetween(String value1, String value2) {
+            addCriterion("need_people between", value1, value2, "needPeople");
+            return (Criteria) this;
+        }
+
+        public Criteria andNeedPeopleNotBetween(String value1, String value2) {
+            addCriterion("need_people not between", value1, value2, "needPeople");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

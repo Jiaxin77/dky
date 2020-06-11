@@ -9,8 +9,8 @@ public class RecordTableWithBLOBs extends RecordTable {
 
     private String others;
 
-    public RecordTableWithBLOBs(Long id, String systemName, String recorder, Date beginDate, Date endDate, Long dayCount, String recordPeriod, Boolean isBreakDown, Long breakDownCount, String breakdownType, String basicSituation, String breakDownDes, String others) {
-        super(id, systemName, recorder, beginDate, endDate, dayCount, recordPeriod, isBreakDown, breakDownCount, breakdownType);
+    public RecordTableWithBLOBs(Long id, String systemName, String recorder, Date beginDate, Date endDate, Long dayCount, String recordPeriod, Boolean isBreakDown, Long breakDownCount, String breakdownType, Long assessId, String basicSituation, String breakDownDes, String others) {
+        super(id, systemName, recorder, beginDate, endDate, dayCount, recordPeriod, isBreakDown, breakDownCount, breakdownType, assessId);
         this.basicSituation = basicSituation;
         this.breakDownDes = breakDownDes;
         this.others = others;

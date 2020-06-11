@@ -6,6 +6,18 @@
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="plan_type" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="assess_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="assess_object" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="index_list" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="hci.dky.pojo.AssessAndPlan" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="plan_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="assess_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="assess_object" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="index_list" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="table_id" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -67,8 +79,28 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, plan_type, assess_id
+    id, plan_type, assess_id, assess_object, index_list
   </sql>
+  <sql id="Blob_Column_List" >
+    table_id
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="hci.dky.pojo.AssessAndPlanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from assess_and_plan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.AssessAndPlanExample" >
     select
     <if test="distinct" >
@@ -84,9 +116,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from assess_and_plan
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -101,9 +135,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.AssessAndPlan" >
-    insert into assess_and_plan (id, plan_type, assess_id
+    insert into assess_and_plan (id, plan_type, assess_id, 
+      assess_object, index_list, table_id
       )
-    values (#{id,jdbcType=BIGINT}, #{planType,jdbcType=VARCHAR}, #{assessId,jdbcType=BIGINT}
+    values (#{id,jdbcType=BIGINT}, #{planType,jdbcType=VARCHAR}, #{assessId,jdbcType=BIGINT}, 
+      #{assessObject,jdbcType=VARCHAR}, #{indexList,jdbcType=VARCHAR}, #{tableId,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="hci.dky.pojo.AssessAndPlan" >
@@ -118,6 +154,15 @@
       <if test="assessId != null" >
         assess_id,
       </if>
+      <if test="assessObject != null" >
+        assess_object,
+      </if>
+      <if test="indexList != null" >
+        index_list,
+      </if>
+      <if test="tableId != null" >
+        table_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -128,6 +173,15 @@
       </if>
       <if test="assessId != null" >
         #{assessId,jdbcType=BIGINT},
+      </if>
+      <if test="assessObject != null" >
+        #{assessObject,jdbcType=VARCHAR},
+      </if>
+      <if test="indexList != null" >
+        #{indexList,jdbcType=VARCHAR},
+      </if>
+      <if test="tableId != null" >
+        #{tableId,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -149,7 +203,28 @@
       <if test="record.assessId != null" >
         assess_id = #{record.assessId,jdbcType=BIGINT},
       </if>
+      <if test="record.assessObject != null" >
+        assess_object = #{record.assessObject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.indexList != null" >
+        index_list = #{record.indexList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableId != null" >
+        table_id = #{record.tableId,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update assess_and_plan
+    set id = #{record.id,jdbcType=BIGINT},
+      plan_type = #{record.planType,jdbcType=VARCHAR},
+      assess_id = #{record.assessId,jdbcType=BIGINT},
+      assess_object = #{record.assessObject,jdbcType=VARCHAR},
+      index_list = #{record.indexList,jdbcType=VARCHAR},
+      table_id = #{record.tableId,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -158,7 +233,9 @@
     update assess_and_plan
     set id = #{record.id,jdbcType=BIGINT},
       plan_type = #{record.planType,jdbcType=VARCHAR},
-      assess_id = #{record.assessId,jdbcType=BIGINT}
+      assess_id = #{record.assessId,jdbcType=BIGINT},
+      assess_object = #{record.assessObject,jdbcType=VARCHAR},
+      index_list = #{record.indexList,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -172,13 +249,33 @@
       <if test="assessId != null" >
         assess_id = #{assessId,jdbcType=BIGINT},
       </if>
+      <if test="assessObject != null" >
+        assess_object = #{assessObject,jdbcType=VARCHAR},
+      </if>
+      <if test="indexList != null" >
+        index_list = #{indexList,jdbcType=VARCHAR},
+      </if>
+      <if test="tableId != null" >
+        table_id = #{tableId,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="hci.dky.pojo.AssessAndPlan" >
+    update assess_and_plan
+    set plan_type = #{planType,jdbcType=VARCHAR},
+      assess_id = #{assessId,jdbcType=BIGINT},
+      assess_object = #{assessObject,jdbcType=VARCHAR},
+      index_list = #{indexList,jdbcType=VARCHAR},
+      table_id = #{tableId,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.AssessAndPlan" >
     update assess_and_plan
     set plan_type = #{planType,jdbcType=VARCHAR},
-      assess_id = #{assessId,jdbcType=BIGINT}
+      assess_id = #{assessId,jdbcType=BIGINT},
+      assess_object = #{assessObject,jdbcType=VARCHAR},
+      index_list = #{indexList,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

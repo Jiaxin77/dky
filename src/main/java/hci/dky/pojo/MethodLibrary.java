@@ -7,10 +7,16 @@ public class MethodLibrary {
 
     private String methodTable;
 
-    public MethodLibrary(Long id, String methodName, String methodTable) {
+    private String dataForm;
+
+    private String needPeople;
+
+    public MethodLibrary(Long id, String methodName, String methodTable, String dataForm, String needPeople) {
         this.id = id;
         this.methodName = methodName;
         this.methodTable = methodTable;
+        this.dataForm = dataForm;
+        this.needPeople = needPeople;
     }
 
     public MethodLibrary() {
@@ -39,5 +45,21 @@ public class MethodLibrary {
 
     public void setMethodTable(String methodTable) {
         this.methodTable = methodTable == null ? null : methodTable.trim();
+    }
+
+    public String getDataForm() {
+        return dataForm;
+    }
+
+    public void setDataForm(String dataForm) {
+        this.dataForm = dataForm == null ? null : dataForm.trim();
+    }
+
+    public String getNeedPeople() {
+        return needPeople;
+    }
+
+    public void setNeedPeople(String needPeople) {
+        this.needPeople = needPeople == null ? null : needPeople.trim();
     }
 }
