@@ -3,7 +3,7 @@ package hci.dky.pojo;
 public class ExpertScore {
     private Long id;
 
-    private Long expertPlanId;
+    private Long planId;
 
     private Long questionNumber;
 
@@ -13,9 +13,9 @@ public class ExpertScore {
 
     private String questionDes;
 
-    public ExpertScore(Long id, Long expertPlanId, Long questionNumber, Float conformanceScore, Float importanceScore, String questionDes) {
+    public ExpertScore(Long id, Long planId, Long questionNumber, Float conformanceScore, Float importanceScore, String questionDes) {
         this.id = id;
-        this.expertPlanId = expertPlanId;
+        this.planId = planId;
         this.questionNumber = questionNumber;
         this.conformanceScore = conformanceScore;
         this.importanceScore = importanceScore;
@@ -34,12 +34,12 @@ public class ExpertScore {
         this.id = id;
     }
 
-    public Long getExpertPlanId() {
-        return expertPlanId;
+    public Long getPlanId() {
+        return planId;
     }
 
-    public void setExpertPlanId(Long expertPlanId) {
-        this.expertPlanId = expertPlanId;
+    public void setPlanId(Long planId) {
+        this.planId = planId;
     }
 
     public Long getQuestionNumber() {

@@ -164,63 +164,63 @@ public class BorgScaleExample {
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdIsNull() {
-            addCriterion("assess_id is null");
+        public Criteria andPlanIdIsNull() {
+            addCriterion("plan_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdIsNotNull() {
-            addCriterion("assess_id is not null");
+        public Criteria andPlanIdIsNotNull() {
+            addCriterion("plan_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdEqualTo(Long value) {
-            addCriterion("assess_id =", value, "assessId");
+        public Criteria andPlanIdEqualTo(Long value) {
+            addCriterion("plan_id =", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdNotEqualTo(Long value) {
-            addCriterion("assess_id <>", value, "assessId");
+        public Criteria andPlanIdNotEqualTo(Long value) {
+            addCriterion("plan_id <>", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdGreaterThan(Long value) {
-            addCriterion("assess_id >", value, "assessId");
+        public Criteria andPlanIdGreaterThan(Long value) {
+            addCriterion("plan_id >", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("assess_id >=", value, "assessId");
+        public Criteria andPlanIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("plan_id >=", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdLessThan(Long value) {
-            addCriterion("assess_id <", value, "assessId");
+        public Criteria andPlanIdLessThan(Long value) {
+            addCriterion("plan_id <", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdLessThanOrEqualTo(Long value) {
-            addCriterion("assess_id <=", value, "assessId");
+        public Criteria andPlanIdLessThanOrEqualTo(Long value) {
+            addCriterion("plan_id <=", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdIn(List<Long> values) {
-            addCriterion("assess_id in", values, "assessId");
+        public Criteria andPlanIdIn(List<Long> values) {
+            addCriterion("plan_id in", values, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdNotIn(List<Long> values) {
-            addCriterion("assess_id not in", values, "assessId");
+        public Criteria andPlanIdNotIn(List<Long> values) {
+            addCriterion("plan_id not in", values, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdBetween(Long value1, Long value2) {
-            addCriterion("assess_id between", value1, value2, "assessId");
+        public Criteria andPlanIdBetween(Long value1, Long value2) {
+            addCriterion("plan_id between", value1, value2, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andAssessIdNotBetween(Long value1, Long value2) {
-            addCriterion("assess_id not between", value1, value2, "assessId");
+        public Criteria andPlanIdNotBetween(Long value1, Long value2) {
+            addCriterion("plan_id not between", value1, value2, "planId");
             return (Criteria) this;
         }
     }

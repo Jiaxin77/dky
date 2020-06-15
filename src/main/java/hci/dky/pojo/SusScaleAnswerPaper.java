@@ -5,9 +5,12 @@ public class SusScaleAnswerPaper {
 
     private String answerName;
 
-    public SusScaleAnswerPaper(Long id, String answerName) {
+    private Long susId;
+
+    public SusScaleAnswerPaper(Long id, String answerName, Long susId) {
         this.id = id;
         this.answerName = answerName;
+        this.susId = susId;
     }
 
     public SusScaleAnswerPaper() {
@@ -28,5 +31,13 @@ public class SusScaleAnswerPaper {
 
     public void setAnswerName(String answerName) {
         this.answerName = answerName == null ? null : answerName.trim();
+    }
+
+    public Long getSusId() {
+        return susId;
+    }
+
+    public void setSusId(Long susId) {
+        this.susId = susId;
     }
 }

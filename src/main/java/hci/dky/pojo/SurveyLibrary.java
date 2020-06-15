@@ -13,13 +13,16 @@ public class SurveyLibrary {
 
     private Long assessId;
 
-    public SurveyLibrary(Long id, String surveyTitle, String surveyDes, Long nowPeopleNum, Boolean isModel, Long assessId) {
+    private Long planId;
+
+    public SurveyLibrary(Long id, String surveyTitle, String surveyDes, Long nowPeopleNum, Boolean isModel, Long assessId, Long planId) {
         this.id = id;
         this.surveyTitle = surveyTitle;
         this.surveyDes = surveyDes;
         this.nowPeopleNum = nowPeopleNum;
         this.isModel = isModel;
         this.assessId = assessId;
+        this.planId = planId;
     }
 
     public SurveyLibrary() {
@@ -72,5 +75,13 @@ public class SurveyLibrary {
 
     public void setAssessId(Long assessId) {
         this.assessId = assessId;
+    }
+
+    public Long getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(Long planId) {
+        this.planId = planId;
     }
 }

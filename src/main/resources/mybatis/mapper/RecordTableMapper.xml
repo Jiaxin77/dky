@@ -13,7 +13,7 @@
       <arg column="is_break_down" jdbcType="BIT" javaType="java.lang.Boolean" />
       <arg column="break_down_count" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="breakdown_type" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="assess_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="hci.dky.pojo.RecordTableWithBLOBs" >
@@ -28,7 +28,7 @@
       <arg column="is_break_down" jdbcType="BIT" javaType="java.lang.Boolean" />
       <arg column="break_down_count" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="breakdown_type" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="assess_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="basic_situation" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
       <arg column="break_down_des" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
       <arg column="others" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
@@ -94,7 +94,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, system_name, recorder, begin_date, end_date, day_count, record_period, is_break_down, 
-    break_down_count, breakdown_type, assess_id
+    break_down_count, breakdown_type, plan_id
   </sql>
   <sql id="Blob_Column_List" >
     basic_situation, break_down_des, others
@@ -153,12 +153,12 @@
     insert into record_table (id, system_name, recorder, 
       begin_date, end_date, day_count, 
       record_period, is_break_down, break_down_count, 
-      breakdown_type, assess_id, basic_situation, 
+      breakdown_type, plan_id, basic_situation, 
       break_down_des, others)
     values (#{id,jdbcType=BIGINT}, #{systemName,jdbcType=VARCHAR}, #{recorder,jdbcType=VARCHAR}, 
       #{beginDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{dayCount,jdbcType=BIGINT}, 
       #{recordPeriod,jdbcType=VARCHAR}, #{isBreakDown,jdbcType=BIT}, #{breakDownCount,jdbcType=BIGINT}, 
-      #{breakdownType,jdbcType=VARCHAR}, #{assessId,jdbcType=BIGINT}, #{basicSituation,jdbcType=LONGVARCHAR}, 
+      #{breakdownType,jdbcType=VARCHAR}, #{planId,jdbcType=BIGINT}, #{basicSituation,jdbcType=LONGVARCHAR}, 
       #{breakDownDes,jdbcType=LONGVARCHAR}, #{others,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="hci.dky.pojo.RecordTableWithBLOBs" >
@@ -194,8 +194,8 @@
       <if test="breakdownType != null" >
         breakdown_type,
       </if>
-      <if test="assessId != null" >
-        assess_id,
+      <if test="planId != null" >
+        plan_id,
       </if>
       <if test="basicSituation != null" >
         basic_situation,
@@ -238,8 +238,8 @@
       <if test="breakdownType != null" >
         #{breakdownType,jdbcType=VARCHAR},
       </if>
-      <if test="assessId != null" >
-        #{assessId,jdbcType=BIGINT},
+      <if test="planId != null" >
+        #{planId,jdbcType=BIGINT},
       </if>
       <if test="basicSituation != null" >
         #{basicSituation,jdbcType=LONGVARCHAR},
@@ -291,8 +291,8 @@
       <if test="record.breakdownType != null" >
         breakdown_type = #{record.breakdownType,jdbcType=VARCHAR},
       </if>
-      <if test="record.assessId != null" >
-        assess_id = #{record.assessId,jdbcType=BIGINT},
+      <if test="record.planId != null" >
+        plan_id = #{record.planId,jdbcType=BIGINT},
       </if>
       <if test="record.basicSituation != null" >
         basic_situation = #{record.basicSituation,jdbcType=LONGVARCHAR},
@@ -320,7 +320,7 @@
       is_break_down = #{record.isBreakDown,jdbcType=BIT},
       break_down_count = #{record.breakDownCount,jdbcType=BIGINT},
       breakdown_type = #{record.breakdownType,jdbcType=VARCHAR},
-      assess_id = #{record.assessId,jdbcType=BIGINT},
+      plan_id = #{record.planId,jdbcType=BIGINT},
       basic_situation = #{record.basicSituation,jdbcType=LONGVARCHAR},
       break_down_des = #{record.breakDownDes,jdbcType=LONGVARCHAR},
       others = #{record.others,jdbcType=LONGVARCHAR}
@@ -340,7 +340,7 @@
       is_break_down = #{record.isBreakDown,jdbcType=BIT},
       break_down_count = #{record.breakDownCount,jdbcType=BIGINT},
       breakdown_type = #{record.breakdownType,jdbcType=VARCHAR},
-      assess_id = #{record.assessId,jdbcType=BIGINT}
+      plan_id = #{record.planId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -375,8 +375,8 @@
       <if test="breakdownType != null" >
         breakdown_type = #{breakdownType,jdbcType=VARCHAR},
       </if>
-      <if test="assessId != null" >
-        assess_id = #{assessId,jdbcType=BIGINT},
+      <if test="planId != null" >
+        plan_id = #{planId,jdbcType=BIGINT},
       </if>
       <if test="basicSituation != null" >
         basic_situation = #{basicSituation,jdbcType=LONGVARCHAR},
@@ -401,7 +401,7 @@
       is_break_down = #{isBreakDown,jdbcType=BIT},
       break_down_count = #{breakDownCount,jdbcType=BIGINT},
       breakdown_type = #{breakdownType,jdbcType=VARCHAR},
-      assess_id = #{assessId,jdbcType=BIGINT},
+      plan_id = #{planId,jdbcType=BIGINT},
       basic_situation = #{basicSituation,jdbcType=LONGVARCHAR},
       break_down_des = #{breakDownDes,jdbcType=LONGVARCHAR},
       others = #{others,jdbcType=LONGVARCHAR}
@@ -418,7 +418,7 @@
       is_break_down = #{isBreakDown,jdbcType=BIT},
       break_down_count = #{breakDownCount,jdbcType=BIGINT},
       breakdown_type = #{breakdownType,jdbcType=VARCHAR},
-      assess_id = #{assessId,jdbcType=BIGINT}
+      plan_id = #{planId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

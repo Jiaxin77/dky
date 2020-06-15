@@ -483,6 +483,66 @@ public class SurveyLibraryExample {
             addCriterion("assess_id not between", value1, value2, "assessId");
             return (Criteria) this;
         }
+
+        public Criteria andPlanIdIsNull() {
+            addCriterion("plan_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdIsNotNull() {
+            addCriterion("plan_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdEqualTo(Long value) {
+            addCriterion("plan_id =", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdNotEqualTo(Long value) {
+            addCriterion("plan_id <>", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdGreaterThan(Long value) {
+            addCriterion("plan_id >", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("plan_id >=", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdLessThan(Long value) {
+            addCriterion("plan_id <", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdLessThanOrEqualTo(Long value) {
+            addCriterion("plan_id <=", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdIn(List<Long> values) {
+            addCriterion("plan_id in", values, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdNotIn(List<Long> values) {
+            addCriterion("plan_id not in", values, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdBetween(Long value1, Long value2) {
+            addCriterion("plan_id between", value1, value2, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdNotBetween(Long value1, Long value2) {
+            addCriterion("plan_id not between", value1, value2, "planId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

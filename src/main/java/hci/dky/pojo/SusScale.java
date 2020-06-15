@@ -5,12 +5,12 @@ public class SusScale {
 
     private String systemName;
 
-    private Long assessId;
+    private Long planId;
 
-    public SusScale(Long id, String systemName, Long assessId) {
+    public SusScale(Long id, String systemName, Long planId) {
         this.id = id;
         this.systemName = systemName;
-        this.assessId = assessId;
+        this.planId = planId;
     }
 
     public SusScale() {
@@ -33,11 +33,11 @@ public class SusScale {
         this.systemName = systemName == null ? null : systemName.trim();
     }
 
-    public Long getAssessId() {
-        return assessId;
+    public Long getPlanId() {
+        return planId;
     }
 
-    public void setAssessId(Long assessId) {
-        this.assessId = assessId;
+    public void setPlanId(Long planId) {
+        this.planId = planId;
     }
 }

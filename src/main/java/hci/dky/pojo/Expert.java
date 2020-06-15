@@ -11,15 +11,15 @@ public class Expert {
 
     private String remarks;
 
-    private Long expertPlanId;
+    private Long planId;
 
-    public Expert(Long id, String name, String background, String assessObject, String remarks, Long expertPlanId) {
+    public Expert(Long id, String name, String background, String assessObject, String remarks, Long planId) {
         this.id = id;
         this.name = name;
         this.background = background;
         this.assessObject = assessObject;
         this.remarks = remarks;
-        this.expertPlanId = expertPlanId;
+        this.planId = planId;
     }
 
     public Expert() {
@@ -66,11 +66,11 @@ public class Expert {
         this.remarks = remarks == null ? null : remarks.trim();
     }
 
-    public Long getExpertPlanId() {
-        return expertPlanId;
+    public Long getPlanId() {
+        return planId;
     }
 
-    public void setExpertPlanId(Long expertPlanId) {
-        this.expertPlanId = expertPlanId;
+    public void setPlanId(Long planId) {
+        this.planId = planId;
     }
 }

@@ -7,7 +7,7 @@
       <arg column="system_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="task_num" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="task_des" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="expert_plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, system_name, task_num, task_des, expert_plan_id
+    id, system_name, task_num, task_des, plan_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.ExpertTaskExample" >
     select
@@ -104,9 +104,9 @@
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.ExpertTask" >
     insert into expert_task (id, system_name, task_num, 
-      task_des, expert_plan_id)
+      task_des, plan_id)
     values (#{id,jdbcType=BIGINT}, #{systemName,jdbcType=VARCHAR}, #{taskNum,jdbcType=BIGINT}, 
-      #{taskDes,jdbcType=VARCHAR}, #{expertPlanId,jdbcType=BIGINT})
+      #{taskDes,jdbcType=VARCHAR}, #{planId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="hci.dky.pojo.ExpertTask" >
     insert into expert_task
@@ -123,8 +123,8 @@
       <if test="taskDes != null" >
         task_des,
       </if>
-      <if test="expertPlanId != null" >
-        expert_plan_id,
+      <if test="planId != null" >
+        plan_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -140,8 +140,8 @@
       <if test="taskDes != null" >
         #{taskDes,jdbcType=VARCHAR},
       </if>
-      <if test="expertPlanId != null" >
-        #{expertPlanId,jdbcType=BIGINT},
+      <if test="planId != null" >
+        #{planId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -166,8 +166,8 @@
       <if test="record.taskDes != null" >
         task_des = #{record.taskDes,jdbcType=VARCHAR},
       </if>
-      <if test="record.expertPlanId != null" >
-        expert_plan_id = #{record.expertPlanId,jdbcType=BIGINT},
+      <if test="record.planId != null" >
+        plan_id = #{record.planId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -180,7 +180,7 @@
       system_name = #{record.systemName,jdbcType=VARCHAR},
       task_num = #{record.taskNum,jdbcType=BIGINT},
       task_des = #{record.taskDes,jdbcType=VARCHAR},
-      expert_plan_id = #{record.expertPlanId,jdbcType=BIGINT}
+      plan_id = #{record.planId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,8 +197,8 @@
       <if test="taskDes != null" >
         task_des = #{taskDes,jdbcType=VARCHAR},
       </if>
-      <if test="expertPlanId != null" >
-        expert_plan_id = #{expertPlanId,jdbcType=BIGINT},
+      <if test="planId != null" >
+        plan_id = #{planId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -208,7 +208,7 @@
     set system_name = #{systemName,jdbcType=VARCHAR},
       task_num = #{taskNum,jdbcType=BIGINT},
       task_des = #{taskDes,jdbcType=VARCHAR},
-      expert_plan_id = #{expertPlanId,jdbcType=BIGINT}
+      plan_id = #{planId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -5,6 +5,7 @@
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="answer_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sus_id" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, answer_name
+    id, answer_name, sus_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.SusScaleAnswerPaperExample" >
     select
@@ -100,8 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.SusScaleAnswerPaper" >
-    insert into sus_scale_answer_paper (id, answer_name)
-    values (#{id,jdbcType=BIGINT}, #{answerName,jdbcType=VARCHAR})
+    insert into sus_scale_answer_paper (id, answer_name, sus_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{answerName,jdbcType=VARCHAR}, #{susId,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="hci.dky.pojo.SusScaleAnswerPaper" >
     insert into sus_scale_answer_paper
@@ -112,6 +115,9 @@
       <if test="answerName != null" >
         answer_name,
       </if>
+      <if test="susId != null" >
+        sus_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -119,6 +125,9 @@
       </if>
       <if test="answerName != null" >
         #{answerName,jdbcType=VARCHAR},
+      </if>
+      <if test="susId != null" >
+        #{susId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -137,6 +146,9 @@
       <if test="record.answerName != null" >
         answer_name = #{record.answerName,jdbcType=VARCHAR},
       </if>
+      <if test="record.susId != null" >
+        sus_id = #{record.susId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -145,7 +157,8 @@
   <update id="updateByExample" parameterType="map" >
     update sus_scale_answer_paper
     set id = #{record.id,jdbcType=BIGINT},
-      answer_name = #{record.answerName,jdbcType=VARCHAR}
+      answer_name = #{record.answerName,jdbcType=VARCHAR},
+      sus_id = #{record.susId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -156,12 +169,16 @@
       <if test="answerName != null" >
         answer_name = #{answerName,jdbcType=VARCHAR},
       </if>
+      <if test="susId != null" >
+        sus_id = #{susId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.SusScaleAnswerPaper" >
     update sus_scale_answer_paper
-    set answer_name = #{answerName,jdbcType=VARCHAR}
+    set answer_name = #{answerName,jdbcType=VARCHAR},
+      sus_id = #{susId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

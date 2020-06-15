@@ -9,14 +9,14 @@ public class ExpertTask {
 
     private String taskDes;
 
-    private Long expertPlanId;
+    private Long planId;
 
-    public ExpertTask(Long id, String systemName, Long taskNum, String taskDes, Long expertPlanId) {
+    public ExpertTask(Long id, String systemName, Long taskNum, String taskDes, Long planId) {
         this.id = id;
         this.systemName = systemName;
         this.taskNum = taskNum;
         this.taskDes = taskDes;
-        this.expertPlanId = expertPlanId;
+        this.planId = planId;
     }
 
     public ExpertTask() {
@@ -55,11 +55,11 @@ public class ExpertTask {
         this.taskDes = taskDes == null ? null : taskDes.trim();
     }
 
-    public Long getExpertPlanId() {
-        return expertPlanId;
+    public Long getPlanId() {
+        return planId;
     }
 
-    public void setExpertPlanId(Long expertPlanId) {
-        this.expertPlanId = expertPlanId;
+    public void setPlanId(Long planId) {
+        this.planId = planId;
     }
 }
