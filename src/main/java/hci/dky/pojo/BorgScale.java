@@ -3,11 +3,11 @@ package hci.dky.pojo;
 public class BorgScale {
     private Long id;
 
-    private Long assessId;
+    private Long planId;
 
-    public BorgScale(Long id, Long assessId) {
+    public BorgScale(Long id, Long planId) {
         this.id = id;
-        this.assessId = assessId;
+        this.planId = planId;
     }
 
     public BorgScale() {
@@ -22,11 +22,11 @@ public class BorgScale {
         this.id = id;
     }
 
-    public Long getAssessId() {
-        return assessId;
+    public Long getPlanId() {
+        return planId;
     }
 
-    public void setAssessId(Long assessId) {
-        this.assessId = assessId;
+    public void setPlanId(Long planId) {
+        this.planId = planId;
     }
 }

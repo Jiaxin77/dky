@@ -23,9 +23,9 @@ public class RecordTable {
 
     private String breakdownType;
 
-    private Long assessId;
+    private Long planId;
 
-    public RecordTable(Long id, String systemName, String recorder, Date beginDate, Date endDate, Long dayCount, String recordPeriod, Boolean isBreakDown, Long breakDownCount, String breakdownType, Long assessId) {
+    public RecordTable(Long id, String systemName, String recorder, Date beginDate, Date endDate, Long dayCount, String recordPeriod, Boolean isBreakDown, Long breakDownCount, String breakdownType, Long planId) {
         this.id = id;
         this.systemName = systemName;
         this.recorder = recorder;
@@ -36,7 +36,7 @@ public class RecordTable {
         this.isBreakDown = isBreakDown;
         this.breakDownCount = breakDownCount;
         this.breakdownType = breakdownType;
-        this.assessId = assessId;
+        this.planId = planId;
     }
 
     public RecordTable() {
@@ -123,11 +123,11 @@ public class RecordTable {
         this.breakdownType = breakdownType == null ? null : breakdownType.trim();
     }
 
-    public Long getAssessId() {
-        return assessId;
+    public Long getPlanId() {
+        return planId;
     }
 
-    public void setAssessId(Long assessId) {
-        this.assessId = assessId;
+    public void setPlanId(Long planId) {
+        this.planId = planId;
     }
 }

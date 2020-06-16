@@ -164,63 +164,63 @@ public class BorgScaleAnswerPaperExample {
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdIsNull() {
-            addCriterion("borg_id is null");
+        public Criteria andPlanIdIsNull() {
+            addCriterion("plan_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdIsNotNull() {
-            addCriterion("borg_id is not null");
+        public Criteria andPlanIdIsNotNull() {
+            addCriterion("plan_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdEqualTo(Long value) {
-            addCriterion("borg_id =", value, "borgId");
+        public Criteria andPlanIdEqualTo(Long value) {
+            addCriterion("plan_id =", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdNotEqualTo(Long value) {
-            addCriterion("borg_id <>", value, "borgId");
+        public Criteria andPlanIdNotEqualTo(Long value) {
+            addCriterion("plan_id <>", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdGreaterThan(Long value) {
-            addCriterion("borg_id >", value, "borgId");
+        public Criteria andPlanIdGreaterThan(Long value) {
+            addCriterion("plan_id >", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("borg_id >=", value, "borgId");
+        public Criteria andPlanIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("plan_id >=", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdLessThan(Long value) {
-            addCriterion("borg_id <", value, "borgId");
+        public Criteria andPlanIdLessThan(Long value) {
+            addCriterion("plan_id <", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdLessThanOrEqualTo(Long value) {
-            addCriterion("borg_id <=", value, "borgId");
+        public Criteria andPlanIdLessThanOrEqualTo(Long value) {
+            addCriterion("plan_id <=", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdIn(List<Long> values) {
-            addCriterion("borg_id in", values, "borgId");
+        public Criteria andPlanIdIn(List<Long> values) {
+            addCriterion("plan_id in", values, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdNotIn(List<Long> values) {
-            addCriterion("borg_id not in", values, "borgId");
+        public Criteria andPlanIdNotIn(List<Long> values) {
+            addCriterion("plan_id not in", values, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdBetween(Long value1, Long value2) {
-            addCriterion("borg_id between", value1, value2, "borgId");
+        public Criteria andPlanIdBetween(Long value1, Long value2) {
+            addCriterion("plan_id between", value1, value2, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andBorgIdNotBetween(Long value1, Long value2) {
-            addCriterion("borg_id not between", value1, value2, "borgId");
+        public Criteria andPlanIdNotBetween(Long value1, Long value2) {
+            addCriterion("plan_id not between", value1, value2, "planId");
             return (Criteria) this;
         }
 

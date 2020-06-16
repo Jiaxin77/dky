@@ -8,7 +8,7 @@
       <arg column="background" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="assess_object" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="remarks" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="expert_plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, background, assess_object, remarks, expert_plan_id
+    id, name, background, assess_object, remarks, plan_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.ExpertExample" >
     select
@@ -105,10 +105,10 @@
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.Expert" >
     insert into expert (id, name, background, 
-      assess_object, remarks, expert_plan_id
+      assess_object, remarks, plan_id
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{background,jdbcType=VARCHAR}, 
-      #{assessObject,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{expertPlanId,jdbcType=BIGINT}
+      #{assessObject,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{planId,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="hci.dky.pojo.Expert" >
@@ -129,8 +129,8 @@
       <if test="remarks != null" >
         remarks,
       </if>
-      <if test="expertPlanId != null" >
-        expert_plan_id,
+      <if test="planId != null" >
+        plan_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -149,8 +149,8 @@
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="expertPlanId != null" >
-        #{expertPlanId,jdbcType=BIGINT},
+      <if test="planId != null" >
+        #{planId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -178,8 +178,8 @@
       <if test="record.remarks != null" >
         remarks = #{record.remarks,jdbcType=VARCHAR},
       </if>
-      <if test="record.expertPlanId != null" >
-        expert_plan_id = #{record.expertPlanId,jdbcType=BIGINT},
+      <if test="record.planId != null" >
+        plan_id = #{record.planId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -193,7 +193,7 @@
       background = #{record.background,jdbcType=VARCHAR},
       assess_object = #{record.assessObject,jdbcType=VARCHAR},
       remarks = #{record.remarks,jdbcType=VARCHAR},
-      expert_plan_id = #{record.expertPlanId,jdbcType=BIGINT}
+      plan_id = #{record.planId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,8 +213,8 @@
       <if test="remarks != null" >
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="expertPlanId != null" >
-        expert_plan_id = #{expertPlanId,jdbcType=BIGINT},
+      <if test="planId != null" >
+        plan_id = #{planId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -225,7 +225,7 @@
       background = #{background,jdbcType=VARCHAR},
       assess_object = #{assessObject,jdbcType=VARCHAR},
       remarks = #{remarks,jdbcType=VARCHAR},
-      expert_plan_id = #{expertPlanId,jdbcType=BIGINT}
+      plan_id = #{planId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

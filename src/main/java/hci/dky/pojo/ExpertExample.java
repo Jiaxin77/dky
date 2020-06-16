@@ -444,63 +444,63 @@ public class ExpertExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdIsNull() {
-            addCriterion("expert_plan_id is null");
+        public Criteria andPlanIdIsNull() {
+            addCriterion("plan_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdIsNotNull() {
-            addCriterion("expert_plan_id is not null");
+        public Criteria andPlanIdIsNotNull() {
+            addCriterion("plan_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdEqualTo(Long value) {
-            addCriterion("expert_plan_id =", value, "expertPlanId");
+        public Criteria andPlanIdEqualTo(Long value) {
+            addCriterion("plan_id =", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdNotEqualTo(Long value) {
-            addCriterion("expert_plan_id <>", value, "expertPlanId");
+        public Criteria andPlanIdNotEqualTo(Long value) {
+            addCriterion("plan_id <>", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdGreaterThan(Long value) {
-            addCriterion("expert_plan_id >", value, "expertPlanId");
+        public Criteria andPlanIdGreaterThan(Long value) {
+            addCriterion("plan_id >", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("expert_plan_id >=", value, "expertPlanId");
+        public Criteria andPlanIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("plan_id >=", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdLessThan(Long value) {
-            addCriterion("expert_plan_id <", value, "expertPlanId");
+        public Criteria andPlanIdLessThan(Long value) {
+            addCriterion("plan_id <", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdLessThanOrEqualTo(Long value) {
-            addCriterion("expert_plan_id <=", value, "expertPlanId");
+        public Criteria andPlanIdLessThanOrEqualTo(Long value) {
+            addCriterion("plan_id <=", value, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdIn(List<Long> values) {
-            addCriterion("expert_plan_id in", values, "expertPlanId");
+        public Criteria andPlanIdIn(List<Long> values) {
+            addCriterion("plan_id in", values, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdNotIn(List<Long> values) {
-            addCriterion("expert_plan_id not in", values, "expertPlanId");
+        public Criteria andPlanIdNotIn(List<Long> values) {
+            addCriterion("plan_id not in", values, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdBetween(Long value1, Long value2) {
-            addCriterion("expert_plan_id between", value1, value2, "expertPlanId");
+        public Criteria andPlanIdBetween(Long value1, Long value2) {
+            addCriterion("plan_id between", value1, value2, "planId");
             return (Criteria) this;
         }
 
-        public Criteria andExpertPlanIdNotBetween(Long value1, Long value2) {
-            addCriterion("expert_plan_id not between", value1, value2, "expertPlanId");
+        public Criteria andPlanIdNotBetween(Long value1, Long value2) {
+            addCriterion("plan_id not between", value1, value2, "planId");
             return (Criteria) this;
         }
     }

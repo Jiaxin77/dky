@@ -3,7 +3,7 @@ package hci.dky.pojo;
 public class BorgScaleAnswerPaper {
     private Long id;
 
-    private Long borgId;
+    private Long planId;
 
     private String date;
 
@@ -17,9 +17,9 @@ public class BorgScaleAnswerPaper {
 
     private Long score;
 
-    public BorgScaleAnswerPaper(Long id, Long borgId, String date, String completePerson, String chargePerson, String position, String taskName, Long score) {
+    public BorgScaleAnswerPaper(Long id, Long planId, String date, String completePerson, String chargePerson, String position, String taskName, Long score) {
         this.id = id;
-        this.borgId = borgId;
+        this.planId = planId;
         this.date = date;
         this.completePerson = completePerson;
         this.chargePerson = chargePerson;
@@ -40,12 +40,12 @@ public class BorgScaleAnswerPaper {
         this.id = id;
     }
 
-    public Long getBorgId() {
-        return borgId;
+    public Long getPlanId() {
+        return planId;
     }
 
-    public void setBorgId(Long borgId) {
-        this.borgId = borgId;
+    public void setPlanId(Long planId) {
+        this.planId = planId;
     }
 
     public String getDate() {

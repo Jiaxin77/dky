@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="hci.dky.pojo.ExpertScore" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="expert_plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="question_number" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="conformance_score" jdbcType="REAL" javaType="java.lang.Float" />
       <arg column="importance_score" jdbcType="REAL" javaType="java.lang.Float" />
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, expert_plan_id, question_number, conformance_score, importance_score, question_des
+    id, plan_id, question_number, conformance_score, importance_score, question_des
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.ExpertScoreExample" >
     select
@@ -104,10 +104,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.ExpertScore" >
-    insert into expert_score (id, expert_plan_id, question_number, 
+    insert into expert_score (id, plan_id, question_number, 
       conformance_score, importance_score, question_des
       )
-    values (#{id,jdbcType=BIGINT}, #{expertPlanId,jdbcType=BIGINT}, #{questionNumber,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT}, #{questionNumber,jdbcType=BIGINT}, 
       #{conformanceScore,jdbcType=REAL}, #{importanceScore,jdbcType=REAL}, #{questionDes,jdbcType=VARCHAR}
       )
   </insert>
@@ -117,8 +117,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="expertPlanId != null" >
-        expert_plan_id,
+      <if test="planId != null" >
+        plan_id,
       </if>
       <if test="questionNumber != null" >
         question_number,
@@ -137,8 +137,8 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="expertPlanId != null" >
-        #{expertPlanId,jdbcType=BIGINT},
+      <if test="planId != null" >
+        #{planId,jdbcType=BIGINT},
       </if>
       <if test="questionNumber != null" >
         #{questionNumber,jdbcType=BIGINT},
@@ -166,8 +166,8 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.expertPlanId != null" >
-        expert_plan_id = #{record.expertPlanId,jdbcType=BIGINT},
+      <if test="record.planId != null" >
+        plan_id = #{record.planId,jdbcType=BIGINT},
       </if>
       <if test="record.questionNumber != null" >
         question_number = #{record.questionNumber,jdbcType=BIGINT},
@@ -189,7 +189,7 @@
   <update id="updateByExample" parameterType="map" >
     update expert_score
     set id = #{record.id,jdbcType=BIGINT},
-      expert_plan_id = #{record.expertPlanId,jdbcType=BIGINT},
+      plan_id = #{record.planId,jdbcType=BIGINT},
       question_number = #{record.questionNumber,jdbcType=BIGINT},
       conformance_score = #{record.conformanceScore,jdbcType=REAL},
       importance_score = #{record.importanceScore,jdbcType=REAL},
@@ -201,8 +201,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.ExpertScore" >
     update expert_score
     <set >
-      <if test="expertPlanId != null" >
-        expert_plan_id = #{expertPlanId,jdbcType=BIGINT},
+      <if test="planId != null" >
+        plan_id = #{planId,jdbcType=BIGINT},
       </if>
       <if test="questionNumber != null" >
         question_number = #{questionNumber,jdbcType=BIGINT},
@@ -221,7 +221,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.ExpertScore" >
     update expert_score
-    set expert_plan_id = #{expertPlanId,jdbcType=BIGINT},
+    set plan_id = #{planId,jdbcType=BIGINT},
       question_number = #{questionNumber,jdbcType=BIGINT},
       conformance_score = #{conformanceScore,jdbcType=REAL},
       importance_score = #{importanceScore,jdbcType=REAL},

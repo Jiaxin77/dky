@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="hci.dky.pojo.BorgScaleAnswerPaper" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="borg_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="date" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="complete_person" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="charge_person" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, borg_id, date, complete_person, charge_person, position, task_name, score
+    id, plan_id, date, complete_person, charge_person, position, task_name, score
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.BorgScaleAnswerPaperExample" >
     select
@@ -106,10 +106,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" >
-    insert into borg_scale_answer_paper (id, borg_id, date, 
+    insert into borg_scale_answer_paper (id, plan_id, date, 
       complete_person, charge_person, position, 
       task_name, score)
-    values (#{id,jdbcType=BIGINT}, #{borgId,jdbcType=BIGINT}, #{date,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT}, #{date,jdbcType=VARCHAR}, 
       #{completePerson,jdbcType=VARCHAR}, #{chargePerson,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
       #{taskName,jdbcType=VARCHAR}, #{score,jdbcType=BIGINT})
   </insert>
@@ -119,8 +119,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="borgId != null" >
-        borg_id,
+      <if test="planId != null" >
+        plan_id,
       </if>
       <if test="date != null" >
         date,
@@ -145,8 +145,8 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="borgId != null" >
-        #{borgId,jdbcType=BIGINT},
+      <if test="planId != null" >
+        #{planId,jdbcType=BIGINT},
       </if>
       <if test="date != null" >
         #{date,jdbcType=VARCHAR},
@@ -180,8 +180,8 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.borgId != null" >
-        borg_id = #{record.borgId,jdbcType=BIGINT},
+      <if test="record.planId != null" >
+        plan_id = #{record.planId,jdbcType=BIGINT},
       </if>
       <if test="record.date != null" >
         date = #{record.date,jdbcType=VARCHAR},
@@ -209,7 +209,7 @@
   <update id="updateByExample" parameterType="map" >
     update borg_scale_answer_paper
     set id = #{record.id,jdbcType=BIGINT},
-      borg_id = #{record.borgId,jdbcType=BIGINT},
+      plan_id = #{record.planId,jdbcType=BIGINT},
       date = #{record.date,jdbcType=VARCHAR},
       complete_person = #{record.completePerson,jdbcType=VARCHAR},
       charge_person = #{record.chargePerson,jdbcType=VARCHAR},
@@ -223,8 +223,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" >
     update borg_scale_answer_paper
     <set >
-      <if test="borgId != null" >
-        borg_id = #{borgId,jdbcType=BIGINT},
+      <if test="planId != null" >
+        plan_id = #{planId,jdbcType=BIGINT},
       </if>
       <if test="date != null" >
         date = #{date,jdbcType=VARCHAR},
@@ -249,7 +249,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" >
     update borg_scale_answer_paper
-    set borg_id = #{borgId,jdbcType=BIGINT},
+    set plan_id = #{planId,jdbcType=BIGINT},
       date = #{date,jdbcType=VARCHAR},
       complete_person = #{completePerson,jdbcType=VARCHAR},
       charge_person = #{chargePerson,jdbcType=VARCHAR},

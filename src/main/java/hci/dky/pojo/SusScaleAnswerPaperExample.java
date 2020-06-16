@@ -233,6 +233,66 @@ public class SusScaleAnswerPaperExample {
             addCriterion("answer_name not between", value1, value2, "answerName");
             return (Criteria) this;
         }
+
+        public Criteria andSusIdIsNull() {
+            addCriterion("sus_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdIsNotNull() {
+            addCriterion("sus_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdEqualTo(Long value) {
+            addCriterion("sus_id =", value, "susId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdNotEqualTo(Long value) {
+            addCriterion("sus_id <>", value, "susId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdGreaterThan(Long value) {
+            addCriterion("sus_id >", value, "susId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("sus_id >=", value, "susId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdLessThan(Long value) {
+            addCriterion("sus_id <", value, "susId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdLessThanOrEqualTo(Long value) {
+            addCriterion("sus_id <=", value, "susId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdIn(List<Long> values) {
+            addCriterion("sus_id in", values, "susId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdNotIn(List<Long> values) {
+            addCriterion("sus_id not in", values, "susId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdBetween(Long value1, Long value2) {
+            addCriterion("sus_id between", value1, value2, "susId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSusIdNotBetween(Long value1, Long value2) {
+            addCriterion("sus_id not between", value1, value2, "susId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
