@@ -31,7 +31,7 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
     @Autowired
     private AnswerLibraryMapper answerLibraryMapper;
     @Autowired
-    private AssessLibraryMapper assessLibraryMapper;
+    private AssessAndPlanMapper assessAndPlanMapper;
     @Autowired
     private ChoiceQuestionLibraryMapper choiceQuestionLibraryMapper;
     @Autowired
@@ -84,8 +84,16 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
-    public ServerResponse<Long> createQuestionNaire(int assessId, String title, String des, List<Integer> modelid, List<Object> questionList)
+    public ServerResponse<Long> createQuestionNaire(int planId, String title, String des, List<Integer> modelid, List<Object> questionList)
     {
+        /**
+         * @Author jiaxin
+         * @Description 新建问卷//TODO
+         * @Date 7:07 下午 2020/6/11
+         * @Param [assessId, title, des, modelid, questionList]
+         * @return hci.dky.common.ServerResponse<java.lang.Long>
+         **/
+
         SurveyLibrary surveyLibrary = new SurveyLibrary();
         surveyLibrary.setSurveyTitle(title);
         surveyLibrary.setSurveyDes(des);
@@ -93,12 +101,14 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
         surveyLibrary.setIsModel(false);
         surveyLibraryMapper.insert(surveyLibrary);
       //  System.out.println(surveyLibrary.getId());
-        if(assessId != -1)
+        if(planId != -1)
         {
-            AssessLibrary thisAssess = assessLibraryMapper.selectByPrimaryKey((long) assessId);
-            surveyLibrary.setAssessId(thisAssess.getAssessId());
+            //AssessLibrary thisAssess = assessLibraryMapper.selectByPrimaryKey((long) assessId);
+            //surveyLibrary.setAssessId(thisAssess.getAssessId());
+            AssessAndPlan thisPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
+            surveyLibrary.setAssessId(thisPlan.getId());
 
-            //将此assess加到问卷的外键关联
+            //将此assess的planid加到问卷的外键关联
         }
 
         //遍历选择的基本信息模板题

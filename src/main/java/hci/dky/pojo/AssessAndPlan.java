@@ -1,5 +1,7 @@
 package hci.dky.pojo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class AssessAndPlan {
     private Long id;
 
@@ -11,6 +13,7 @@ public class AssessAndPlan {
 
     private String indexList;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL) // 为空的话不会显示给前端
     private String tableId;
 
     public AssessAndPlan(Long id, String planType, Long assessId, String assessObject, String indexList, String tableId) {
@@ -20,6 +23,14 @@ public class AssessAndPlan {
         this.assessObject = assessObject;
         this.indexList = indexList;
         this.tableId = tableId;
+    }
+    public AssessAndPlan(Long id, String planType, Long assessId, String assessObject, String indexList)
+    {
+        this.id = id;
+        this.planType = planType;
+        this.assessId = assessId;
+        this.assessObject = assessObject;
+        this.indexList = indexList;
     }
 
     public AssessAndPlan() {

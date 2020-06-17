@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ExpertService {
-    public ServerResponse<Boolean> postExpertList(Long planId, List<Object> expertList);
-    public ServerResponse<ArrayList> getExpertList(Long planId);
+    ServerResponse<Boolean> postExpertList(int planId, List<Object> expertList);
+    ServerResponse<ArrayList> getExpertList(int planId);
+
 }

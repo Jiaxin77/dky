@@ -46,7 +46,9 @@ public class UserServiceImpl implements UserService {
         List<User> uList = userMapper.selectByExample(example);
 
 
-        if(!uList.isEmpty() && encoder.matches(user.getUserPassword(),uList.get(0).getUserPassword())){
+
+            if(!uList.isEmpty() && user.getUserPassword().equals(uList.get(0).getUserPassword())){
+      //  if(!uList.isEmpty() && encoder.matches(user.getUserPassword(),uList.get(0).getUserPassword())){
                 User thisuser = uList.get(0);
                 return ServerResponse.createBySuccess("登录成功",thisuser);
             }

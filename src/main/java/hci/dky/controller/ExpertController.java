@@ -36,13 +36,13 @@ public class ExpertController {
          **/
 
 
-        Long planId =(Long) expertInfo.get("planId");
+        Integer planId =(Integer) expertInfo.get("planId");
         List<Object> expertList = (List<Object>) expertInfo.get("expertList");
         ServerResponse<Boolean> response = expertService.postExpertList(planId,expertList);
         return response;
     }
 
-    public ServerResponse<ArrayList> getExpertList(Long planId)
+    public ServerResponse<ArrayList> getExpertList(int planId)
     {
         /**
          * @Author jiaxin

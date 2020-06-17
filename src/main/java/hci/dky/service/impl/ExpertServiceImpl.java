@@ -1,11 +1,14 @@
 package hci.dky.service.impl;
 
 import hci.dky.common.ServerResponse;
+import hci.dky.dao.AssessAndPlanMapper;
 import hci.dky.dao.ExpertMapper;
+import hci.dky.pojo.AssessAndPlan;
 import hci.dky.pojo.Expert;
 import hci.dky.pojo.ExpertExample;
 import hci.dky.service.ExpertService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,17 +23,23 @@ import java.util.Map;
  * @Date 2020/6/8 4:13 下午
  * @Version 1.0
  **/
+@Service
 public class ExpertServiceImpl implements ExpertService {
 
     @Autowired
     private ExpertMapper expertMapper ;
 
+    @Autowired
+    private AssessAndPlanMapper assessAndPlanMapper;
+
+    //还不能用～
 
     //录入专家清单
     @Override
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
-    public ServerResponse<Boolean> postExpertList(Long planId,List<Object> expertList)
+    public ServerResponse<Boolean> postExpertList(int planId,List<Object> expertList)
     {
+
         /**
          * @Author jiaxin
          * @Description 录入专家清单//TODO
@@ -38,11 +47,12 @@ public class ExpertServiceImpl implements ExpertService {
          * @Param [expertListId, expertList]专家清单id，专家信息
          * @return hci.dky.common.ServerResponse<java.lang.Boolean>
          **/
+        AssessAndPlan thisPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
 
         //先删除已有的 —— 编辑用
         ExpertExample expertExample = new ExpertExample();
         ExpertExample.Criteria expertCriteria = expertExample.createCriteria();
-        expertCriteria.andExpertPlanIdEqualTo(planId);
+        expertCriteria.andPlanIdEqualTo((long)planId);
         expertMapper.deleteByExample(expertExample);
 
         for (Object expertInfo:expertList)
@@ -58,7 +68,8 @@ public class ExpertServiceImpl implements ExpertService {
             expert.setAssessObject(assessPart);
             expert.setBackground(background);
             expert.setRemarks(remark);
-            expert.setExpertPlanId(planId);
+
+            expert.setPlanId(thisPlan.getId());
 
             expertMapper.insert(expert);
         }
@@ -71,13 +82,13 @@ public class ExpertServiceImpl implements ExpertService {
     //获取专家清单
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public ServerResponse<ArrayList> getExpertList(Long planId)
+    public ServerResponse<ArrayList> getExpertList(int planId)
     {
 
 
         ExpertExample expertExample = new ExpertExample();
         ExpertExample.Criteria expertCriteria = expertExample.createCriteria();
-        expertCriteria.andExpertPlanIdEqualTo(planId);
+        expertCriteria.andPlanIdEqualTo((long)planId);
         List<Expert> experts = expertMapper.selectByExample(expertExample);
 
         ArrayList<Object> expertList = new ArrayList<Object>(experts);

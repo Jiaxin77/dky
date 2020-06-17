@@ -34,13 +34,13 @@ public class QuestionNaireController {
     public ServerResponse<Long> createQuestionNaire(@RequestBody Map<String,Object> questionNaire)
    // public ServerResponse<Long> createQuestionNaire(int assessId,String title, String des,@RequestBody List<Integer> modelid, @RequestBody List<Object> questionList)
     {
-        Integer assessId = (Integer) questionNaire.get("assessId");
+        Integer planId = (Integer) questionNaire.get("planId");
         String title = (String) questionNaire.get("title");
         String des = (String) questionNaire.get("des");
         List<Integer> modelid = (List<Integer>) questionNaire.get("modelid");
         List<Object> questionList = (List<Object>) questionNaire.get("questionList");
 
-        ServerResponse<Long> response = questionNaireService.createQuestionNaire(assessId,title,des,modelid,questionList);
+        ServerResponse<Long> response = questionNaireService.createQuestionNaire(planId,title,des,modelid,questionList);
         return  response;
 
     }

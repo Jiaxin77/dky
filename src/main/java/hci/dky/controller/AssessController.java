@@ -2,7 +2,8 @@ package hci.dky.controller;
 
 import hci.dky.common.ServerResponse;
 import hci.dky.service.AssessService;
-import javafx.concurrent.Service;
+
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,18 +32,25 @@ public class AssessController {
 
 
     @PostMapping("/postIndexesAndMethods")
-    public ServerResponse<Boolean> postIndexesAndMethods(@RequestBody Map<String,Object> assessIndex)
+    public ServerResponse<Long> postIndexesAndMethods(@RequestBody Map<String,Object> assessIndex)
     {
-        Long assessId = (Long) assessIndex.get("assessId");
+        Integer assessId = (Integer) assessIndex.get("assessId");
         List<Object> indexData = (List<Object>) assessIndex.get("indexData");
-        ServerResponse<Boolean> response = assessService.postIndexes(assessId,indexData);
+        ServerResponse<Long> response = assessService.postIndexes(assessId,indexData);
+        return response;
+    }
+
+    @GetMapping("/getAssessPlan")
+    public ServerResponse<ArrayList> getAssessPlan(int assessId)
+    {
+        ServerResponse<ArrayList> response = assessService.getAssessPlan(assessId);
         return response;
     }
 
     @PostMapping("/postAssessInfo")
     public ServerResponse<Boolean> postAssessInfo(@RequestBody Map<String,Object> assessInfo)
     {
-        Long assessId = (Long) assessInfo.get("assessId");
+        Integer assessId = (Integer) assessInfo.get("assessId");
         String assessName = (String) assessInfo.get("assessName");
         String assessDes = (String) assessInfo.get("assessDes");
         String assessObject = (String) assessInfo.get("assessObject");
@@ -53,13 +61,34 @@ public class AssessController {
     @PostMapping("/postSusSystemName")
     public ServerResponse<Boolean> postSusSystemName(@RequestBody Map<String,Object> susInfo)
     {
-        Long planId = (Long) susInfo.get("planId");
+        Integer planId = (Integer) susInfo.get("planId");
         String systemName = (String) susInfo.get("systemName");
         ServerResponse<Boolean> response = assessService.postSusSystemName(planId,systemName);
         return response;
 
-
     }
+
+    @GetMapping("/getPlanAndMethodInfo")
+    public ServerResponse<ArrayList> getPlanAndMethodInfo(int assessId)
+    {
+        ServerResponse<ArrayList> response = assessService.getPlanAndMethodInfo(assessId);
+        return response;
+    }
+
+    @GetMapping("/getSusSystemName")
+    public ServerResponse<String> getSusSystemName(int planId)
+    {
+        ServerResponse<String> response = assessService.getSusSystemName(planId);
+        return response;
+    }
+
+    @GetMapping("/getAssessList")
+    public ServerResponse<ArrayList> getAssessList()
+    {
+        ServerResponse<ArrayList> response = assessService.getAssessList();
+        return response;
+    }
+
 
 
 
