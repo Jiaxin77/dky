@@ -16,8 +16,6 @@ public class AnswerLibrary {
         this.paperId = paperId;
     }
 
-
-
     public AnswerLibrary() {
         super();
     }

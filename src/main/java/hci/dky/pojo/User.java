@@ -1,13 +1,10 @@
 package hci.dky.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class User {
     private Long userId;
 
     private String userName;
 
-    @JsonIgnore
     private String userPassword;
 
     public User(Long userId, String userName, String userPassword) {
