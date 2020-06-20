@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -23,8 +24,8 @@ public class UserController {
      * @return user信息
      */
     @PostMapping("/login")
-    public ServerResponse<User> login(User user){
-        ServerResponse<User> response = userService.login(user);
+    public ServerResponse<HashMap<String,Object>>  login(User user){
+        ServerResponse<HashMap<String,Object>> response = userService.login(user);
         return response;
     }
 

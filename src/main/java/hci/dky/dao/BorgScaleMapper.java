@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface BorgScaleMapper {
-    int countByExample(BorgScaleExample example);
+    long countByExample(BorgScaleExample example);
 
     int deleteByExample(BorgScaleExample example);
 

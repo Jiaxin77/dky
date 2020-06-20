@@ -1,6 +1,7 @@
 package hci.dky.controller;
 
 import hci.dky.common.ServerResponse;
+import hci.dky.common.UserLoginToken;
 import hci.dky.service.AssessService;
 
 import io.swagger.models.auth.In;
@@ -82,6 +83,7 @@ public class AssessController {
         return response;
     }
 
+    @UserLoginToken
     @GetMapping("/getAssessList")
     public ServerResponse<ArrayList> getAssessList()
     {

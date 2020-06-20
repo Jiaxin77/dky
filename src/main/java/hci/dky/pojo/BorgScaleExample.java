@@ -11,7 +11,7 @@ public class BorgScaleExample {
     protected List<Criteria> oredCriteria;
 
     public BorgScaleExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     public void setOrderByClause(String orderByClause) {
@@ -68,7 +68,7 @@ public class BorgScaleExample {
 
         protected GeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<>();
         }
 
         public boolean isValid() {
@@ -223,10 +223,81 @@ public class BorgScaleExample {
             addCriterion("plan_id not between", value1, value2, "planId");
             return (Criteria) this;
         }
+
+        public Criteria andSystemnameIsNull() {
+            addCriterion("systemName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameIsNotNull() {
+            addCriterion("systemName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameEqualTo(String value) {
+            addCriterion("systemName =", value, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameNotEqualTo(String value) {
+            addCriterion("systemName <>", value, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameGreaterThan(String value) {
+            addCriterion("systemName >", value, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameGreaterThanOrEqualTo(String value) {
+            addCriterion("systemName >=", value, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameLessThan(String value) {
+            addCriterion("systemName <", value, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameLessThanOrEqualTo(String value) {
+            addCriterion("systemName <=", value, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameLike(String value) {
+            addCriterion("systemName like", value, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameNotLike(String value) {
+            addCriterion("systemName not like", value, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameIn(List<String> values) {
+            addCriterion("systemName in", values, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameNotIn(List<String> values) {
+            addCriterion("systemName not in", values, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameBetween(String value1, String value2) {
+            addCriterion("systemName between", value1, value2, "systemname");
+            return (Criteria) this;
+        }
+
+        public Criteria andSystemnameNotBetween(String value1, String value2) {
+            addCriterion("systemName not between", value1, value2, "systemname");
+            return (Criteria) this;
+        }
     }
 
+    /**
+     */
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }

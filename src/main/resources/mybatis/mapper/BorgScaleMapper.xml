@@ -1,31 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.dky.dao.BorgScaleMapper" >
-  <resultMap id="BaseResultMap" type="hci.dky.pojo.BorgScale" >
-    <constructor >
-      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-    </constructor>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hci.dky.dao.BorgScaleMapper">
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.BorgScale">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="plan_id" jdbcType="BIGINT" property="planId" />
+    <result column="systemName" jdbcType="VARCHAR" property="systemname" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -36,25 +35,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -65,103 +64,110 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
-    id, plan_id
+  <sql id="Base_Column_List">
+    id, plan_id, systemName
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.BorgScaleExample" >
+  <select id="selectByExample" parameterType="hci.dky.pojo.BorgScaleExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
-    'true' as QUERYID,
     <include refid="Base_Column_List" />
     from borg_scale
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from borg_scale
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from borg_scale
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.dky.pojo.BorgScaleExample" >
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.BorgScaleExample">
     delete from borg_scale
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.BorgScale" >
-    insert into borg_scale (id, plan_id)
-    values (#{id,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT})
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.BorgScale" useGeneratedKeys="true">
+    insert into borg_scale (plan_id, systemName)
+    values (#{planId,jdbcType=BIGINT}, #{systemname,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="hci.dky.pojo.BorgScale" >
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.BorgScale" useGeneratedKeys="true">
     insert into borg_scale
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="planId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="planId != null">
         plan_id,
       </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
+      <if test="systemname != null">
+        systemName,
       </if>
-      <if test="planId != null" >
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="planId != null">
         #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="systemname != null">
+        #{systemname,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.dky.pojo.BorgScaleExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="hci.dky.pojo.BorgScaleExample" resultType="java.lang.Long">
     select count(*) from borg_scale
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update borg_scale
-    <set >
-      <if test="record.id != null" >
+    <set>
+      <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.planId != null" >
+      <if test="record.planId != null">
         plan_id = #{record.planId,jdbcType=BIGINT},
       </if>
+      <if test="record.systemname != null">
+        systemName = #{record.systemname,jdbcType=VARCHAR},
+      </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update borg_scale
     set id = #{record.id,jdbcType=BIGINT},
-      plan_id = #{record.planId,jdbcType=BIGINT}
-    <if test="_parameter != null" >
+      plan_id = #{record.planId,jdbcType=BIGINT},
+      systemName = #{record.systemname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.BorgScale" >
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.BorgScale">
     update borg_scale
-    <set >
-      <if test="planId != null" >
+    <set>
+      <if test="planId != null">
         plan_id = #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="systemname != null">
+        systemName = #{systemname,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.BorgScale" >
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.BorgScale">
     update borg_scale
-    set plan_id = #{planId,jdbcType=BIGINT}
+    set plan_id = #{planId,jdbcType=BIGINT},
+      systemName = #{systemname,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

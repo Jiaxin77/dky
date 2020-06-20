@@ -1,32 +1,29 @@
 package hci.dky.pojo;
 
-public class BorgScale {
+import java.io.Serializable;
+import lombok.Data;
+
+/**
+ * borg_scale
+ * @author 
+ */
+@Data
+public class BorgScale implements Serializable {
+    /**
+     * borg量表id
+     */
     private Long id;
 
+    /**
+     * 所属方案id
+     */
     private Long planId;
 
-    public BorgScale(Long id, Long planId) {
-        this.id = id;
-        this.planId = planId;
-    }
+    /**
+     * 系统名称
 
-    public BorgScale() {
-        super();
-    }
+     */
+    private String systemname;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getPlanId() {
-        return planId;
-    }
-
-    public void setPlanId(Long planId) {
-        this.planId = planId;
-    }
+    private static final long serialVersionUID = 1L;
 }

@@ -4,6 +4,7 @@ import hci.dky.common.ServerResponse;
 import hci.dky.dao.UserMapper;
 import hci.dky.pojo.User;
 import hci.dky.pojo.UserExample;
+import hci.dky.service.TokenService;
 import hci.dky.service.UserService;
 import io.swagger.annotations.Example;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -23,10 +25,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+    @Autowired
+    private TokenService tokenService;
+
+
+
 
 
     @Override
-    public ServerResponse<User> login(User user){
+    public ServerResponse<HashMap<String,Object>> login(User user){
         /**
          * @Author jiaxin
          * @Description 登录
@@ -47,10 +54,20 @@ public class UserServiceImpl implements UserService {
 
 
 
-            if(!uList.isEmpty() && user.getUserPassword().equals(uList.get(0).getUserPassword())){
-      //  if(!uList.isEmpty() && encoder.matches(user.getUserPassword(),uList.get(0).getUserPassword())){
+        //if(!uList.isEmpty() && user.getUserPassword().equals(uList.get(0).getUserPassword())){
+        if(!uList.isEmpty() && encoder.matches(user.getUserPassword(),uList.get(0).getUserPassword())){
+                HashMap<String,Object> res = new HashMap<>();
                 User thisuser = uList.get(0);
-                return ServerResponse.createBySuccess("登录成功",thisuser);
+
+                //token
+                String token = tokenService.getToken(thisuser);
+
+                res.put("token",token);
+                res.put("user",thisuser);
+
+
+
+                return ServerResponse.createBySuccess("登录成功",res);
             }
             else {
                 //密码错误
@@ -82,8 +99,7 @@ public class UserServiceImpl implements UserService {
         //若不存在
         //User newUser = new User(userid,username,password,0);
         //存数据库
-
-
+        user.setUserPassword(encoder.encode(user.getUserPassword()));
 
         userMapper.insert(user);
 
@@ -100,5 +116,12 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userMapper.selectByExample(userExample);
         return ServerResponse.createBySuccess("获取成功",userList);
 
+    }
+
+    @Override
+    public User findUserById(int id)
+    {
+        User user = userMapper.selectByPrimaryKey((long)id);
+        return user;
     }
 }
