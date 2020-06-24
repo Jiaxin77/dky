@@ -2,20 +2,16 @@ package hci.dky.service.impl;
 
 
 import hci.dky.common.ServerResponse;
-import hci.dky.common.UserLoginToken;
 import hci.dky.dao.*;
 import hci.dky.pojo.*;
 import hci.dky.service.AssessService;
-import io.swagger.models.auth.In;
-import net.sf.jsqlparser.statement.create.table.Index;
+import hci.dky.service.QuestionNaireService;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -50,6 +46,18 @@ public class AssessServiceImpl implements AssessService {
     private SusScaleMapper susScaleMapper;
     @Autowired
     private RecordTableMapper recordTableMapper;
+
+    @Autowired
+    private ExpertMapper expertMapper ;
+    @Autowired
+    private ExpertTaskMapper expertTaskMapper;
+
+    @Autowired
+    private SurveyLibraryMapper surveyLibraryMapper;
+
+    @Autowired
+    private QuestionNaireService questionNaireService;
+
 
 
 
@@ -132,7 +140,8 @@ public class AssessServiceImpl implements AssessService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
-    public ServerResponse<Long> postIndexes(Integer assessId,List<Object> indexAndMethod) {/**
+    public ServerResponse<Long> postIndexes(Integer assessId,List<Object> indexAndMethod) {
+        /**
      * @Author jiaxin
      * @Description 提交选择的指标，生成方案//TODO
      * @Date 9:44 上午 2020/6/9
@@ -169,6 +178,7 @@ public class AssessServiceImpl implements AssessService {
 
 
         ArrayList<Long> indexIdList = new ArrayList<Long>();
+        ArrayList<Long> indexMethodIdList = new ArrayList<>();
 
 
         for (Object chosedData : indexAndMethod) {
@@ -185,6 +195,20 @@ public class AssessServiceImpl implements AssessService {
 
                 MethodLibrary thisMethod = methodLibraryMapper.selectByPrimaryKey((long)methodId);
             //    System.out.println("methodId"+methodId);
+
+                //存下indexmethod的对应值
+                IndexAndMethodExample indexAndMethodExample = new IndexAndMethodExample();
+                IndexAndMethodExample.Criteria criteria= indexAndMethodExample.createCriteria();
+                criteria.andIndexIdEqualTo(thisIndex.getId());
+                criteria.andMethodIdEqualTo(thisMethod.getId());
+                List<IndexAndMethod> indexAndMethods = indexAndMethodMapper.selectByExample(indexAndMethodExample);
+                if(indexAndMethods.isEmpty()) // 为空
+                {
+                    return ServerResponse.createByErrorMessage("提交的数据有误，存在指标与方法不对应");
+                }
+
+                IndexAndMethod thisIndexAndMethod = indexAndMethods.get(0);
+                indexMethodIdList.add(thisIndexAndMethod.getId());
 
 
                 //先看评估有没有此类方法
@@ -277,6 +301,7 @@ public class AssessServiceImpl implements AssessService {
 
 
         thisAssess.setIndexList((String.valueOf(indexIdList)));
+        thisAssess.setIndexMethodList((String.valueOf(indexMethodIdList)));
         thisAssess.setBeginTime(new Date());
         assessLibraryMapper.updateByPrimaryKey(thisAssess);
 
@@ -315,6 +340,14 @@ public class AssessServiceImpl implements AssessService {
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
     public ServerResponse<Boolean> postAssessInfo(int assessId, String assessName, String assessDes, String assessObject)
     {
+        /**
+         * @Author jiaxin
+         * @Description 提交评估基本信息
+         * @Date 11:06 上午 2020/6/24
+         * @Param [assessId, assessName, assessDes, assessObject]
+         * @return hci.dky.common.ServerResponse<java.lang.Boolean>
+         **/
+
         AssessLibrary thisAssess = assessLibraryMapper.selectByPrimaryKey((long)assessId);
         thisAssess.setAssessName(assessName);
         thisAssess.setAssessDes(assessDes);
@@ -331,9 +364,6 @@ public class AssessServiceImpl implements AssessService {
     }
 
 
-    //获取左侧列表
-
-    //挨个编辑方案？ —— sus有系统名称，borg和专家走查是不是直接用plan就行？
 
 
     //提交SUS系统名称
@@ -341,6 +371,14 @@ public class AssessServiceImpl implements AssessService {
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
     public ServerResponse<Boolean> postSusSystemName(int planId,String systemName)
     {
+        /**
+         * @Author jiaxin
+         * @Description 提交sus系统名称
+         * @Date 11:07 上午 2020/6/24
+         * @Param [planId, systemName]
+         * @return hci.dky.common.ServerResponse<java.lang.Boolean>
+         **/
+
         AssessAndPlan assessAndPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
 
         SusScaleExample susScaleExample = new SusScaleExample();
@@ -370,6 +408,53 @@ public class AssessServiceImpl implements AssessService {
 
         return ServerResponse.createBySuccess("Sus评估系统名称提交成功",Boolean.TRUE);
     }
+
+
+    //提交Borg系统名称
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
+    public ServerResponse<Boolean> postBorgSystemName(int planId,String systemName)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 提交borg系统名称
+         * @Date 11:07 上午 2020/6/24
+         * @Param [planId, systemName]
+         * @return hci.dky.common.ServerResponse<java.lang.Boolean>
+         **/
+
+        AssessAndPlan assessAndPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
+
+        BorgScaleExample borgScaleExample = new BorgScaleExample();
+        BorgScaleExample.Criteria criteria = borgScaleExample.createCriteria();
+        criteria.andPlanIdEqualTo((long)planId);
+        List<BorgScale> borgScales = borgScaleMapper.selectByExample(borgScaleExample);
+
+
+        if(borgScales.isEmpty()) // 没有该方案的量表，即为新的
+        {
+            BorgScale borgScale = new BorgScale();
+            borgScale.setPlanId(assessAndPlan.getId());
+            borgScale.setSystemname(systemName);
+            borgScaleMapper.insert(borgScale);
+
+        }
+        else
+        {
+            BorgScale borgScale = borgScales.get(0);
+            borgScale.setSystemname(systemName);
+            borgScaleMapper.updateByPrimaryKey(borgScale);
+        }
+
+        //更新该评估时间
+        AssessAndPlan assessAndPlan1 = assessAndPlanMapper.selectByPrimaryKey((long)planId);
+        AssessLibrary assessLibrary = assessLibraryMapper.selectByPrimaryKey(assessAndPlan1.getAssessId());
+        assessLibrary.setBeginTime(new Date());
+        assessLibraryMapper.updateByPrimaryKey(assessLibrary);
+
+        return ServerResponse.createBySuccess("Borg评估系统名称提交成功",Boolean.TRUE);
+    }
+
 
 
 
@@ -435,6 +520,14 @@ public class AssessServiceImpl implements AssessService {
     @Transactional(propagation = Propagation.SUPPORTS)
     public ServerResponse<String> getSusSystemName(int planId)
     {
+        /**
+         * @Author jiaxin
+         * @Description 获取sus系统名称
+         * @Date 11:08 上午 2020/6/24
+         * @Param [planId]
+         * @return hci.dky.common.ServerResponse<java.lang.String>
+         **/
+
         SusScaleExample susScaleExample = new SusScaleExample();
         SusScaleExample.Criteria criteria = susScaleExample.createCriteria();
         criteria.andPlanIdEqualTo((long)planId);
@@ -445,11 +538,43 @@ public class AssessServiceImpl implements AssessService {
 
     }
 
+
+    //获取BORG系统名称
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public ServerResponse<String> getBorgSystemName(int planId)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 获取borg系统名称
+         * @Date 11:08 上午 2020/6/24
+         * @Param [planId]
+         * @return hci.dky.common.ServerResponse<java.lang.String>
+         **/
+
+        BorgScaleExample borgScaleExample = new BorgScaleExample();
+        BorgScaleExample.Criteria criteria = borgScaleExample.createCriteria();
+        criteria.andPlanIdEqualTo((long)planId);
+        BorgScale borgScale = borgScaleMapper.selectByExample(borgScaleExample).get(0);
+
+        return ServerResponse.createBySuccess("borg方案名称",borgScale.getSystemname());
+
+
+    }
+
     //获取评估列表
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public ServerResponse<ArrayList> getAssessList()
     {
+        /**
+         * @Author jiaxin
+         * @Description 获取评估列表
+         * @Date 11:08 上午 2020/6/24
+         * @Param []
+         * @return hci.dky.common.ServerResponse<java.util.ArrayList>
+         **/
+
         AssessLibraryExample assessLibraryExample = new AssessLibraryExample();
         AssessLibraryExample.Criteria criteria = assessLibraryExample.createCriteria();
         criteria.andIsExistEqualTo(Boolean.TRUE);
@@ -457,6 +582,132 @@ public class AssessServiceImpl implements AssessService {
         ArrayList<Object> assessList = new ArrayList<>(assessLibraryList);
         return ServerResponse.createBySuccess("评估列表获取成功",assessList);
 
+    }
+
+
+    //获取某方案信息
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public ServerResponse<HashMap<String,Object>> getPlanInfo(int planId) {
+        /**
+         * @Author jiaxin
+         * @Description 获取方案信息
+         * @Date 11:08 上午 2020/6/24
+         * @Param [planId]
+         * @return hci.dky.common.ServerResponse<java.util.HashMap<java.lang.String,java.lang.Object>>
+         **/
+
+        HashMap<String, Object> result = new HashMap<>();
+        //首先获取plan信息
+        AssessAndPlan thisPlan = assessAndPlanMapper.selectByPrimaryKey((long) planId);
+        result.put("planInfo", thisPlan);
+
+        //如果有专家列表 放专家列表信息
+        ExpertExample expertExample = new ExpertExample();
+        ExpertExample.Criteria criteria = expertExample.createCriteria();
+        criteria.andPlanIdEqualTo(thisPlan.getId());
+        List<Expert> expertList = expertMapper.selectByExample(expertExample);
+
+        if (!expertList.isEmpty()) //不为空
+        {
+            result.put("expertList", expertList);
+        }
+
+        //如果有任务清单
+        ExpertTaskExample expertTaskExample = new ExpertTaskExample();
+        ExpertTaskExample.Criteria criteria1 = expertTaskExample.createCriteria();
+        criteria1.andPlanIdEqualTo(thisPlan.getId());
+        List<ExpertTask> expertTaskList = expertTaskMapper.selectByExample(expertTaskExample);
+
+        if (!expertTaskList.isEmpty())//不为空
+        {
+            result.put("taskList", expertTaskList);
+        }
+
+        String planType = thisPlan.getPlanType();
+        if (planType.equals("Sus系统满意度量表")) {
+            //返回系统名称
+            SusScaleExample susScaleExample = new SusScaleExample();
+            SusScaleExample.Criteria criteria_sus = susScaleExample.createCriteria();
+            criteria_sus.andPlanIdEqualTo((long) planId);
+            SusScale susScale = susScaleMapper.selectByExample(susScaleExample).get(0);
+
+            result.put("systemName", susScale.getSystemName());
+
+
+        } else if (planType.equals("Borg疲劳度量表")) {
+            //返回系统名称
+
+            BorgScaleExample borgScaleExample = new BorgScaleExample();
+            BorgScaleExample.Criteria criteria_borg = borgScaleExample.createCriteria();
+            criteria_borg.andPlanIdEqualTo((long) planId);
+            BorgScale borgScale = borgScaleMapper.selectByExample(borgScaleExample).get(0);
+
+            result.put("systemName", borgScale.getSystemname());
+
+            //返回table路径
+
+            MethodLibraryExample methodLibraryExample = new MethodLibraryExample();
+            MethodLibraryExample.Criteria criteria_method = methodLibraryExample.createCriteria();
+            criteria_method.andMethodNameEqualTo("Borg疲劳度量表");
+            MethodLibrary methodLibrary = methodLibraryMapper.selectByExample(methodLibraryExample).get(0);
+
+            result.put("table_url", methodLibrary.getMethodTable());
+
+        } else if (planType.equals("专家走查")) {
+            //返回对应指标——类别+一级
+            String[] indexList = thisPlan.getIndexList().split(",");
+            ArrayList<Object> planIndexList = new ArrayList<>();
+            for (String indexId : indexList) {
+                IndexLibrary thisIndex = indexLibraryMapper.selectByPrimaryKey(Long.parseLong(indexId));
+                planIndexList.add(thisIndex);
+            }
+            result.put("indexList", planIndexList);
+
+
+            //返回table路径
+
+            MethodLibraryExample methodLibraryExample = new MethodLibraryExample();
+            MethodLibraryExample.Criteria criteria_method = methodLibraryExample.createCriteria();
+            criteria_method.andMethodNameEqualTo("专家走查");
+            MethodLibrary methodLibrary = methodLibraryMapper.selectByExample(methodLibraryExample).get(0);
+
+            result.put("table_url", methodLibrary.getMethodTable());
+
+        } else if (planType.equals("日常记录")) {
+            //返回table路径
+            MethodLibraryExample methodLibraryExample = new MethodLibraryExample();
+            MethodLibraryExample.Criteria criteria_method = methodLibraryExample.createCriteria();
+            criteria_method.andMethodNameEqualTo("日常记录");
+            MethodLibrary methodLibrary = methodLibraryMapper.selectByExample(methodLibraryExample).get(0);
+
+            result.put("table_url", methodLibrary.getMethodTable());
+
+
+        } else if (planType.equals("自定义问卷")) {
+            //返回问卷
+
+            SurveyLibraryExample surveyLibraryExample = new SurveyLibraryExample();
+            SurveyLibraryExample.Criteria criteria_survey = surveyLibraryExample.createCriteria();
+            criteria_survey.andPlanIdEqualTo(thisPlan.getId());
+            List<SurveyLibrary> surveyLibraryList = surveyLibraryMapper.selectByExample(surveyLibraryExample);
+            if(!surveyLibraryList.isEmpty()) //不为空
+            {
+                SurveyLibrary thisSurvey = surveyLibraryList.get(0);
+                HashMap<String, Object> survey = questionNaireService.getQuestionNaire(thisSurvey.getId());
+                result.put("survey", survey);
+            }
+            else {
+                result.put("survey", null);
+
+            }
+
+
+
+
+        }
+
+        return ServerResponse.createBySuccess("获取成功",result);
     }
 
 

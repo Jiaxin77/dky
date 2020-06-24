@@ -1,4 +1,4 @@
-package hci.dky.common;
+package hci.dky.utils;
 
 import com.auth0.jwt.JWT;
 import org.springframework.web.context.request.RequestContextHolder;

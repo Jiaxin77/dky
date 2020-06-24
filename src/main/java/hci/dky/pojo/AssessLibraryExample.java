@@ -12,7 +12,7 @@ public class AssessLibraryExample {
     protected List<Criteria> oredCriteria;
 
     public AssessLibraryExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     public void setOrderByClause(String orderByClause) {
@@ -69,7 +69,7 @@ public class AssessLibraryExample {
 
         protected GeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<>();
         }
 
         public boolean isValid() {
@@ -764,10 +764,81 @@ public class AssessLibraryExample {
             addCriterion("is_exist not between", value1, value2, "isExist");
             return (Criteria) this;
         }
+
+        public Criteria andIndexMethodListIsNull() {
+            addCriterion("index_method_list is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListIsNotNull() {
+            addCriterion("index_method_list is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListEqualTo(String value) {
+            addCriterion("index_method_list =", value, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListNotEqualTo(String value) {
+            addCriterion("index_method_list <>", value, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListGreaterThan(String value) {
+            addCriterion("index_method_list >", value, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListGreaterThanOrEqualTo(String value) {
+            addCriterion("index_method_list >=", value, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListLessThan(String value) {
+            addCriterion("index_method_list <", value, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListLessThanOrEqualTo(String value) {
+            addCriterion("index_method_list <=", value, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListLike(String value) {
+            addCriterion("index_method_list like", value, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListNotLike(String value) {
+            addCriterion("index_method_list not like", value, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListIn(List<String> values) {
+            addCriterion("index_method_list in", values, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListNotIn(List<String> values) {
+            addCriterion("index_method_list not in", values, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListBetween(String value1, String value2) {
+            addCriterion("index_method_list between", value1, value2, "indexMethodList");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndexMethodListNotBetween(String value1, String value2) {
+            addCriterion("index_method_list not between", value1, value2, "indexMethodList");
+            return (Criteria) this;
+        }
     }
 
+    /**
+     */
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }

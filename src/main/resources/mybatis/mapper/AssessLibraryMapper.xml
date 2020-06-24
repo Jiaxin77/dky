@@ -1,39 +1,38 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.dky.dao.AssessLibraryMapper" >
-  <resultMap id="BaseResultMap" type="hci.dky.pojo.AssessLibrary" >
-    <constructor >
-      <idArg column="assess_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="assess_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="assess_des" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="assess_object" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="creator" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="begin_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="assess_state" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="is_model" jdbcType="BIT" javaType="java.lang.Boolean" />
-      <arg column="index_list" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="is_exist" jdbcType="BIT" javaType="java.lang.Boolean" />
-    </constructor>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hci.dky.dao.AssessLibraryMapper">
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.AssessLibrary">
+    <id column="assess_id" jdbcType="BIGINT" property="assessId" />
+    <result column="assess_name" jdbcType="VARCHAR" property="assessName" />
+    <result column="assess_des" jdbcType="VARCHAR" property="assessDes" />
+    <result column="assess_object" jdbcType="VARCHAR" property="assessObject" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="assess_state" jdbcType="VARCHAR" property="assessState" />
+    <result column="is_model" jdbcType="BOOLEAN" property="isModel" />
+    <result column="index_list" jdbcType="VARCHAR" property="indexList" />
+    <result column="is_exist" jdbcType="BOOLEAN" property="isExist" />
+    <result column="index_method_list" jdbcType="VARCHAR" property="indexMethodList" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -44,25 +43,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -73,163 +72,165 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     assess_id, assess_name, assess_des, assess_object, creator, begin_time, assess_state, 
-    is_model, index_list, is_exist
+    is_model, index_list, is_exist, index_method_list
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.AssessLibraryExample" >
+  <select id="selectByExample" parameterType="hci.dky.pojo.AssessLibraryExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
-    'true' as QUERYID,
     <include refid="Base_Column_List" />
     from assess_library
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from assess_library
     where assess_id = #{assessId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from assess_library
     where assess_id = #{assessId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.dky.pojo.AssessLibraryExample" >
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.AssessLibraryExample">
     delete from assess_library
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.AssessLibrary" >
-    insert into assess_library (assess_id, assess_name, assess_des, 
-      assess_object, creator, begin_time, 
-      assess_state, is_model, index_list, 
-      is_exist)
-    values (#{assessId,jdbcType=BIGINT}, #{assessName,jdbcType=VARCHAR}, #{assessDes,jdbcType=VARCHAR}, 
-      #{assessObject,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, 
-      #{assessState,jdbcType=VARCHAR}, #{isModel,jdbcType=BIT}, #{indexList,jdbcType=VARCHAR}, 
-      #{isExist,jdbcType=BIT})
+  <insert id="insert" keyColumn="assess_id" keyProperty="assessId" parameterType="hci.dky.pojo.AssessLibrary" useGeneratedKeys="true">
+    insert into assess_library (assess_name, assess_des, assess_object, 
+      creator, begin_time, assess_state, 
+      is_model, index_list, is_exist, 
+      index_method_list)
+    values (#{assessName,jdbcType=VARCHAR}, #{assessDes,jdbcType=VARCHAR}, #{assessObject,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{assessState,jdbcType=VARCHAR}, 
+      #{isModel,jdbcType=BOOLEAN}, #{indexList,jdbcType=VARCHAR}, #{isExist,jdbcType=BOOLEAN}, 
+      #{indexMethodList,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="hci.dky.pojo.AssessLibrary" >
+  <insert id="insertSelective" keyColumn="assess_id" keyProperty="assessId" parameterType="hci.dky.pojo.AssessLibrary" useGeneratedKeys="true">
     insert into assess_library
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="assessId != null" >
-        assess_id,
-      </if>
-      <if test="assessName != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="assessName != null">
         assess_name,
       </if>
-      <if test="assessDes != null" >
+      <if test="assessDes != null">
         assess_des,
       </if>
-      <if test="assessObject != null" >
+      <if test="assessObject != null">
         assess_object,
       </if>
-      <if test="creator != null" >
+      <if test="creator != null">
         creator,
       </if>
-      <if test="beginTime != null" >
+      <if test="beginTime != null">
         begin_time,
       </if>
-      <if test="assessState != null" >
+      <if test="assessState != null">
         assess_state,
       </if>
-      <if test="isModel != null" >
+      <if test="isModel != null">
         is_model,
       </if>
-      <if test="indexList != null" >
+      <if test="indexList != null">
         index_list,
       </if>
-      <if test="isExist != null" >
+      <if test="isExist != null">
         is_exist,
       </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="assessId != null" >
-        #{assessId,jdbcType=BIGINT},
+      <if test="indexMethodList != null">
+        index_method_list,
       </if>
-      <if test="assessName != null" >
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="assessName != null">
         #{assessName,jdbcType=VARCHAR},
       </if>
-      <if test="assessDes != null" >
+      <if test="assessDes != null">
         #{assessDes,jdbcType=VARCHAR},
       </if>
-      <if test="assessObject != null" >
+      <if test="assessObject != null">
         #{assessObject,jdbcType=VARCHAR},
       </if>
-      <if test="creator != null" >
+      <if test="creator != null">
         #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="beginTime != null" >
+      <if test="beginTime != null">
         #{beginTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="assessState != null" >
+      <if test="assessState != null">
         #{assessState,jdbcType=VARCHAR},
       </if>
-      <if test="isModel != null" >
-        #{isModel,jdbcType=BIT},
+      <if test="isModel != null">
+        #{isModel,jdbcType=BOOLEAN},
       </if>
-      <if test="indexList != null" >
+      <if test="indexList != null">
         #{indexList,jdbcType=VARCHAR},
       </if>
-      <if test="isExist != null" >
-        #{isExist,jdbcType=BIT},
+      <if test="isExist != null">
+        #{isExist,jdbcType=BOOLEAN},
+      </if>
+      <if test="indexMethodList != null">
+        #{indexMethodList,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.dky.pojo.AssessLibraryExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="hci.dky.pojo.AssessLibraryExample" resultType="java.lang.Long">
     select count(*) from assess_library
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update assess_library
-    <set >
-      <if test="record.assessId != null" >
+    <set>
+      <if test="record.assessId != null">
         assess_id = #{record.assessId,jdbcType=BIGINT},
       </if>
-      <if test="record.assessName != null" >
+      <if test="record.assessName != null">
         assess_name = #{record.assessName,jdbcType=VARCHAR},
       </if>
-      <if test="record.assessDes != null" >
+      <if test="record.assessDes != null">
         assess_des = #{record.assessDes,jdbcType=VARCHAR},
       </if>
-      <if test="record.assessObject != null" >
+      <if test="record.assessObject != null">
         assess_object = #{record.assessObject,jdbcType=VARCHAR},
       </if>
-      <if test="record.creator != null" >
+      <if test="record.creator != null">
         creator = #{record.creator,jdbcType=VARCHAR},
       </if>
-      <if test="record.beginTime != null" >
+      <if test="record.beginTime != null">
         begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.assessState != null" >
+      <if test="record.assessState != null">
         assess_state = #{record.assessState,jdbcType=VARCHAR},
       </if>
-      <if test="record.isModel != null" >
-        is_model = #{record.isModel,jdbcType=BIT},
+      <if test="record.isModel != null">
+        is_model = #{record.isModel,jdbcType=BOOLEAN},
       </if>
-      <if test="record.indexList != null" >
+      <if test="record.indexList != null">
         index_list = #{record.indexList,jdbcType=VARCHAR},
       </if>
-      <if test="record.isExist != null" >
-        is_exist = #{record.isExist,jdbcType=BIT},
+      <if test="record.isExist != null">
+        is_exist = #{record.isExist,jdbcType=BOOLEAN},
+      </if>
+      <if test="record.indexMethodList != null">
+        index_method_list = #{record.indexMethodList,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update assess_library
     set assess_id = #{record.assessId,jdbcType=BIGINT},
       assess_name = #{record.assessName,jdbcType=VARCHAR},
@@ -238,47 +239,51 @@
       creator = #{record.creator,jdbcType=VARCHAR},
       begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
       assess_state = #{record.assessState,jdbcType=VARCHAR},
-      is_model = #{record.isModel,jdbcType=BIT},
+      is_model = #{record.isModel,jdbcType=BOOLEAN},
       index_list = #{record.indexList,jdbcType=VARCHAR},
-      is_exist = #{record.isExist,jdbcType=BIT}
-    <if test="_parameter != null" >
+      is_exist = #{record.isExist,jdbcType=BOOLEAN},
+      index_method_list = #{record.indexMethodList,jdbcType=VARCHAR}
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.AssessLibrary" >
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.AssessLibrary">
     update assess_library
-    <set >
-      <if test="assessName != null" >
+    <set>
+      <if test="assessName != null">
         assess_name = #{assessName,jdbcType=VARCHAR},
       </if>
-      <if test="assessDes != null" >
+      <if test="assessDes != null">
         assess_des = #{assessDes,jdbcType=VARCHAR},
       </if>
-      <if test="assessObject != null" >
+      <if test="assessObject != null">
         assess_object = #{assessObject,jdbcType=VARCHAR},
       </if>
-      <if test="creator != null" >
+      <if test="creator != null">
         creator = #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="beginTime != null" >
+      <if test="beginTime != null">
         begin_time = #{beginTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="assessState != null" >
+      <if test="assessState != null">
         assess_state = #{assessState,jdbcType=VARCHAR},
       </if>
-      <if test="isModel != null" >
-        is_model = #{isModel,jdbcType=BIT},
+      <if test="isModel != null">
+        is_model = #{isModel,jdbcType=BOOLEAN},
       </if>
-      <if test="indexList != null" >
+      <if test="indexList != null">
         index_list = #{indexList,jdbcType=VARCHAR},
       </if>
-      <if test="isExist != null" >
-        is_exist = #{isExist,jdbcType=BIT},
+      <if test="isExist != null">
+        is_exist = #{isExist,jdbcType=BOOLEAN},
+      </if>
+      <if test="indexMethodList != null">
+        index_method_list = #{indexMethodList,jdbcType=VARCHAR},
       </if>
     </set>
     where assess_id = #{assessId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.AssessLibrary" >
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.AssessLibrary">
     update assess_library
     set assess_name = #{assessName,jdbcType=VARCHAR},
       assess_des = #{assessDes,jdbcType=VARCHAR},
@@ -286,9 +291,10 @@
       creator = #{creator,jdbcType=VARCHAR},
       begin_time = #{beginTime,jdbcType=TIMESTAMP},
       assess_state = #{assessState,jdbcType=VARCHAR},
-      is_model = #{isModel,jdbcType=BIT},
+      is_model = #{isModel,jdbcType=BOOLEAN},
       index_list = #{indexList,jdbcType=VARCHAR},
-      is_exist = #{isExist,jdbcType=BIT}
+      is_exist = #{isExist,jdbcType=BOOLEAN},
+      index_method_list = #{indexMethodList,jdbcType=VARCHAR}
     where assess_id = #{assessId,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -1,20 +1,21 @@
 package hci.dky.service.impl;
 
 import hci.dky.common.ServerResponse;
+import hci.dky.utils.UploadUtils;
 import hci.dky.dao.AssessAndPlanMapper;
 import hci.dky.dao.ExpertMapper;
-import hci.dky.pojo.AssessAndPlan;
-import hci.dky.pojo.Expert;
-import hci.dky.pojo.ExpertExample;
+import hci.dky.dao.ExpertTaskMapper;
+import hci.dky.pojo.*;
 import hci.dky.service.ExpertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * @ClassName ExpertServiceImpl
@@ -31,6 +32,9 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Autowired
     private AssessAndPlanMapper assessAndPlanMapper;
+
+    @Autowired
+    private ExpertTaskMapper expertTaskMapper;
 
     //还不能用～
 
@@ -97,4 +101,69 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     //录入任务清单（上传文件怎么上传？任务一个一个添加？可删除？）
+    
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
+    public ServerResponse<ArrayList> postExpertTask(MultipartFile file,String systemName,String taskDes,int planId) {
+        AssessAndPlan thisPlan = assessAndPlanMapper.selectByPrimaryKey((long) planId);
+        ExpertTask expertTask = new ExpertTask();
+        expertTask.setPlanId(thisPlan.getId());
+        expertTask.setSystemName(systemName);
+        expertTask.setTaskDes(taskDes);
+
+
+        try {
+            if (file.isEmpty()) {
+                return ServerResponse.createByErrorMessage("文件为空！");
+            }
+            String fileName = file.getOriginalFilename();
+            //String fileName = "TaskContent"+planId+String.format("%04d",new Random(System. currentTimeMillis()).nextInt(9999)); //文件名：tc+planid+4位随机数
+            String suffixName = fileName.substring(Objects.requireNonNull(file.getOriginalFilename()).lastIndexOf("."));
+            fileName = "TC"+planId+String.format("%04d",new Random(System. currentTimeMillis()).nextInt(9999))+suffixName; //文件名：tc+planid+4位随机数
+            System.out.println("上传的文件名为" + fileName + "后缀名为" + suffixName);
+
+
+//            //设置存储路径
+//            String filePath = "/Users/jiaxin/Documents/研一/项目/评估/temp代码/dky/media/";
+//            String path = filePath + fileName;
+
+            //File dest = new File(path);
+            File dest = UploadUtils.getFileDirFile();
+            System.out.println(dest.getAbsolutePath());
+            //检测是否存在目录
+//            if (!dest.getParentFile().exists()) {
+//                dest.getParentFile().mkdirs();//新建文件夹
+//
+//            }
+            String path = dest.getAbsolutePath()+File.separator+ fileName;
+            File newFile = new File(path);
+            System.out.println(newFile.getAbsolutePath());
+
+            file.transferTo(newFile);//文件写入
+
+            expertTask.setFilepath(path);
+            expertTaskMapper.insert(expertTask);
+
+            //获取该方案所有任务
+            ExpertTaskExample expertTaskExample = new ExpertTaskExample();
+            ExpertTaskExample.Criteria criteria = expertTaskExample.createCriteria();
+            criteria.andPlanIdEqualTo(thisPlan.getId());
+            List<ExpertTask> expertTasks = expertTaskMapper.selectByExample(expertTaskExample);
+            ArrayList<ExpertTask> expertTaskArrayList = new ArrayList<>(expertTasks);
+
+            return ServerResponse.createBySuccess("成功存储", expertTaskArrayList);
+
+
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ServerResponse.createByErrorMessage("文件上传失败！");
+    }
+
+
+
+
+
 }

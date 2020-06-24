@@ -1,122 +1,69 @@
 package hci.dky.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class AssessLibrary {
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
+
+/**
+ * assess_library
+ * @author 
+ */
+@Data
+public class AssessLibrary implements Serializable {
+    /**
+     * 评估id
+     */
     private Long assessId;
 
+    /**
+     * 评估名称
+     */
     private String assessName;
 
+    /**
+     * 评估描述
+     */
     private String assessDes;
 
+    /**
+     * 评估对象
+     */
     private String assessObject;
 
+    /**
+     * 发起者
+     */
+    @JsonInclude(JsonInclude.Include.NON_NULL) // 为空的话不会显示给前端
     private String creator;
 
+    /**
+     * 开始时间
+     */
     private Date beginTime;
 
+    /**
+     * 评估状态
+     */
     private String assessState;
 
+    /**
+     * 是否为模板
+     */
     private Boolean isModel;
 
+    /**
+     * 所选指标id（1;2;3)
+     */
     private String indexList;
 
     private Boolean isExist;
 
-    public AssessLibrary(Long assessId, String assessName, String assessDes, String assessObject, String creator, Date beginTime, String assessState, Boolean isModel, String indexList, Boolean isExist) {
-        this.assessId = assessId;
-        this.assessName = assessName;
-        this.assessDes = assessDes;
-        this.assessObject = assessObject;
-        this.creator = creator;
-        this.beginTime = beginTime;
-        this.assessState = assessState;
-        this.isModel = isModel;
-        this.indexList = indexList;
-        this.isExist = isExist;
-    }
+    /**
+     * 所选指标对应方法id
+     */
+    private String indexMethodList;
 
-    public AssessLibrary() {
-        super();
-    }
-
-    public Long getAssessId() {
-        return assessId;
-    }
-
-    public void setAssessId(Long assessId) {
-        this.assessId = assessId;
-    }
-
-    public String getAssessName() {
-        return assessName;
-    }
-
-    public void setAssessName(String assessName) {
-        this.assessName = assessName == null ? null : assessName.trim();
-    }
-
-    public String getAssessDes() {
-        return assessDes;
-    }
-
-    public void setAssessDes(String assessDes) {
-        this.assessDes = assessDes == null ? null : assessDes.trim();
-    }
-
-    public String getAssessObject() {
-        return assessObject;
-    }
-
-    public void setAssessObject(String assessObject) {
-        this.assessObject = assessObject == null ? null : assessObject.trim();
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
-    }
-
-    public Date getBeginTime() {
-        return beginTime;
-    }
-
-    public void setBeginTime(Date beginTime) {
-        this.beginTime = beginTime;
-    }
-
-    public String getAssessState() {
-        return assessState;
-    }
-
-    public void setAssessState(String assessState) {
-        this.assessState = assessState == null ? null : assessState.trim();
-    }
-
-    public Boolean getIsModel() {
-        return isModel;
-    }
-
-    public void setIsModel(Boolean isModel) {
-        this.isModel = isModel;
-    }
-
-    public String getIndexList() {
-        return indexList;
-    }
-
-    public void setIndexList(String indexList) {
-        this.indexList = indexList == null ? null : indexList.trim();
-    }
-
-    public Boolean getIsExist() {
-        return isExist;
-    }
-
-    public void setIsExist(Boolean isExist) {
-        this.isExist = isExist;
-    }
+    private static final long serialVersionUID = 1L;
 }

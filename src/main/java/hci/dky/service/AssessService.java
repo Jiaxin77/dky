@@ -5,6 +5,7 @@ import hci.dky.dao.IndexLibraryMapper;
 import io.swagger.models.auth.In;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface AssessService {
@@ -17,7 +18,11 @@ public interface AssessService {
     public ServerResponse<ArrayList> getPlanAndMethodInfo(int assessId);
     public ServerResponse<String> getSusSystemName(int planId);
     public ServerResponse<ArrayList> getAssessList();
+    public ServerResponse<Boolean> postBorgSystemName(int planId,String systemName);
+    public ServerResponse<String> getBorgSystemName(int planId);
+    public ServerResponse<HashMap<String,Object>> getPlanInfo(int planId);
 
 
 
-}
+
+    }

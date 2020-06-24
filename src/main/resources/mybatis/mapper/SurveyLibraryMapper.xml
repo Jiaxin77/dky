@@ -104,7 +104,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.SurveyLibrary" >
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.SurveyLibrary" useGeneratedKeys="true">
     insert into survey_library (id, survey_title, survey_des, 
       now_people_num, is_model, assess_id, 
       plan_id)

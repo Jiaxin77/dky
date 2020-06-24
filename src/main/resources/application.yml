@@ -54,6 +54,8 @@ spring:
 #      host: 127.0.0.1
 #      port: 27017
 #      database: testmongo1
+  resources:
+    static-locations: classpath:static/,file:static/
 
 # pagehelper分页插件
 pagehelper:

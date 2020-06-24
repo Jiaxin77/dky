@@ -31,6 +31,8 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
     @Autowired
     private AnswerLibraryMapper answerLibraryMapper;
     @Autowired
+    private AssessLibraryMapper assessLibraryMapper;
+    @Autowired
     private AssessAndPlanMapper assessAndPlanMapper;
     @Autowired
     private ChoiceQuestionLibraryMapper choiceQuestionLibraryMapper;
@@ -84,7 +86,7 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
-    public ServerResponse<Long> createQuestionNaire(int planId, String title, String des, List<Integer> modelid, List<Object> questionList)
+    public ServerResponse<Long> createQuestionNaire(int assessId ,int planId, String title, String des, List<Integer> modelid, List<Object> questionList)
     {
         /**
          * @Author jiaxin
@@ -106,9 +108,29 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
             //AssessLibrary thisAssess = assessLibraryMapper.selectByPrimaryKey((long) assessId);
             //surveyLibrary.setAssessId(thisAssess.getAssessId());
             AssessAndPlan thisPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
-            surveyLibrary.setAssessId(thisPlan.getId());
+            surveyLibrary.setPlanId(thisPlan.getId());
+            surveyLibrary.setAssessId(thisPlan.getAssessId());
+            surveyLibraryMapper.updateByPrimaryKey(surveyLibrary);
+
 
             //将此assess的planid加到问卷的外键关联
+        }
+        else // planId为-1 —— 不属于任何方案，只属于评估
+        {
+            AssessLibrary thisAssess = assessLibraryMapper.selectByPrimaryKey((long) assessId);
+            surveyLibrary.setAssessId(thisAssess.getAssessId());
+
+            //新增一个单独的方案
+            AssessAndPlan assessAndPlan = new AssessAndPlan();
+            assessAndPlan.setAssessObject("整体");
+            assessAndPlan.setPlanType("自定义问卷");
+            assessAndPlan.setIndexList(thisAssess.getIndexList());
+            assessAndPlan.setAssessId(thisAssess.getAssessId());
+            assessAndPlanMapper.insert(assessAndPlan);
+
+            surveyLibrary.setPlanId(assessAndPlan.getId());
+            surveyLibraryMapper.updateByPrimaryKey(surveyLibrary);
+
         }
 
         //遍历选择的基本信息模板题
@@ -180,7 +202,7 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public ServerResponse<HashMap<String, Object>> getQuestionNaire(Long id)
+    public HashMap<String, Object> getQuestionNaire(Long id)
     {
         /**
          * @Author jiaxin
@@ -235,7 +257,7 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
         resultMap.put("questionList",questionList);
 
-        return ServerResponse.createBySuccess("获取成功",resultMap);
+        return resultMap;
 
 
 
@@ -596,7 +618,9 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
 
 
-    }
+
+
+}
 
 
 

@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ExpertTaskMapper {
-    int countByExample(ExpertTaskExample example);
+    long countByExample(ExpertTaskExample example);
 
     int deleteByExample(ExpertTaskExample example);
 

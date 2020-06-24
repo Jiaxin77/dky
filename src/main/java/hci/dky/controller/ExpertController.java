@@ -3,9 +3,8 @@ package hci.dky.controller;
 import hci.dky.common.ServerResponse;
 import hci.dky.service.ExpertService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +41,7 @@ public class ExpertController {
         return response;
     }
 
+    @GetMapping("/getExpertList")
     public ServerResponse<ArrayList> getExpertList(int planId)
     {
         /**
@@ -55,6 +55,21 @@ public class ExpertController {
         ServerResponse<ArrayList> response = expertService.getExpertList(planId);
         return response;
 
+
+    }
+
+    @PostMapping("/postExpertTask")
+    public ServerResponse<ArrayList> postExpertTask(@RequestParam("file")MultipartFile file,@RequestParam("systemName") String systemName,@RequestParam("taskDes") String taskDes,@RequestParam("planId") int planId)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 提交专家任务//TODO
+         * @Date 10:41 上午 2020/6/23
+         * @Param [file, systemName, taskDes, planId]
+         * @return hci.dky.common.ServerResponse<java.util.ArrayList>
+         **/
+        ServerResponse<ArrayList> response = expertService.postExpertTask(file,systemName,taskDes,planId);
+        return  response;
 
     }
 

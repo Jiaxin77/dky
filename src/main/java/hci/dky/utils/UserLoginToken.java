@@ -1,20 +1,21 @@
-package hci.dky.common;
+package hci.dky.utils;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
 /*
  * @Author jiaxin
- * @Description 用来跳过验证的passtoken//TODO
- * @Date 4:45 下午 2020/6/18
-
+ * @Description 用于登录后才能操作//TODO
+ * @Date 4:46 下午 2020/6/18
+ * @Param
+ * @return
  **/
-
 
 
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PassToken {
+public @interface UserLoginToken {
     boolean required() default true;
 }

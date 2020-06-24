@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface AssessLibraryMapper {
-    int countByExample(AssessLibraryExample example);
+    long countByExample(AssessLibraryExample example);
 
     int deleteByExample(AssessLibraryExample example);
 

@@ -134,7 +134,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.AssessAndPlan" >
+  <insert id="insert" parameterType="hci.dky.pojo.AssessAndPlan" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
     insert into assess_and_plan (id, plan_type, assess_id, 
       assess_object, index_list, table_id
       )
