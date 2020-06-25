@@ -3,6 +3,8 @@ package hci.dky.dao;
 import hci.dky.pojo.PaperList;
 import hci.dky.pojo.PaperListExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
 public interface PaperListMapper {
@@ -12,6 +14,7 @@ public interface PaperListMapper {
 
     int deleteByPrimaryKey(Long id);
 
+    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
     int insert(PaperList record);
 
     int insertSelective(PaperList record);

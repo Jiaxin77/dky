@@ -101,7 +101,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.IndexAndMethod" >
+  <insert id="insert" parameterType="hci.dky.pojo.IndexAndMethod" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into index_and_method (id, index_id, method_id, 
       is_must)
     values (#{id,jdbcType=BIGINT}, #{indexId,jdbcType=BIGINT}, #{methodId,jdbcType=BIGINT}, 

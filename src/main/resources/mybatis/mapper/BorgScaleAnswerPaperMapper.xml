@@ -105,7 +105,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" >
+  <insert id="insert" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
     insert into borg_scale_answer_paper (id, plan_id, date, 
       complete_person, charge_person, position, 
       task_name, score)

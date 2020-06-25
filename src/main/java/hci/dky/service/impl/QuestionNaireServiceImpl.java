@@ -103,33 +103,38 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
         surveyLibrary.setIsModel(false);
         surveyLibraryMapper.insert(surveyLibrary);
       //  System.out.println(surveyLibrary.getId());
-        if(planId != -1)
+        if(planId != -1) // 是基于评估基于方案的
         {
             //AssessLibrary thisAssess = assessLibraryMapper.selectByPrimaryKey((long) assessId);
             //surveyLibrary.setAssessId(thisAssess.getAssessId());
             AssessAndPlan thisPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
-            surveyLibrary.setPlanId(thisPlan.getId());
-            surveyLibrary.setAssessId(thisPlan.getAssessId());
+            surveyLibrary.setPlanId(thisPlan.getId()); //绑定方案
+            surveyLibrary.setAssessId(thisPlan.getAssessId()); //绑定评估
             surveyLibraryMapper.updateByPrimaryKey(surveyLibrary);
 
 
             //将此assess的planid加到问卷的外键关联
         }
-        else // planId为-1 —— 不属于任何方案，只属于评估
+        else // planId为-1 —— 不属于任何方案，只属于评估 / 不属于评估
         {
-            AssessLibrary thisAssess = assessLibraryMapper.selectByPrimaryKey((long) assessId);
-            surveyLibrary.setAssessId(thisAssess.getAssessId());
+            if(assessId != -1) //属于评估
+            {
+                AssessLibrary thisAssess = assessLibraryMapper.selectByPrimaryKey((long) assessId);
+                surveyLibrary.setAssessId(thisAssess.getAssessId()); //绑定评估
 
-            //新增一个单独的方案
-            AssessAndPlan assessAndPlan = new AssessAndPlan();
-            assessAndPlan.setAssessObject("整体");
-            assessAndPlan.setPlanType("自定义问卷");
-            assessAndPlan.setIndexList(thisAssess.getIndexList());
-            assessAndPlan.setAssessId(thisAssess.getAssessId());
-            assessAndPlanMapper.insert(assessAndPlan);
+                //新增一个单独的方案
+                AssessAndPlan assessAndPlan = new AssessAndPlan();
+                assessAndPlan.setAssessObject("整体");
+                assessAndPlan.setPlanType("自定义问卷");
+                assessAndPlan.setIndexList(thisAssess.getIndexList());
+                assessAndPlan.setAssessId(thisAssess.getAssessId());
+                assessAndPlanMapper.insert(assessAndPlan);
 
-            surveyLibrary.setPlanId(assessAndPlan.getId());
-            surveyLibraryMapper.updateByPrimaryKey(surveyLibrary);
+                surveyLibrary.setPlanId(assessAndPlan.getId()); //绑定方案
+                surveyLibraryMapper.updateByPrimaryKey(surveyLibrary);
+
+            }
+            //若不属于，则啥都不绑了
 
         }
 
@@ -167,7 +172,8 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
             thisQuestion.setSurveyId(surveyLibrary.getId());
 
             questionLibraryMapper.insert(thisQuestion);
-         //   System.out.println(thisQuestion.getId());
+
+            //System.out.println(thisQuestion.getId());
 
             if (questionType.equals("SCP") || questionType.equals("MCP")) //为选择题 存储选项
             {

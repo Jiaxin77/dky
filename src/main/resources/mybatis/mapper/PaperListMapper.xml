@@ -100,7 +100,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.PaperList" >
+  <insert id="insert" parameterType="hci.dky.pojo.PaperList" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
     insert into paper_list (id, survey_id, user
       )
     values (#{id,jdbcType=BIGINT}, #{surveyId,jdbcType=BIGINT}, #{user,jdbcType=VARCHAR}

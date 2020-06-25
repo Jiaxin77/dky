@@ -100,7 +100,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.ExpertTaskContent" >
+  <insert id="insert" parameterType="hci.dky.pojo.ExpertTaskContent" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into expert_task_content (id, file_path, task_id
       )
     values (#{id,jdbcType=BIGINT}, #{filePath,jdbcType=VARCHAR}, #{taskId,jdbcType=BIGINT}

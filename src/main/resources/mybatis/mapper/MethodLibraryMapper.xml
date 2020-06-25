@@ -102,7 +102,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.MethodLibrary" >
+  <insert id="insert" parameterType="hci.dky.pojo.MethodLibrary" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into method_library (id, method_name, method_table, 
       data_form, need_people)
     values (#{id,jdbcType=BIGINT}, #{methodName,jdbcType=VARCHAR}, #{methodTable,jdbcType=VARCHAR}, 

@@ -149,7 +149,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.RecordTableWithBLOBs" >
+  <insert id="insert" parameterType="hci.dky.pojo.RecordTableWithBLOBs" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
     insert into record_table (id, system_name, recorder, 
       begin_date, end_date, day_count, 
       record_period, is_break_down, break_down_count, 

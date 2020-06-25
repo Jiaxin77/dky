@@ -100,7 +100,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.SusScaleAnswerPaper" >
+  <insert id="insert" parameterType="hci.dky.pojo.SusScaleAnswerPaper" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
     insert into sus_scale_answer_paper (id, answer_name, sus_id
       )
     values (#{id,jdbcType=BIGINT}, #{answerName,jdbcType=VARCHAR}, #{susId,jdbcType=BIGINT}

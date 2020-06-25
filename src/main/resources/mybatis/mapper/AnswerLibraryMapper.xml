@@ -101,7 +101,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.AnswerLibrary" >
+  <insert id="insert" parameterType="hci.dky.pojo.AnswerLibrary" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
     insert into answer_library (id, question_id, answer, 
       paper_id)
     values (#{id,jdbcType=BIGINT}, #{questionId,jdbcType=BIGINT}, #{answer,jdbcType=VARCHAR}, 

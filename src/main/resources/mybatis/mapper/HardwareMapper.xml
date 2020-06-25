@@ -113,7 +113,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.Hardware" >
+  <insert id="insert" parameterType="hci.dky.pojo.Hardware" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into hardware (hardware_id, first_object_name, second_object_name, 
       first_index_name, second_index_name, eva_condition, 
       hardware_lower, hardware_best, hardware_upper, 

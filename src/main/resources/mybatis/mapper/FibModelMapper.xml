@@ -99,7 +99,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.FibModel" >
+  <insert id="insert" parameterType="hci.dky.pojo.FibModel" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
     insert into fib_model (id, fib_title)
     values (#{id,jdbcType=BIGINT}, #{fibTitle,jdbcType=VARCHAR})
   </insert>

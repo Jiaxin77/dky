@@ -3,6 +3,8 @@ package hci.dky.dao;
 import hci.dky.pojo.AssessLibrary;
 import hci.dky.pojo.AssessLibraryExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
 public interface AssessLibraryMapper {
@@ -12,6 +14,7 @@ public interface AssessLibraryMapper {
 
     int deleteByPrimaryKey(Long assessId);
 
+    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
     int insert(AssessLibrary record);
 
     int insertSelective(AssessLibrary record);

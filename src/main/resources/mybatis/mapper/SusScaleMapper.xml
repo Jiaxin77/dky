@@ -100,7 +100,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.SusScale" >
+  <insert id="insert" parameterType="hci.dky.pojo.SusScale" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into sus_scale (id, system_name, plan_id
       )
     values (#{id,jdbcType=BIGINT}, #{systemName,jdbcType=VARCHAR}, #{planId,jdbcType=BIGINT}

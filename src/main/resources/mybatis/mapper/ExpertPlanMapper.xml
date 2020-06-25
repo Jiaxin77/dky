@@ -99,7 +99,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.ExpertPlan" >
+  <insert id="insert" parameterType="hci.dky.pojo.ExpertPlan" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into expert_plan (id, assess_id)
     values (#{id,jdbcType=BIGINT}, #{assessId,jdbcType=BIGINT})
   </insert>

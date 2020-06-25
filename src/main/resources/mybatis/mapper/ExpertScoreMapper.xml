@@ -103,7 +103,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.ExpertScore" >
+  <insert id="insert" parameterType="hci.dky.pojo.ExpertScore" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into expert_score (id, plan_id, question_number, 
       conformance_score, importance_score, question_des
       )
