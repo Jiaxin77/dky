@@ -11,7 +11,7 @@ public class SusScaleAnswerPaperExample {
     protected List<Criteria> oredCriteria;
 
     public SusScaleAnswerPaperExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     public void setOrderByClause(String orderByClause) {
@@ -68,7 +68,7 @@ public class SusScaleAnswerPaperExample {
 
         protected GeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<>();
         }
 
         public boolean isValid() {
@@ -234,69 +234,80 @@ public class SusScaleAnswerPaperExample {
             return (Criteria) this;
         }
 
-        public Criteria andSusIdIsNull() {
-            addCriterion("sus_id is null");
+        public Criteria andScaleidIsNull() {
+            addCriterion("scaleId is null");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdIsNotNull() {
-            addCriterion("sus_id is not null");
+        public Criteria andScaleidIsNotNull() {
+            addCriterion("scaleId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdEqualTo(Long value) {
-            addCriterion("sus_id =", value, "susId");
+        public Criteria andScaleidEqualTo(String value) {
+            addCriterion("scaleId =", value, "scaleid");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdNotEqualTo(Long value) {
-            addCriterion("sus_id <>", value, "susId");
+        public Criteria andScaleidNotEqualTo(String value) {
+            addCriterion("scaleId <>", value, "scaleid");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdGreaterThan(Long value) {
-            addCriterion("sus_id >", value, "susId");
+        public Criteria andScaleidGreaterThan(String value) {
+            addCriterion("scaleId >", value, "scaleid");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("sus_id >=", value, "susId");
+        public Criteria andScaleidGreaterThanOrEqualTo(String value) {
+            addCriterion("scaleId >=", value, "scaleid");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdLessThan(Long value) {
-            addCriterion("sus_id <", value, "susId");
+        public Criteria andScaleidLessThan(String value) {
+            addCriterion("scaleId <", value, "scaleid");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdLessThanOrEqualTo(Long value) {
-            addCriterion("sus_id <=", value, "susId");
+        public Criteria andScaleidLessThanOrEqualTo(String value) {
+            addCriterion("scaleId <=", value, "scaleid");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdIn(List<Long> values) {
-            addCriterion("sus_id in", values, "susId");
+        public Criteria andScaleidLike(String value) {
+            addCriterion("scaleId like", value, "scaleid");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdNotIn(List<Long> values) {
-            addCriterion("sus_id not in", values, "susId");
+        public Criteria andScaleidNotLike(String value) {
+            addCriterion("scaleId not like", value, "scaleid");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdBetween(Long value1, Long value2) {
-            addCriterion("sus_id between", value1, value2, "susId");
+        public Criteria andScaleidIn(List<String> values) {
+            addCriterion("scaleId in", values, "scaleid");
             return (Criteria) this;
         }
 
-        public Criteria andSusIdNotBetween(Long value1, Long value2) {
-            addCriterion("sus_id not between", value1, value2, "susId");
+        public Criteria andScaleidNotIn(List<String> values) {
+            addCriterion("scaleId not in", values, "scaleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleidBetween(String value1, String value2) {
+            addCriterion("scaleId between", value1, value2, "scaleid");
+            return (Criteria) this;
+        }
+
+        public Criteria andScaleidNotBetween(String value1, String value2) {
+            addCriterion("scaleId not between", value1, value2, "scaleid");
             return (Criteria) this;
         }
     }
 
+    /**
+     */
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }

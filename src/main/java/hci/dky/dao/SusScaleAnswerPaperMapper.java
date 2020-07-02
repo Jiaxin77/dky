@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface SusScaleAnswerPaperMapper {
-    int countByExample(SusScaleAnswerPaperExample example);
+    long countByExample(SusScaleAnswerPaperExample example);
 
     int deleteByExample(SusScaleAnswerPaperExample example);
 
