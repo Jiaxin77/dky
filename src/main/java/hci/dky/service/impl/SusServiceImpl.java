@@ -32,12 +32,28 @@ public class SusServiceImpl implements SusService {
     @Autowired
     private AssessAndPlanMapper assessAndPlanMapper;
 
-    public ServerResponse<Boolean> fillSusData(int planId, List<Object> data)
-    {
-        AssessAndPlan assessAndPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
 
-
-    }
+//    public ServerResponse<List> addSusTask(int planId,String taskName,String taskObject,String taskDes)
+//    {
+//        /**
+//         * @Author jiaxin
+//         * @Description 添加任务，添加到任务清单中
+//         * @Date 10:54 上午 2020/7/3
+//         * @Param [planId, taskName, taskObject, taskDes]
+//         * @return 添加后的任务清单
+//         **/
+//
+//    }
+//
+//
+//
+//    public ServerResponse<Boolean> fillSusData(int planId, List<Object> data)
+//    {
+//        AssessAndPlan assessAndPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
+//
+//
+//
+//    }
 
 
 }

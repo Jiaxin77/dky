@@ -39,5 +39,10 @@ public class ExpertTask implements Serializable {
      */
     private String filepath;
 
+    /**
+     * 任务名称
+     */
+    private String taskName;
+
     private static final long serialVersionUID = 1L;
 }

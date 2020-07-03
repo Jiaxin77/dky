@@ -104,11 +104,11 @@ public class ExpertServiceImpl implements ExpertService {
     
     @Override
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
-    public ServerResponse<ArrayList> postExpertTask(MultipartFile file,String systemName,String taskDes,int planId) {
+    public ServerResponse<ArrayList> postExpertTask(MultipartFile file,String taskName,String taskDes,int planId) {
         AssessAndPlan thisPlan = assessAndPlanMapper.selectByPrimaryKey((long) planId);
         ExpertTask expertTask = new ExpertTask();
         expertTask.setPlanId(thisPlan.getId());
-        expertTask.setSystemName(systemName);
+        expertTask.setTaskName(taskName);
         expertTask.setTaskDes(taskDes);
 
 
