@@ -303,6 +303,186 @@ public class SusScaleAnswerPaperExample {
             addCriterion("scaleId not between", value1, value2, "scaleid");
             return (Criteria) this;
         }
+
+        public Criteria andTaskIdIsNull() {
+            addCriterion("task_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdIsNotNull() {
+            addCriterion("task_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdEqualTo(Long value) {
+            addCriterion("task_id =", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotEqualTo(Long value) {
+            addCriterion("task_id <>", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdGreaterThan(Long value) {
+            addCriterion("task_id >", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("task_id >=", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdLessThan(Long value) {
+            addCriterion("task_id <", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdLessThanOrEqualTo(Long value) {
+            addCriterion("task_id <=", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdIn(List<Long> values) {
+            addCriterion("task_id in", values, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotIn(List<Long> values) {
+            addCriterion("task_id not in", values, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdBetween(Long value1, Long value2) {
+            addCriterion("task_id between", value1, value2, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotBetween(Long value1, Long value2) {
+            addCriterion("task_id not between", value1, value2, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdIsNull() {
+            addCriterion("expert_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdIsNotNull() {
+            addCriterion("expert_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdEqualTo(Long value) {
+            addCriterion("expert_id =", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdNotEqualTo(Long value) {
+            addCriterion("expert_id <>", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdGreaterThan(Long value) {
+            addCriterion("expert_id >", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("expert_id >=", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdLessThan(Long value) {
+            addCriterion("expert_id <", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdLessThanOrEqualTo(Long value) {
+            addCriterion("expert_id <=", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdIn(List<Long> values) {
+            addCriterion("expert_id in", values, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdNotIn(List<Long> values) {
+            addCriterion("expert_id not in", values, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdBetween(Long value1, Long value2) {
+            addCriterion("expert_id between", value1, value2, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdNotBetween(Long value1, Long value2) {
+            addCriterion("expert_id not between", value1, value2, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdIsNull() {
+            addCriterion("plan_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdIsNotNull() {
+            addCriterion("plan_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdEqualTo(Long value) {
+            addCriterion("plan_id =", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdNotEqualTo(Long value) {
+            addCriterion("plan_id <>", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdGreaterThan(Long value) {
+            addCriterion("plan_id >", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("plan_id >=", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdLessThan(Long value) {
+            addCriterion("plan_id <", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdLessThanOrEqualTo(Long value) {
+            addCriterion("plan_id <=", value, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdIn(List<Long> values) {
+            addCriterion("plan_id in", values, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdNotIn(List<Long> values) {
+            addCriterion("plan_id not in", values, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdBetween(Long value1, Long value2) {
+            addCriterion("plan_id between", value1, value2, "planId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlanIdNotBetween(Long value1, Long value2) {
+            addCriterion("plan_id not between", value1, value2, "planId");
+            return (Criteria) this;
+        }
     }
 
     /**
