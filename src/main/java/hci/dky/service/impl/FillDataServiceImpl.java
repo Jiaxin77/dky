@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName FillDataServiceImpl
@@ -117,6 +118,70 @@ public class FillDataServiceImpl implements FillDataService {
          **/
 
         AssessAndPlan assessAndPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
+
+        for(Object oneAnswer : answer)
+        {
+            Map answerInfo = (Map) oneAnswer;
+            int taskId = (int)answerInfo.get("taskId");
+            int expertId = (int)answerInfo.get("expertId");
+            int questionId = (int)answerInfo.get("questionId");
+            int score = (int)answerInfo.get("score");
+
+            ExpertTask expertTask = expertTaskMapper.selectByPrimaryKey((long)taskId);
+            Expert expert = expertMapper.selectByPrimaryKey((long)expertId);
+
+            SusScaleAnswerPaper susScaleAnswerPaper;
+            //查看有没有此答卷
+            SusScaleAnswerPaperExample susScaleAnswerPaperExample = new SusScaleAnswerPaperExample();
+            SusScaleAnswerPaperExample.Criteria criteria = susScaleAnswerPaperExample.createCriteria();
+            criteria.andTaskIdEqualTo(expertTask.getId()).andExpertIdEqualTo(expert.getId()).andPlanIdEqualTo(assessAndPlan.getId());
+            List<SusScaleAnswerPaper> susScaleAnswerPapers = susScaleAnswerPaperMapper.selectByExample(susScaleAnswerPaperExample);
+           //如果没有，加上此份答卷
+            if(susScaleAnswerPapers.isEmpty()){
+                susScaleAnswerPaper = new SusScaleAnswerPaper();
+                susScaleAnswerPaper.setExpertId(expert.getId());
+                susScaleAnswerPaper.setPlanId(assessAndPlan.getId());
+                susScaleAnswerPaper.setTaskId(expertTask.getId());
+                susScaleAnswerPaperMapper.insert(susScaleAnswerPaper);
+            }
+            else//如果有 第一项就是
+            {
+                susScaleAnswerPaper = susScaleAnswerPapers.get(0);
+            }
+
+
+
+            //看看有没有这道题的
+            SusScaleQuestionScoreExample susScaleQuestionScoreExample = new SusScaleQuestionScoreExample();
+            SusScaleQuestionScoreExample.Criteria criteria1 = susScaleQuestionScoreExample.createCriteria();
+            criteria1.andSusPaperIdEqualTo(susScaleAnswerPaper.getId()).andQuestionNumberEqualTo((long) questionId);
+            List<SusScaleQuestionScore> susScaleQuestionScores = susScaleQuestionScoreMapper.selectByExample(susScaleQuestionScoreExample);
+
+            //如果有 - 替换为新答案
+            if(!susScaleQuestionScores.isEmpty())
+            {
+                SusScaleQuestionScore susScaleQuestionScore = susScaleQuestionScores.get(0);
+                susScaleQuestionScore.setScore((long) score);
+                susScaleQuestionScoreMapper.updateByPrimaryKey(susScaleQuestionScore);
+
+            }
+                //如果没有 - 增加这道题的答案
+            else {
+                SusScaleQuestionScore susScaleQuestionScore = new SusScaleQuestionScore();
+                susScaleQuestionScore.setScore((long)score);
+                susScaleQuestionScore.setQuestionNumber((long) questionId);
+                susScaleQuestionScore.setSusPaperId(susScaleAnswerPaper.getId());
+                susScaleQuestionScoreMapper.insert(susScaleQuestionScore);
+            }
+
+            //返回当前的答案列表；按照任务 - 用户 - 分数？
+
+
+
+
+
+
+        }
 
 
 
