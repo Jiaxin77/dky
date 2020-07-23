@@ -8,6 +8,7 @@
     <result column="task_des" jdbcType="VARCHAR" property="taskDes" />
     <result column="plan_id" jdbcType="BIGINT" property="planId" />
     <result column="filepath" jdbcType="VARCHAR" property="filepath" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, system_name, task_num, task_des, plan_id, filepath
+    id, system_name, task_num, task_des, plan_id, filepath, task_name
   </sql>
   <select id="selectByExample" parameterType="hci.dky.pojo.ExpertTaskExample" resultMap="BaseResultMap">
     select
@@ -102,9 +103,11 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.ExpertTask" useGeneratedKeys="true">
     insert into expert_task (system_name, task_num, task_des, 
-      plan_id, filepath)
+      plan_id, filepath, task_name
+      )
     values (#{systemName,jdbcType=VARCHAR}, #{taskNum,jdbcType=BIGINT}, #{taskDes,jdbcType=VARCHAR}, 
-      #{planId,jdbcType=BIGINT}, #{filepath,jdbcType=VARCHAR})
+      #{planId,jdbcType=BIGINT}, #{filepath,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.ExpertTask" useGeneratedKeys="true">
     insert into expert_task
@@ -124,6 +127,9 @@
       <if test="filepath != null">
         filepath,
       </if>
+      <if test="taskName != null">
+        task_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="systemName != null">
@@ -140,6 +146,9 @@
       </if>
       <if test="filepath != null">
         #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -170,6 +179,9 @@
       <if test="record.filepath != null">
         filepath = #{record.filepath,jdbcType=VARCHAR},
       </if>
+      <if test="record.taskName != null">
+        task_name = #{record.taskName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -182,7 +194,8 @@
       task_num = #{record.taskNum,jdbcType=BIGINT},
       task_des = #{record.taskDes,jdbcType=VARCHAR},
       plan_id = #{record.planId,jdbcType=BIGINT},
-      filepath = #{record.filepath,jdbcType=VARCHAR}
+      filepath = #{record.filepath,jdbcType=VARCHAR},
+      task_name = #{record.taskName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -205,6 +218,9 @@
       <if test="filepath != null">
         filepath = #{filepath,jdbcType=VARCHAR},
       </if>
+      <if test="taskName != null">
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -214,7 +230,8 @@
       task_num = #{taskNum,jdbcType=BIGINT},
       task_des = #{taskDes,jdbcType=VARCHAR},
       plan_id = #{planId,jdbcType=BIGINT},
-      filepath = #{filepath,jdbcType=VARCHAR}
+      filepath = #{filepath,jdbcType=VARCHAR},
+      task_name = #{taskName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

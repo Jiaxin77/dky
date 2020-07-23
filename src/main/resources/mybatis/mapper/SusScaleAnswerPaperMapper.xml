@@ -5,6 +5,9 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="answer_name" jdbcType="VARCHAR" property="answerName" />
     <result column="scaleId" jdbcType="VARCHAR" property="scaleid" />
+    <result column="task_id" jdbcType="BIGINT" property="taskId" />
+    <result column="expert_id" jdbcType="BIGINT" property="expertId" />
+    <result column="plan_id" jdbcType="BIGINT" property="planId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, answer_name, scaleId
+    id, answer_name, scaleId, task_id, expert_id, plan_id
   </sql>
   <select id="selectByExample" parameterType="hci.dky.pojo.SusScaleAnswerPaperExample" resultMap="BaseResultMap">
     select
@@ -98,8 +101,10 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.SusScaleAnswerPaper" useGeneratedKeys="true">
-    insert into sus_scale_answer_paper (answer_name, scaleId)
-    values (#{answerName,jdbcType=VARCHAR}, #{scaleid,jdbcType=VARCHAR})
+    insert into sus_scale_answer_paper (answer_name, scaleId, task_id, 
+      expert_id, plan_id)
+    values (#{answerName,jdbcType=VARCHAR}, #{scaleid,jdbcType=VARCHAR}, #{taskId,jdbcType=BIGINT}, 
+      #{expertId,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.SusScaleAnswerPaper" useGeneratedKeys="true">
     insert into sus_scale_answer_paper
@@ -110,6 +115,15 @@
       <if test="scaleid != null">
         scaleId,
       </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="expertId != null">
+        expert_id,
+      </if>
+      <if test="planId != null">
+        plan_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="answerName != null">
@@ -117,6 +131,15 @@
       </if>
       <if test="scaleid != null">
         #{scaleid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="expertId != null">
+        #{expertId,jdbcType=BIGINT},
+      </if>
+      <if test="planId != null">
+        #{planId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -138,6 +161,15 @@
       <if test="record.scaleid != null">
         scaleId = #{record.scaleid,jdbcType=VARCHAR},
       </if>
+      <if test="record.taskId != null">
+        task_id = #{record.taskId,jdbcType=BIGINT},
+      </if>
+      <if test="record.expertId != null">
+        expert_id = #{record.expertId,jdbcType=BIGINT},
+      </if>
+      <if test="record.planId != null">
+        plan_id = #{record.planId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -147,7 +179,10 @@
     update sus_scale_answer_paper
     set id = #{record.id,jdbcType=BIGINT},
       answer_name = #{record.answerName,jdbcType=VARCHAR},
-      scaleId = #{record.scaleid,jdbcType=VARCHAR}
+      scaleId = #{record.scaleid,jdbcType=VARCHAR},
+      task_id = #{record.taskId,jdbcType=BIGINT},
+      expert_id = #{record.expertId,jdbcType=BIGINT},
+      plan_id = #{record.planId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -161,13 +196,25 @@
       <if test="scaleid != null">
         scaleId = #{scaleid,jdbcType=VARCHAR},
       </if>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="expertId != null">
+        expert_id = #{expertId,jdbcType=BIGINT},
+      </if>
+      <if test="planId != null">
+        plan_id = #{planId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.SusScaleAnswerPaper">
     update sus_scale_answer_paper
     set answer_name = #{answerName,jdbcType=VARCHAR},
-      scaleId = #{scaleid,jdbcType=VARCHAR}
+      scaleId = #{scaleid,jdbcType=VARCHAR},
+      task_id = #{taskId,jdbcType=BIGINT},
+      expert_id = #{expertId,jdbcType=BIGINT},
+      plan_id = #{planId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

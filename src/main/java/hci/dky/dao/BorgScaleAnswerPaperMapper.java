@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface BorgScaleAnswerPaperMapper {
-    int countByExample(BorgScaleAnswerPaperExample example);
+    long countByExample(BorgScaleAnswerPaperExample example);
 
     int deleteByExample(BorgScaleAnswerPaperExample example);
 
