@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ExpertScoreMapper {
-    int countByExample(ExpertScoreExample example);
+    long countByExample(ExpertScoreExample example);
 
     int deleteByExample(ExpertScoreExample example);
 

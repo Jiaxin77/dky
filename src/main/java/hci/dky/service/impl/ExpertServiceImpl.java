@@ -161,6 +161,34 @@ public class ExpertServiceImpl implements ExpertService {
         }
         return ServerResponse.createByErrorMessage("文件上传失败！");
     }
+//
+//
+//    public ServerResponse<List> postExpertAnswer(int planId,List<Object> answer)
+//    {
+//        /**
+//         * @Author jiaxin
+//         * @Description 提交专家走查结果//TODO
+//         * @Date 4:31 下午 2020/7/23
+//         * @Param [planId, answer] answer里（任务id、专家id、答案列表(题号、符合度、重要度、问题描述)）
+//         * @return hci.dky.common.ServerResponse<java.util.List>
+//         **/
+//
+//        AssessAndPlan assessAndPlan = assessAndPlanMapper.selectByPrimaryKey((long) planId);
+//        for (Object oneAnswer : answer)
+//        {
+//            Map entry = (Map) oneAnswer;
+//            int taskid = (int)entry.get("taskid");
+//            int expertid = (int)entry.get("expertid");
+//            Object answerList = (Object) entry.get("answerList");
+//
+//
+//
+//
+//
+//        }
+//
+//
+//    }
 
 
 

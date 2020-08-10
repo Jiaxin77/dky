@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -107,7 +109,7 @@ public class BorgServiceImpl implements BorgService {
 
 
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS)//增加事务回滚
+    @Transactional(propagation = Propagation.SUPPORTS)
     public ServerResponse<List> getBorgAnswer(int planId)
     {
         /**
@@ -129,6 +131,68 @@ public class BorgServiceImpl implements BorgService {
 
 
     }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public ServerResponse<HashMap<String,Object>> getBorgResults(int planId)
+    {
+        /*
+         * @Author jiaxin
+         * @Description 返回每个任务的平均分和用户打分//TODO
+         * @Date 10:54 上午 2020/8/10
+         * @Param [planId]
+         * @return hci.dky.common.ServerResponse<java.util.Map<java.lang.String,java.lang.Object>>
+         **/
+
+        AssessAndPlan assessAndPlan = assessAndPlanMapper.selectByPrimaryKey((long) planId);
+        HashMap<String,Object> planResult = new HashMap<>();
+        planResult.put("planInfo",assessAndPlan);
+
+        // 此方案下的所有任务
+        ArrayList<Object> taskScores = new ArrayList<>();
+
+        ExpertTaskExample expertTaskExample = new ExpertTaskExample();
+        ExpertTaskExample.Criteria criteria = expertTaskExample.createCriteria();
+        criteria.andPlanIdEqualTo(assessAndPlan.getId());
+        List<ExpertTask> expertTaskList = expertTaskMapper.selectByExample(expertTaskExample);
+
+
+        for (ExpertTask expertTask : expertTaskList)
+        {
+            //每个任务的平均分；各用户打分
+            HashMap<String,Object> taskScore = new HashMap<>();
+            taskScore.put("taskInfo",expertTask);
+
+            BorgScaleAnswerPaperExample borgScaleAnswerPaperExample = new BorgScaleAnswerPaperExample();
+            BorgScaleAnswerPaperExample.Criteria criteria1 = borgScaleAnswerPaperExample.createCriteria();
+            criteria1.andPlanIdEqualTo(assessAndPlan.getId()).andTaskIdEqualTo(expertTask.getId());
+            ArrayList<BorgScaleAnswerPaper> userScores = new ArrayList<>(borgScaleAnswerPaperMapper.selectByExample(borgScaleAnswerPaperExample));
+
+            taskScore.put("userScores",userScores);
+
+            //平均分
+            int sum = 0;
+            for(BorgScaleAnswerPaper oneUserPaper:userScores)
+            {
+               sum +=  oneUserPaper.getScore();
+            }
+            double avgScore = (double) sum /(userScores.size());
+
+            taskScore.put("avgScore",avgScore);
+
+            taskScores.add(taskScore);
+
+        }
+
+        planResult.put("taskScores",taskScores);
+
+        return ServerResponse.createBySuccess("获取分析结果成功",planResult);
+
+
+
+
+    }
+
 
 
 }

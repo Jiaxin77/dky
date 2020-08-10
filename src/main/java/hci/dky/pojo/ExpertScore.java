@@ -1,76 +1,53 @@
 package hci.dky.pojo;
 
-public class ExpertScore {
+import java.io.Serializable;
+import lombok.Data;
+
+/**
+ * expert_score
+ * @author 
+ */
+@Data
+public class ExpertScore implements Serializable {
+    /**
+     * 专家走查分数表id
+     */
     private Long id;
 
+    /**
+     * 所属方案id
+     */
     private Long planId;
 
+    /**
+     * 题号
+     */
     private Long questionNumber;
 
-    private Float conformanceScore;
+    /**
+     * 符合度评分
+     */
+    private Double conformanceScore;
 
-    private Float importanceScore;
+    /**
+     * 重要度评分
+     */
+    private Double importanceScore;
 
+    /**
+     * 问题描述
+     */
     private String questionDes;
 
-    public ExpertScore(Long id, Long planId, Long questionNumber, Float conformanceScore, Float importanceScore, String questionDes) {
-        this.id = id;
-        this.planId = planId;
-        this.questionNumber = questionNumber;
-        this.conformanceScore = conformanceScore;
-        this.importanceScore = importanceScore;
-        this.questionDes = questionDes;
-    }
+    /**
+     * 任务id
+     */
+    private Long taskId;
 
-    public ExpertScore() {
-        super();
-    }
+    /**
+     * 专家id
+     */
+    private Long expertId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getPlanId() {
-        return planId;
-    }
-
-    public void setPlanId(Long planId) {
-        this.planId = planId;
-    }
-
-    public Long getQuestionNumber() {
-        return questionNumber;
-    }
-
-    public void setQuestionNumber(Long questionNumber) {
-        this.questionNumber = questionNumber;
-    }
-
-    public Float getConformanceScore() {
-        return conformanceScore;
-    }
-
-    public void setConformanceScore(Float conformanceScore) {
-        this.conformanceScore = conformanceScore;
-    }
-
-    public Float getImportanceScore() {
-        return importanceScore;
-    }
-
-    public void setImportanceScore(Float importanceScore) {
-        this.importanceScore = importanceScore;
-    }
-
-    public String getQuestionDes() {
-        return questionDes;
-    }
-
-    public void setQuestionDes(String questionDes) {
-        this.questionDes = questionDes == null ? null : questionDes.trim();
-    }
+    private static final long serialVersionUID = 1L;
 }

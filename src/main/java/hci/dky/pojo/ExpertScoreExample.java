@@ -11,7 +11,7 @@ public class ExpertScoreExample {
     protected List<Criteria> oredCriteria;
 
     public ExpertScoreExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     public void setOrderByClause(String orderByClause) {
@@ -68,7 +68,7 @@ public class ExpertScoreExample {
 
         protected GeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<>();
         }
 
         public boolean isValid() {
@@ -294,52 +294,52 @@ public class ExpertScoreExample {
             return (Criteria) this;
         }
 
-        public Criteria andConformanceScoreEqualTo(Float value) {
+        public Criteria andConformanceScoreEqualTo(Double value) {
             addCriterion("conformance_score =", value, "conformanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andConformanceScoreNotEqualTo(Float value) {
+        public Criteria andConformanceScoreNotEqualTo(Double value) {
             addCriterion("conformance_score <>", value, "conformanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andConformanceScoreGreaterThan(Float value) {
+        public Criteria andConformanceScoreGreaterThan(Double value) {
             addCriterion("conformance_score >", value, "conformanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andConformanceScoreGreaterThanOrEqualTo(Float value) {
+        public Criteria andConformanceScoreGreaterThanOrEqualTo(Double value) {
             addCriterion("conformance_score >=", value, "conformanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andConformanceScoreLessThan(Float value) {
+        public Criteria andConformanceScoreLessThan(Double value) {
             addCriterion("conformance_score <", value, "conformanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andConformanceScoreLessThanOrEqualTo(Float value) {
+        public Criteria andConformanceScoreLessThanOrEqualTo(Double value) {
             addCriterion("conformance_score <=", value, "conformanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andConformanceScoreIn(List<Float> values) {
+        public Criteria andConformanceScoreIn(List<Double> values) {
             addCriterion("conformance_score in", values, "conformanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andConformanceScoreNotIn(List<Float> values) {
+        public Criteria andConformanceScoreNotIn(List<Double> values) {
             addCriterion("conformance_score not in", values, "conformanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andConformanceScoreBetween(Float value1, Float value2) {
+        public Criteria andConformanceScoreBetween(Double value1, Double value2) {
             addCriterion("conformance_score between", value1, value2, "conformanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andConformanceScoreNotBetween(Float value1, Float value2) {
+        public Criteria andConformanceScoreNotBetween(Double value1, Double value2) {
             addCriterion("conformance_score not between", value1, value2, "conformanceScore");
             return (Criteria) this;
         }
@@ -354,52 +354,52 @@ public class ExpertScoreExample {
             return (Criteria) this;
         }
 
-        public Criteria andImportanceScoreEqualTo(Float value) {
+        public Criteria andImportanceScoreEqualTo(Double value) {
             addCriterion("importance_score =", value, "importanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andImportanceScoreNotEqualTo(Float value) {
+        public Criteria andImportanceScoreNotEqualTo(Double value) {
             addCriterion("importance_score <>", value, "importanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andImportanceScoreGreaterThan(Float value) {
+        public Criteria andImportanceScoreGreaterThan(Double value) {
             addCriterion("importance_score >", value, "importanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andImportanceScoreGreaterThanOrEqualTo(Float value) {
+        public Criteria andImportanceScoreGreaterThanOrEqualTo(Double value) {
             addCriterion("importance_score >=", value, "importanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andImportanceScoreLessThan(Float value) {
+        public Criteria andImportanceScoreLessThan(Double value) {
             addCriterion("importance_score <", value, "importanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andImportanceScoreLessThanOrEqualTo(Float value) {
+        public Criteria andImportanceScoreLessThanOrEqualTo(Double value) {
             addCriterion("importance_score <=", value, "importanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andImportanceScoreIn(List<Float> values) {
+        public Criteria andImportanceScoreIn(List<Double> values) {
             addCriterion("importance_score in", values, "importanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andImportanceScoreNotIn(List<Float> values) {
+        public Criteria andImportanceScoreNotIn(List<Double> values) {
             addCriterion("importance_score not in", values, "importanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andImportanceScoreBetween(Float value1, Float value2) {
+        public Criteria andImportanceScoreBetween(Double value1, Double value2) {
             addCriterion("importance_score between", value1, value2, "importanceScore");
             return (Criteria) this;
         }
 
-        public Criteria andImportanceScoreNotBetween(Float value1, Float value2) {
+        public Criteria andImportanceScoreNotBetween(Double value1, Double value2) {
             addCriterion("importance_score not between", value1, value2, "importanceScore");
             return (Criteria) this;
         }
@@ -473,10 +473,131 @@ public class ExpertScoreExample {
             addCriterion("question_des not between", value1, value2, "questionDes");
             return (Criteria) this;
         }
+
+        public Criteria andTaskIdIsNull() {
+            addCriterion("task_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdIsNotNull() {
+            addCriterion("task_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdEqualTo(Long value) {
+            addCriterion("task_id =", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotEqualTo(Long value) {
+            addCriterion("task_id <>", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdGreaterThan(Long value) {
+            addCriterion("task_id >", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("task_id >=", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdLessThan(Long value) {
+            addCriterion("task_id <", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdLessThanOrEqualTo(Long value) {
+            addCriterion("task_id <=", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdIn(List<Long> values) {
+            addCriterion("task_id in", values, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotIn(List<Long> values) {
+            addCriterion("task_id not in", values, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdBetween(Long value1, Long value2) {
+            addCriterion("task_id between", value1, value2, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotBetween(Long value1, Long value2) {
+            addCriterion("task_id not between", value1, value2, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdIsNull() {
+            addCriterion("expert_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdIsNotNull() {
+            addCriterion("expert_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdEqualTo(Long value) {
+            addCriterion("expert_id =", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdNotEqualTo(Long value) {
+            addCriterion("expert_id <>", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdGreaterThan(Long value) {
+            addCriterion("expert_id >", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("expert_id >=", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdLessThan(Long value) {
+            addCriterion("expert_id <", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdLessThanOrEqualTo(Long value) {
+            addCriterion("expert_id <=", value, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdIn(List<Long> values) {
+            addCriterion("expert_id in", values, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdNotIn(List<Long> values) {
+            addCriterion("expert_id not in", values, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdBetween(Long value1, Long value2) {
+            addCriterion("expert_id between", value1, value2, "expertId");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpertIdNotBetween(Long value1, Long value2) {
+            addCriterion("expert_id not between", value1, value2, "expertId");
+            return (Criteria) this;
+        }
     }
 
+    /**
+     */
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }
