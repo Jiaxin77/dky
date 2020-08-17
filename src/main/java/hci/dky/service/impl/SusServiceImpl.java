@@ -176,7 +176,7 @@ public class SusServiceImpl implements SusService {
     {
         /**
          * @Author jiaxin
-         * @Description 获取sus量表的答案（用于查看）//TODO
+         * @Description 获取sus量表的答案（用于查看） —— 分析也可用？//TODO
          * @Date 11:30 上午 2020/7/20
          * @Param [planId]
          * @return hci.dky.common.ServerResponse<java.util.List>
@@ -218,10 +218,7 @@ public class SusServiceImpl implements SusService {
             allAnswers.add(AnswerPaper);
         }
 
-        return ServerResponse.createBySuccess("获取成功",allAnswers);
-
-
-
+        return ServerResponse.createBySuccess("获取答案成功",allAnswers);
 
     }
 

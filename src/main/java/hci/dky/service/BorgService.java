@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface BorgService {
     public ServerResponse<List> postBorgAnswer(int planId, List<Object> answer);
-    public ServerResponse<List> getBorgAnswer(int planId);public ServerResponse<HashMap<String,Object>> getBorgResults(int planId);
+    public ServerResponse<List> getBorgAnswer(int planId);
+    public ServerResponse<HashMap<String,Object>> getBorgResults(int planId);
 }
