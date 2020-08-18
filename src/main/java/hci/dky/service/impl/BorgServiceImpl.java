@@ -7,7 +7,6 @@ import hci.dky.dao.ExpertMapper;
 import hci.dky.dao.ExpertTaskMapper;
 import hci.dky.pojo.*;
 import hci.dky.service.BorgService;
-import javafx.concurrent.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -85,6 +84,7 @@ public class BorgServiceImpl implements BorgService {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String nowTime = df.format(System.currentTimeMillis());
                 borgScaleAnswerPaper.setDate(nowTime);
+                borgScaleAnswerPaperMapper.insert(borgScaleAnswerPaper);
 
 
             }
@@ -94,6 +94,7 @@ public class BorgServiceImpl implements BorgService {
             }
 
             borgScaleAnswerPaper.setScore((long) score);
+            borgScaleAnswerPaperMapper.updateByPrimaryKey(borgScaleAnswerPaper);
 
 
         }

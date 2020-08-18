@@ -59,7 +59,9 @@ public class ExpertController {
     }
 
     @PostMapping("/postExpertTask")
-    public ServerResponse<ArrayList> postExpertTask(@RequestParam("file")MultipartFile file,@RequestParam("systemName") String systemName,@RequestParam("taskName") String taskName,@RequestParam("taskDes") String taskDes,@RequestParam("planId") int planId)
+   // public ServerResponse<ArrayList> postExpertTask(@RequestParam("file")MultipartFile file,@RequestParam("systemName") String systemName,@RequestParam("taskName") String taskName,@RequestParam("taskDes") String taskDes,@RequestParam("planId") int planId)
+    public ServerResponse<ArrayList> postExpertTask(@RequestBody Map<String,Object> taskInfo)
+
     {
         /**
          * @Author jiaxin
@@ -68,7 +70,11 @@ public class ExpertController {
          * @Param [file, systemName, taskDes, planId]
          * @return hci.dky.common.ServerResponse<java.util.ArrayList>
          **/
-        ServerResponse<ArrayList> response = expertService.postExpertTask(file,taskName,taskDes,planId);
+        String taskName = (String) taskInfo.get("taskName");
+        String taskDes = (String) taskInfo.get("taskDes");
+        String taskObject = (String) taskInfo.get("taskObject");
+        Integer planId = (Integer) taskInfo.get("planId");
+        ServerResponse<ArrayList> response = expertService.postExpertTask(taskName,taskDes,taskObject,planId);
         return  response;
 
     }
