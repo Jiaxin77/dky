@@ -205,6 +205,36 @@ public class AssessController {
     }
 
 
+    @PostMapping("/beginAssess")
+    public ServerResponse<Boolean> beginAssess(int assessId)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 评估状态更新为进行中//TODO
+         * @Date 5:26 下午 2020/8/22
+         * @Param [assessId]
+         * @return hci.dky.common.ServerResponse<java.lang.Boolean>
+         **/
+         ServerResponse<Boolean> response = assessService.beginAssess(assessId);
+         return response;
+    }
+
+    @PostMapping("/finishAssess")
+    public ServerResponse<Boolean> finishAssess(int assessId)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 评估状态更新为已完成//TODO
+         * @Date 5:35 下午 2020/8/22
+         * @Param [assessId]
+         * @return hci.dky.common.ServerResponse<java.lang.Boolean>
+         **/
+        ServerResponse<Boolean> response = assessService.finishAssess(assessId);
+        return response;
+
+
+
+    }
 
 
 
