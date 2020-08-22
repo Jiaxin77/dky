@@ -206,7 +206,7 @@ public class AssessController {
 
 
     @PostMapping("/beginAssess")
-    public ServerResponse<Boolean> beginAssess(int assessId)
+    public ServerResponse<Boolean> beginAssess(@RequestBody Map<String,Object> assess)
     {
         /**
          * @Author jiaxin
@@ -215,12 +215,15 @@ public class AssessController {
          * @Param [assessId]
          * @return hci.dky.common.ServerResponse<java.lang.Boolean>
          **/
+
+         int assessId = (int)assess.get("assessId");
+
          ServerResponse<Boolean> response = assessService.beginAssess(assessId);
          return response;
     }
 
     @PostMapping("/finishAssess")
-    public ServerResponse<Boolean> finishAssess(int assessId)
+    public ServerResponse<Boolean> finishAssess(@RequestBody Map<String,Object> assess)
     {
         /**
          * @Author jiaxin
@@ -229,6 +232,7 @@ public class AssessController {
          * @Param [assessId]
          * @return hci.dky.common.ServerResponse<java.lang.Boolean>
          **/
+        int assessId = (int)assess.get("assessId");
         ServerResponse<Boolean> response = assessService.finishAssess(assessId);
         return response;
 
