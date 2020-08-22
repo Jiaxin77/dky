@@ -712,6 +712,68 @@ public class AssessServiceImpl implements AssessService {
 
 
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public ServerResponse<Boolean> beginAssess(int assessId)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 评估开始；修改时间、修改状态//TODO
+         * @Date 5:03 下午 2020/8/22
+         * @Param [assessId]
+         * @return hci.dky.common.ServerResponse<java.lang.Boolean>
+         **/
+
+        AssessLibrary assess = assessLibraryMapper.selectByPrimaryKey((long) assessId);
+        switch (assess.getAssessState()) {
+            case "编辑中":
+                assess.setAssessState("进行中");
+                assess.setBeginTime(new Date());
+                assessLibraryMapper.updateByPrimaryKey(assess);
+                return ServerResponse.createBySuccess("评估状态更新成功，正在进行中", Boolean.TRUE);
+            case "进行中":
+                return ServerResponse.createByErrorMessage("评估状态更新失败，评估已在进行中");
+            case "已完成":
+                return ServerResponse.createByErrorMessage("评估状态更新失败，评估已完成");
+            default:
+                return ServerResponse.createByErrorMessage("评估状态更新失败,请检查评估状态");
+        }
+
+
+    }
+
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public ServerResponse<Boolean> finishAssess(int assessId)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 评估完成；修改时间、修改状态//TODO
+         * @Date 5:17 下午 2020/8/22
+         * @Param [assessId]
+         * @return hci.dky.common.ServerResponse<java.lang.Boolean>
+         **/
+
+        AssessLibrary assess = assessLibraryMapper.selectByPrimaryKey((long) assessId);
+        switch (assess.getAssessState()) {
+            case "进行中":
+                assess.setAssessState("已完成");
+                assessLibraryMapper.updateByPrimaryKey(assess);
+                return ServerResponse.createBySuccess("评估已成功结束", Boolean.TRUE);
+            case "编辑中":
+                return ServerResponse.createByErrorMessage("评估状态更新失败，评估还未开始");
+            case "已完成":
+                return ServerResponse.createByErrorMessage("评估状态更新失败，评估已是完成状态");
+            default:
+                return ServerResponse.createByErrorMessage("评估状态更新失败,请检查评估状态");
+        }
+
+
+    }
+
+
+
 
 
 

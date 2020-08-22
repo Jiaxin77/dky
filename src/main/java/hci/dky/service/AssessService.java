@@ -22,6 +22,9 @@ public interface AssessService {
     public ServerResponse<String> getBorgSystemName(int planId);
     public ServerResponse<HashMap<String,Object>> getPlanInfo(int planId);
 
+    public ServerResponse<Boolean> beginAssess(int assessId);
+    public ServerResponse<Boolean> finishAssess(int assessId);
+
 
 
 
