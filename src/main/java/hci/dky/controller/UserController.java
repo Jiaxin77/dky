@@ -48,6 +48,11 @@ public class UserController {
         return userService.add(user);
     }
 
+    @PostMapping("/delete")
+    public ServerResponse<String> delete(User user) {
+        return userService.delete(user);
+    }
+
     @GetMapping("/getalluser")
     public ServerResponse<List<User>> getalluser()
     {
