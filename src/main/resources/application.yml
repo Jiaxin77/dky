@@ -11,8 +11,8 @@ spring:
     username: root
     #  连接数据库的密码
     # password: 13541362
-    password: 19971019
-    # password: bupt20427
+    # password: 19971019
+    password: bupt20427
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     # 扩展插件
