@@ -214,7 +214,6 @@ public class SusServiceImpl implements SusService {
             SusScaleQuestionScoreExample.Criteria criteria4 = susScaleQuestionScoreExample1.createCriteria();
             criteria4.andSusPaperIdEqualTo(paper.getId());
             List<SusScaleQuestionScore> susScaleQuestionScoreList = susScaleQuestionScoreMapper.selectByExample(susScaleQuestionScoreExample1);
-
             for(SusScaleQuestionScore questionScore:susScaleQuestionScoreList)
             {
                 HashMap<String,Object> thisScore = new HashMap<>();
