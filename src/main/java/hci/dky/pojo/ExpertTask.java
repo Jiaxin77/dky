@@ -45,4 +45,5 @@ public class ExpertTask implements Serializable {
     private String taskName;
 
     private static final long serialVersionUID = 1L;
+    
 }

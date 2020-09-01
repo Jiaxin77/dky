@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
         example.createCriteria().andUserNameEqualTo(user.getUserName());
 //        List<User> uList = userMapper.selectByExample(example);
         userMapper.deleteByExample(example);
-        return ServerResponse.createBySuccessMessage("注册成功");
+        return ServerResponse.createBySuccessMessage("删除成功");
     }
 
     public ServerResponse<List<User>> getalluser()

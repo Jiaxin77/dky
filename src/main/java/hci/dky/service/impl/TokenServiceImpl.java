@@ -29,5 +29,5 @@ public class TokenServiceImpl implements TokenService {
                 .sign(Algorithm.HMAC256(user.getUserPassword()));
         return token;
     }
-
+    
 }
