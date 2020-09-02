@@ -110,6 +110,15 @@ public class UserServiceImpl implements UserService {
         return userMapper.insert(user);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
+    public ServerResponse<String> delete(User user){
+        UserExample example = new UserExample();
+        example.createCriteria().andUserNameEqualTo(user.getUserName());
+//        List<User> uList = userMapper.selectByExample(example);
+        userMapper.deleteByExample(example);
+        return ServerResponse.createBySuccessMessage("删除成功");
+    }
+
     public ServerResponse<List<User>> getalluser()
     {
         UserExample userExample = new UserExample();
