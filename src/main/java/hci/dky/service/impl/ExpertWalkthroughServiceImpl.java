@@ -76,8 +76,8 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
                 Map questionInfo = (Map) questionAnswer;
                 int questionId = (int) questionInfo.get("questionId");
 //                int score = (int) questionInfo.get("score");
-                double conformanceScore = (double) questionInfo.get("conformanceScore");
-                double importanceScore = (int) questionInfo.get("importanceScore");
+                int conformanceScore = (int) questionInfo.get("conformanceScore");
+                int importanceScore = (int) questionInfo.get("importanceScore");
                 String questionDes = (String) questionInfo.get("questionDes");
 
                 ExpertQuestionScoreExample expertQuestionScoreExample = new ExpertQuestionScoreExample();
@@ -87,17 +87,19 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
 
                 if (!expertQuestionScores.isEmpty()) {
                     ExpertQuestionScore expertQuestionScore = expertQuestionScores.get(0);
-                    expertQuestionScore.setConformanceScore(conformanceScore);
-                    expertQuestionScore.setImportanceScore(importanceScore);
+                    expertQuestionScore.setConformanceScore((double)conformanceScore);
+                    expertQuestionScore.setImportanceScore((double)importanceScore);
                     expertQuestionScore.setQuestionDes(questionDes);
+//                    expertQuestionScore.setQuestionNumber((long)questionId);
                     expertQuestionScoreMapper.updateByPrimaryKey(expertQuestionScore);
                 } else {
                     ExpertQuestionScore expertQuestionScore = new ExpertQuestionScore();
-                    expertQuestionScore.setConformanceScore(conformanceScore);
-                    expertQuestionScore.setImportanceScore(importanceScore);
+                    expertQuestionScore.setConformanceScore((double)conformanceScore);
+                    expertQuestionScore.setImportanceScore((double)importanceScore);
+                    expertQuestionScore.setQuestionNumber((long)questionId);
                     expertQuestionScore.setQuestionDes(questionDes);
                     expertQuestionScore.setPaperId(expertAnswerPaper.getId());
-                    expertQuestionScoreMapper.updateByPrimaryKey(expertQuestionScore);
+                    expertQuestionScoreMapper.insert(expertQuestionScore);
 
                 }
             }
@@ -109,6 +111,8 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
         criteria2.andPlanIdEqualTo(assessAndPlan.getId());
         List<ExpertAnswerPaper> expertAnswerPaperList=expertAnswerPaperMapper.selectByExample(expertAnswerPaperExample1);
 
+        System.out.println(expertAnswerPaperList.size());
+
         for(ExpertAnswerPaper paper:expertAnswerPaperList){
             HashMap<String,Object> AnswerPaper=new HashMap<>();
             AnswerPaper.put("planId",paper.getPlanId());
@@ -118,8 +122,10 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
             ArrayList<Object> allScores = new ArrayList<>();
             ExpertQuestionScoreExample expertQuestionScoreExample1 = new ExpertQuestionScoreExample();
             ExpertQuestionScoreExample.Criteria criteria4 = expertQuestionScoreExample1.createCriteria();
-            criteria4.andIdEqualTo(paper.getId());
+            criteria4.andPaperIdEqualTo(paper.getId());
             List<ExpertQuestionScore> expertQuestionScoreList = expertQuestionScoreMapper.selectByExample(expertQuestionScoreExample1);
+
+            System.out.println(expertQuestionScoreList.size());
 
             for (ExpertQuestionScore expertQuestionScore:expertQuestionScoreList){
                 HashMap<String,Object> thisScore= new HashMap();
@@ -179,7 +185,7 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
             allAnswers.add(AnswerPaper);
         }
 
-        return ServerResponse.createBySuccess("填写成功",allAnswers);
+        return ServerResponse.createBySuccess("获取成功",allAnswers);
 
     }
 }
