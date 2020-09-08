@@ -32,7 +32,7 @@ public class ExpertWalkthroughController {
         return response;
     }
 
-    @GetMapping("getExpertWalkthroughAnswer")
+    @GetMapping("/getExpertWalkthroughAnswer")
     public ServerResponse<List> getExpertWalkthroughAnswer(Integer planId)
     {
         ServerResponse<List> response = expertWalkthroughService.getExpertWalkthroughAnswer(planId);
