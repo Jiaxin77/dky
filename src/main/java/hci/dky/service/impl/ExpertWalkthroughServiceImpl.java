@@ -111,7 +111,7 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
         criteria2.andPlanIdEqualTo(assessAndPlan.getId());
         List<ExpertAnswerPaper> expertAnswerPaperList=expertAnswerPaperMapper.selectByExample(expertAnswerPaperExample1);
 
-        System.out.println(expertAnswerPaperList.size());
+        //System.out.println(expertAnswerPaperList.size());
 
         for(ExpertAnswerPaper paper:expertAnswerPaperList){
             HashMap<String,Object> AnswerPaper=new HashMap<>();
@@ -125,7 +125,7 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
             criteria4.andPaperIdEqualTo(paper.getId());
             List<ExpertQuestionScore> expertQuestionScoreList = expertQuestionScoreMapper.selectByExample(expertQuestionScoreExample1);
 
-            System.out.println(expertQuestionScoreList.size());
+            //System.out.println(expertQuestionScoreList.size());
 
             for (ExpertQuestionScore expertQuestionScore:expertQuestionScoreList){
                 HashMap<String,Object> thisScore= new HashMap();
