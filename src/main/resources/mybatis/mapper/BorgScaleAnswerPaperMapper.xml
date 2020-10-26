@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="hci.artedu.dao.BorgScaleAnswerPaperMapper">
-  <resultMap id="BaseResultMap" type="hci.artedu.pojo.BorgScaleAnswerPaper">
+<mapper namespace="hci.dky.dao.BorgScaleAnswerPaperMapper">
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.BorgScaleAnswerPaper">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="plan_id" jdbcType="BIGINT" property="planId" />
     <result column="date" jdbcType="VARCHAR" property="date" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List">
     id, plan_id, `date`, score, expert_id, task_id
   </sql>
-  <select id="selectByExample" parameterType="hci.artedu.pojo.BorgScaleAnswerPaperExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="hci.dky.pojo.BorgScaleAnswerPaperExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -94,19 +94,19 @@
     delete from borg_scale_answer_paper
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.artedu.pojo.BorgScaleAnswerPaperExample">
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.BorgScaleAnswerPaperExample">
     delete from borg_scale_answer_paper
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.artedu.pojo.BorgScaleAnswerPaper" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" useGeneratedKeys="true">
     insert into borg_scale_answer_paper (plan_id, `date`, score, 
       expert_id, task_id)
     values (#{planId,jdbcType=BIGINT}, #{date,jdbcType=VARCHAR}, #{score,jdbcType=BIGINT}, 
       #{expertId,jdbcType=BIGINT}, #{taskId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.artedu.pojo.BorgScaleAnswerPaper" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.BorgScaleAnswerPaper" useGeneratedKeys="true">
     insert into borg_scale_answer_paper
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="planId != null">
@@ -143,7 +143,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.artedu.pojo.BorgScaleAnswerPaperExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="hci.dky.pojo.BorgScaleAnswerPaperExample" resultType="java.lang.Long">
     select count(*) from borg_scale_answer_paper
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -187,7 +187,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.BorgScaleAnswerPaper">
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.BorgScaleAnswerPaper">
     update borg_scale_answer_paper
     <set>
       <if test="planId != null">
@@ -208,7 +208,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.BorgScaleAnswerPaper">
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.BorgScaleAnswerPaper">
     update borg_scale_answer_paper
     set plan_id = #{planId,jdbcType=BIGINT},
       `date` = #{date,jdbcType=VARCHAR},

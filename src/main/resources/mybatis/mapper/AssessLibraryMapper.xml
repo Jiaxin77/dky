@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="hci.artedu.dao.AssessLibraryMapper">
-  <resultMap id="BaseResultMap" type="hci.artedu.pojo.AssessLibrary">
+<mapper namespace="hci.dky.dao.AssessLibraryMapper">
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.AssessLibrary">
     <id column="assess_id" jdbcType="BIGINT" property="assessId" />
     <result column="assess_name" jdbcType="VARCHAR" property="assessName" />
     <result column="assess_des" jdbcType="VARCHAR" property="assessDes" />
@@ -76,7 +76,7 @@
     assess_id, assess_name, assess_des, assess_object, creator, begin_time, assess_state, 
     is_model, index_list, is_exist, index_method_list
   </sql>
-  <select id="selectByExample" parameterType="hci.artedu.pojo.AssessLibraryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="hci.dky.pojo.AssessLibraryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -100,13 +100,13 @@
     delete from assess_library
     where assess_id = #{assessId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.artedu.pojo.AssessLibraryExample">
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.AssessLibraryExample">
     delete from assess_library
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="assess_id" keyProperty="assessId" parameterType="hci.artedu.pojo.AssessLibrary" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="assess_id" keyProperty="assessId" parameterType="hci.dky.pojo.AssessLibrary" useGeneratedKeys="true">
     insert into assess_library (assess_name, assess_des, assess_object, 
       creator, begin_time, assess_state, 
       is_model, index_list, is_exist, 
@@ -116,7 +116,7 @@
       #{isModel,jdbcType=BOOLEAN}, #{indexList,jdbcType=VARCHAR}, #{isExist,jdbcType=BOOLEAN}, 
       #{indexMethodList,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="assess_id" keyProperty="assessId" parameterType="hci.artedu.pojo.AssessLibrary" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="assess_id" keyProperty="assessId" parameterType="hci.dky.pojo.AssessLibrary" useGeneratedKeys="true">
     insert into assess_library
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="assessName != null">
@@ -183,7 +183,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.artedu.pojo.AssessLibraryExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="hci.dky.pojo.AssessLibraryExample" resultType="java.lang.Long">
     select count(*) from assess_library
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -247,7 +247,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.AssessLibrary">
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.AssessLibrary">
     update assess_library
     <set>
       <if test="assessName != null">
@@ -283,7 +283,7 @@
     </set>
     where assess_id = #{assessId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.AssessLibrary">
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.AssessLibrary">
     update assess_library
     set assess_name = #{assessName,jdbcType=VARCHAR},
       assess_des = #{assessDes,jdbcType=VARCHAR},

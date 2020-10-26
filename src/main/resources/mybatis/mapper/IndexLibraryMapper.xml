@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.artedu.dao.IndexLibraryMapper" >
-  <resultMap id="BaseResultMap" type="hci.artedu.pojo.IndexLibrary" >
+<mapper namespace="hci.dky.dao.IndexLibraryMapper" >
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.IndexLibrary" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="category" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List" >
     id, category, first_index, second_index
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.artedu.pojo.IndexLibraryExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.IndexLibraryExample" >
     select
     <if test="distinct" >
       distinct
@@ -95,19 +95,19 @@
     delete from index_library
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.artedu.pojo.IndexLibraryExample" >
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.IndexLibraryExample" >
     delete from index_library
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.artedu.pojo.IndexLibrary" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+  <insert id="insert" parameterType="hci.dky.pojo.IndexLibrary" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into index_library (id, category, first_index, 
       second_index)
     values (#{id,jdbcType=BIGINT}, #{category,jdbcType=VARCHAR}, #{firstIndex,jdbcType=VARCHAR}, 
       #{secondIndex,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="hci.artedu.pojo.IndexLibrary" >
+  <insert id="insertSelective" parameterType="hci.dky.pojo.IndexLibrary" >
     insert into index_library
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -138,7 +138,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.artedu.pojo.IndexLibraryExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="hci.dky.pojo.IndexLibraryExample" resultType="java.lang.Integer" >
     select count(*) from index_library
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -174,7 +174,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.IndexLibrary" >
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.IndexLibrary" >
     update index_library
     <set >
       <if test="category != null" >
@@ -189,7 +189,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.IndexLibrary" >
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.IndexLibrary" >
     update index_library
     set category = #{category,jdbcType=VARCHAR},
       first_index = #{firstIndex,jdbcType=VARCHAR},
