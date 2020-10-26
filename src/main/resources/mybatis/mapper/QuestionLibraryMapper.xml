@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.dky.dao.QuestionLibraryMapper" >
-  <resultMap id="BaseResultMap" type="hci.dky.pojo.QuestionLibrary" >
+<mapper namespace="hci.artedu.dao.QuestionLibraryMapper" >
+  <resultMap id="BaseResultMap" type="hci.artedu.pojo.QuestionLibrary" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="question_type" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     id, question_type, question_title, is_must, survey_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.QuestionLibraryExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.artedu.pojo.QuestionLibraryExample" >
     select
     <if test="distinct" >
       distinct
@@ -96,19 +96,19 @@
     delete from question_library
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.dky.pojo.QuestionLibraryExample" >
+  <delete id="deleteByExample" parameterType="hci.artedu.pojo.QuestionLibraryExample" >
     delete from question_library
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.QuestionLibrary" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+  <insert id="insert" parameterType="hci.artedu.pojo.QuestionLibrary" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into question_library (id, question_type, question_title, 
       is_must, survey_id)
     values (#{id,jdbcType=BIGINT}, #{questionType,jdbcType=VARCHAR}, #{questionTitle,jdbcType=VARCHAR}, 
       #{isMust,jdbcType=BIT}, #{surveyId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="hci.dky.pojo.QuestionLibrary" >
+  <insert id="insertSelective" parameterType="hci.artedu.pojo.QuestionLibrary" >
     insert into question_library
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -145,7 +145,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.dky.pojo.QuestionLibraryExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="hci.artedu.pojo.QuestionLibraryExample" resultType="java.lang.Integer" >
     select count(*) from question_library
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -185,7 +185,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.QuestionLibrary" >
+  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.QuestionLibrary" >
     update question_library
     <set >
       <if test="questionType != null" >
@@ -203,7 +203,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.QuestionLibrary" >
+  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.QuestionLibrary" >
     update question_library
     set question_type = #{questionType,jdbcType=VARCHAR},
       question_title = #{questionTitle,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.dky.dao.RecordTableMapper" >
-  <resultMap id="BaseResultMap" type="hci.dky.pojo.RecordTable" >
+<mapper namespace="hci.artedu.dao.RecordTableMapper" >
+  <resultMap id="BaseResultMap" type="hci.artedu.pojo.RecordTable" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="system_name" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -16,7 +16,7 @@
       <arg column="plan_id" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="hci.dky.pojo.RecordTableWithBLOBs" >
+  <resultMap id="ResultMapWithBLOBs" type="hci.artedu.pojo.RecordTableWithBLOBs" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="system_name" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -99,7 +99,7 @@
   <sql id="Blob_Column_List" >
     basic_situation, break_down_des, others
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="hci.dky.pojo.RecordTableExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="hci.artedu.pojo.RecordTableExample" >
     select
     <if test="distinct" >
       distinct
@@ -116,7 +116,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.RecordTableExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.artedu.pojo.RecordTableExample" >
     select
     <if test="distinct" >
       distinct
@@ -143,13 +143,13 @@
     delete from record_table
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.dky.pojo.RecordTableExample" >
+  <delete id="deleteByExample" parameterType="hci.artedu.pojo.RecordTableExample" >
     delete from record_table
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.RecordTableWithBLOBs" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
+  <insert id="insert" parameterType="hci.artedu.pojo.RecordTableWithBLOBs" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
     insert into record_table (id, system_name, recorder, 
       begin_date, end_date, day_count, 
       record_period, is_break_down, break_down_count, 
@@ -161,7 +161,7 @@
       #{breakdownType,jdbcType=VARCHAR}, #{planId,jdbcType=BIGINT}, #{basicSituation,jdbcType=LONGVARCHAR}, 
       #{breakDownDes,jdbcType=LONGVARCHAR}, #{others,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="hci.dky.pojo.RecordTableWithBLOBs" >
+  <insert id="insertSelective" parameterType="hci.artedu.pojo.RecordTableWithBLOBs" >
     insert into record_table
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -252,7 +252,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.dky.pojo.RecordTableExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="hci.artedu.pojo.RecordTableExample" resultType="java.lang.Integer" >
     select count(*) from record_table
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -345,7 +345,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.RecordTableWithBLOBs" >
+  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.RecordTableWithBLOBs" >
     update record_table
     <set >
       <if test="systemName != null" >
@@ -390,7 +390,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="hci.dky.pojo.RecordTableWithBLOBs" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="hci.artedu.pojo.RecordTableWithBLOBs" >
     update record_table
     set system_name = #{systemName,jdbcType=VARCHAR},
       recorder = #{recorder,jdbcType=VARCHAR},
@@ -407,7 +407,7 @@
       others = #{others,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.RecordTable" >
+  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.RecordTable" >
     update record_table
     set system_name = #{systemName,jdbcType=VARCHAR},
       recorder = #{recorder,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="hci.dky.dao.ExpertScoreMapper">
-  <resultMap id="BaseResultMap" type="hci.dky.pojo.ExpertScore">
+<mapper namespace="hci.artedu.dao.ExpertScoreMapper">
+  <resultMap id="BaseResultMap" type="hci.artedu.pojo.ExpertScore">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="plan_id" jdbcType="BIGINT" property="planId" />
     <result column="question_number" jdbcType="BIGINT" property="questionNumber" />
@@ -73,7 +73,7 @@
     id, plan_id, question_number, conformance_score, importance_score, question_des, 
     task_id, expert_id
   </sql>
-  <select id="selectByExample" parameterType="hci.dky.pojo.ExpertScoreExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="hci.artedu.pojo.ExpertScoreExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -97,13 +97,13 @@
     delete from expert_score
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.dky.pojo.ExpertScoreExample">
+  <delete id="deleteByExample" parameterType="hci.artedu.pojo.ExpertScoreExample">
     delete from expert_score
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.ExpertScore" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.artedu.pojo.ExpertScore" useGeneratedKeys="true">
     insert into expert_score (plan_id, question_number, conformance_score, 
       importance_score, question_des, task_id, 
       expert_id)
@@ -111,7 +111,7 @@
       #{importanceScore,jdbcType=FLOAT}, #{questionDes,jdbcType=VARCHAR}, #{taskId,jdbcType=BIGINT}, 
       #{expertId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.ExpertScore" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.artedu.pojo.ExpertScore" useGeneratedKeys="true">
     insert into expert_score
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="planId != null">
@@ -160,7 +160,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.dky.pojo.ExpertScoreExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="hci.artedu.pojo.ExpertScoreExample" resultType="java.lang.Long">
     select count(*) from expert_score
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -212,7 +212,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.ExpertScore">
+  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.ExpertScore">
     update expert_score
     <set>
       <if test="planId != null">
@@ -239,7 +239,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.ExpertScore">
+  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.ExpertScore">
     update expert_score
     set plan_id = #{planId,jdbcType=BIGINT},
       question_number = #{questionNumber,jdbcType=BIGINT},

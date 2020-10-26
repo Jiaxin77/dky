@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="hci.dky.dao.SusScaleAnswerPaperMapper">
-  <resultMap id="BaseResultMap" type="hci.dky.pojo.SusScaleAnswerPaper">
+<mapper namespace="hci.artedu.dao.SusScaleAnswerPaperMapper">
+  <resultMap id="BaseResultMap" type="hci.artedu.pojo.SusScaleAnswerPaper">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="answer_name" jdbcType="VARCHAR" property="answerName" />
     <result column="scaleId" jdbcType="VARCHAR" property="scaleid" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List">
     id, answer_name, scaleId, task_id, expert_id, plan_id
   </sql>
-  <select id="selectByExample" parameterType="hci.dky.pojo.SusScaleAnswerPaperExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="hci.artedu.pojo.SusScaleAnswerPaperExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -94,19 +94,19 @@
     delete from sus_scale_answer_paper
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.dky.pojo.SusScaleAnswerPaperExample">
+  <delete id="deleteByExample" parameterType="hci.artedu.pojo.SusScaleAnswerPaperExample">
     delete from sus_scale_answer_paper
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.SusScaleAnswerPaper" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.artedu.pojo.SusScaleAnswerPaper" useGeneratedKeys="true">
     insert into sus_scale_answer_paper (answer_name, scaleId, task_id, 
       expert_id, plan_id)
     values (#{answerName,jdbcType=VARCHAR}, #{scaleid,jdbcType=VARCHAR}, #{taskId,jdbcType=BIGINT}, 
       #{expertId,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.SusScaleAnswerPaper" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.artedu.pojo.SusScaleAnswerPaper" useGeneratedKeys="true">
     insert into sus_scale_answer_paper
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="answerName != null">
@@ -143,7 +143,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.dky.pojo.SusScaleAnswerPaperExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="hci.artedu.pojo.SusScaleAnswerPaperExample" resultType="java.lang.Long">
     select count(*) from sus_scale_answer_paper
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -187,7 +187,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.SusScaleAnswerPaper">
+  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.SusScaleAnswerPaper">
     update sus_scale_answer_paper
     <set>
       <if test="answerName != null">
@@ -208,7 +208,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.SusScaleAnswerPaper">
+  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.SusScaleAnswerPaper">
     update sus_scale_answer_paper
     set answer_name = #{answerName,jdbcType=VARCHAR},
       scaleId = #{scaleid,jdbcType=VARCHAR},

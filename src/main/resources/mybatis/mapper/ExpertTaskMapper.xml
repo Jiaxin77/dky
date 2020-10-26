@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="hci.dky.dao.ExpertTaskMapper">
-  <resultMap id="BaseResultMap" type="hci.dky.pojo.ExpertTask">
+<mapper namespace="hci.artedu.dao.ExpertTaskMapper">
+  <resultMap id="BaseResultMap" type="hci.artedu.pojo.ExpertTask">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="system_name" jdbcType="VARCHAR" property="systemName" />
     <result column="task_num" jdbcType="BIGINT" property="taskNum" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List">
     id, system_name, task_num, task_des, plan_id, filepath, task_name
   </sql>
-  <select id="selectByExample" parameterType="hci.dky.pojo.ExpertTaskExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="hci.artedu.pojo.ExpertTaskExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -95,13 +95,13 @@
     delete from expert_task
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.dky.pojo.ExpertTaskExample">
+  <delete id="deleteByExample" parameterType="hci.artedu.pojo.ExpertTaskExample">
     delete from expert_task
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.ExpertTask" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.artedu.pojo.ExpertTask" useGeneratedKeys="true">
     insert into expert_task (system_name, task_num, task_des, 
       plan_id, filepath, task_name
       )
@@ -109,7 +109,7 @@
       #{planId,jdbcType=BIGINT}, #{filepath,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.ExpertTask" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.artedu.pojo.ExpertTask" useGeneratedKeys="true">
     insert into expert_task
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="systemName != null">
@@ -152,7 +152,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.dky.pojo.ExpertTaskExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="hci.artedu.pojo.ExpertTaskExample" resultType="java.lang.Long">
     select count(*) from expert_task
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -200,7 +200,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.ExpertTask">
+  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.ExpertTask">
     update expert_task
     <set>
       <if test="systemName != null">
@@ -224,7 +224,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.ExpertTask">
+  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.ExpertTask">
     update expert_task
     set system_name = #{systemName,jdbcType=VARCHAR},
       task_num = #{taskNum,jdbcType=BIGINT},
