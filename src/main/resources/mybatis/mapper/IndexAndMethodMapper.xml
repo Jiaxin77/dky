@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.dky.dao.IndexAndMethodMapper" >
-  <resultMap id="BaseResultMap" type="hci.dky.pojo.IndexAndMethod" >
+<mapper namespace="hci.artedu.dao.IndexAndMethodMapper" >
+  <resultMap id="BaseResultMap" type="hci.artedu.pojo.IndexAndMethod" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="index_id" jdbcType="BIGINT" javaType="java.lang.Long" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List" >
     id, index_id, method_id, is_must
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.IndexAndMethodExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.artedu.pojo.IndexAndMethodExample" >
     select
     <if test="distinct" >
       distinct
@@ -95,19 +95,19 @@
     delete from index_and_method
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.dky.pojo.IndexAndMethodExample" >
+  <delete id="deleteByExample" parameterType="hci.artedu.pojo.IndexAndMethodExample" >
     delete from index_and_method
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.IndexAndMethod" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+  <insert id="insert" parameterType="hci.artedu.pojo.IndexAndMethod" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into index_and_method (id, index_id, method_id, 
       is_must)
     values (#{id,jdbcType=BIGINT}, #{indexId,jdbcType=BIGINT}, #{methodId,jdbcType=BIGINT}, 
       #{isMust,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="hci.dky.pojo.IndexAndMethod" >
+  <insert id="insertSelective" parameterType="hci.artedu.pojo.IndexAndMethod" >
     insert into index_and_method
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -138,7 +138,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.dky.pojo.IndexAndMethodExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="hci.artedu.pojo.IndexAndMethodExample" resultType="java.lang.Integer" >
     select count(*) from index_and_method
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -174,7 +174,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.IndexAndMethod" >
+  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.IndexAndMethod" >
     update index_and_method
     <set >
       <if test="indexId != null" >
@@ -189,7 +189,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.IndexAndMethod" >
+  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.IndexAndMethod" >
     update index_and_method
     set index_id = #{indexId,jdbcType=BIGINT},
       method_id = #{methodId,jdbcType=BIGINT},
