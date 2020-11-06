@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.artedu.dao.PaperListMapper" >
-  <resultMap id="BaseResultMap" type="hci.artedu.pojo.PaperList" >
+<mapper namespace="hci.dky.dao.PaperListMapper" >
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.PaperList" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="survey_id" jdbcType="BIGINT" javaType="java.lang.Long" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List" >
     id, survey_id, user
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.artedu.pojo.PaperListExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.PaperListExample" >
     select
     <if test="distinct" >
       distinct
@@ -94,19 +94,19 @@
     delete from paper_list
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.artedu.pojo.PaperListExample" >
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.PaperListExample" >
     delete from paper_list
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.artedu.pojo.PaperList" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
+  <insert id="insert" parameterType="hci.dky.pojo.PaperList" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
     insert into paper_list (id, survey_id, user
       )
     values (#{id,jdbcType=BIGINT}, #{surveyId,jdbcType=BIGINT}, #{user,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="hci.artedu.pojo.PaperList" >
+  <insert id="insertSelective" parameterType="hci.dky.pojo.PaperList" >
     insert into paper_list
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -131,7 +131,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.artedu.pojo.PaperListExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="hci.dky.pojo.PaperListExample" resultType="java.lang.Integer" >
     select count(*) from paper_list
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -163,7 +163,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.PaperList" >
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.PaperList" >
     update paper_list
     <set >
       <if test="surveyId != null" >
@@ -175,7 +175,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.PaperList" >
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.PaperList" >
     update paper_list
     set survey_id = #{surveyId,jdbcType=BIGINT},
       user = #{user,jdbcType=VARCHAR}

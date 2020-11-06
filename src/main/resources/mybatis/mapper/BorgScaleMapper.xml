@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="hci.artedu.dao.BorgScaleMapper">
-  <resultMap id="BaseResultMap" type="hci.artedu.pojo.BorgScale">
+<mapper namespace="hci.dky.dao.BorgScaleMapper">
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.BorgScale">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="plan_id" jdbcType="BIGINT" property="planId" />
     <result column="systemName" jdbcType="VARCHAR" property="systemname" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List">
     id, plan_id, systemName
   </sql>
-  <select id="selectByExample" parameterType="hci.artedu.pojo.BorgScaleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="hci.dky.pojo.BorgScaleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -91,17 +91,17 @@
     delete from borg_scale
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.artedu.pojo.BorgScaleExample">
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.BorgScaleExample">
     delete from borg_scale
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.artedu.pojo.BorgScale" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.BorgScale" useGeneratedKeys="true">
     insert into borg_scale (plan_id, systemName)
     values (#{planId,jdbcType=BIGINT}, #{systemname,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.artedu.pojo.BorgScale" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.BorgScale" useGeneratedKeys="true">
     insert into borg_scale
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="planId != null">
@@ -120,7 +120,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.artedu.pojo.BorgScaleExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="hci.dky.pojo.BorgScaleExample" resultType="java.lang.Long">
     select count(*) from borg_scale
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -152,7 +152,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.BorgScale">
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.BorgScale">
     update borg_scale
     <set>
       <if test="planId != null">
@@ -164,7 +164,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.BorgScale">
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.BorgScale">
     update borg_scale
     set plan_id = #{planId,jdbcType=BIGINT},
       systemName = #{systemname,jdbcType=VARCHAR}

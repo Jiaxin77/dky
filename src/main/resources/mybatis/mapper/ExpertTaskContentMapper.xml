@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.artedu.dao.ExpertTaskContentMapper" >
-  <resultMap id="BaseResultMap" type="hci.artedu.pojo.ExpertTaskContent" >
+<mapper namespace="hci.dky.dao.ExpertTaskContentMapper" >
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.ExpertTaskContent" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="file_path" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List" >
     id, file_path, task_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.artedu.pojo.ExpertTaskContentExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.ExpertTaskContentExample" >
     select
     <if test="distinct" >
       distinct
@@ -94,19 +94,19 @@
     delete from expert_task_content
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.artedu.pojo.ExpertTaskContentExample" >
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.ExpertTaskContentExample" >
     delete from expert_task_content
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.artedu.pojo.ExpertTaskContent" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+  <insert id="insert" parameterType="hci.dky.pojo.ExpertTaskContent" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into expert_task_content (id, file_path, task_id
       )
     values (#{id,jdbcType=BIGINT}, #{filePath,jdbcType=VARCHAR}, #{taskId,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="hci.artedu.pojo.ExpertTaskContent" >
+  <insert id="insertSelective" parameterType="hci.dky.pojo.ExpertTaskContent" >
     insert into expert_task_content
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -131,7 +131,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.artedu.pojo.ExpertTaskContentExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="hci.dky.pojo.ExpertTaskContentExample" resultType="java.lang.Integer" >
     select count(*) from expert_task_content
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -163,7 +163,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.ExpertTaskContent" >
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.ExpertTaskContent" >
     update expert_task_content
     <set >
       <if test="filePath != null" >
@@ -175,7 +175,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.ExpertTaskContent" >
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.ExpertTaskContent" >
     update expert_task_content
     set file_path = #{filePath,jdbcType=VARCHAR},
       task_id = #{taskId,jdbcType=BIGINT}

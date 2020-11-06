@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.artedu.dao.AssessAndPlanMapper" >
-  <resultMap id="BaseResultMap" type="hci.artedu.pojo.AssessAndPlan" >
+<mapper namespace="hci.dky.dao.AssessAndPlanMapper" >
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.AssessAndPlan" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="plan_type" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -10,7 +10,7 @@
       <arg column="index_list" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="hci.artedu.pojo.AssessAndPlan" >
+  <resultMap id="ResultMapWithBLOBs" type="hci.dky.pojo.AssessAndPlan" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="plan_type" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -84,7 +84,7 @@
   <sql id="Blob_Column_List" >
     table_id
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="hci.artedu.pojo.AssessAndPlanExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="hci.dky.pojo.AssessAndPlanExample" >
     select
     <if test="distinct" >
       distinct
@@ -101,7 +101,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.artedu.pojo.AssessAndPlanExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.AssessAndPlanExample" >
     select
     <if test="distinct" >
       distinct
@@ -128,13 +128,13 @@
     delete from assess_and_plan
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.artedu.pojo.AssessAndPlanExample" >
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.AssessAndPlanExample" >
     delete from assess_and_plan
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.artedu.pojo.AssessAndPlan" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
+  <insert id="insert" parameterType="hci.dky.pojo.AssessAndPlan" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
     insert into assess_and_plan (id, plan_type, assess_id, 
       assess_object, index_list, table_id
       )
@@ -142,7 +142,7 @@
       #{assessObject,jdbcType=VARCHAR}, #{indexList,jdbcType=VARCHAR}, #{tableId,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="hci.artedu.pojo.AssessAndPlan" >
+  <insert id="insertSelective" parameterType="hci.dky.pojo.AssessAndPlan" >
     insert into assess_and_plan
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -185,7 +185,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.artedu.pojo.AssessAndPlanExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="hci.dky.pojo.AssessAndPlanExample" resultType="java.lang.Integer" >
     select count(*) from assess_and_plan
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -240,7 +240,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.artedu.pojo.AssessAndPlan" >
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.AssessAndPlan" >
     update assess_and_plan
     <set >
       <if test="planType != null" >
@@ -261,7 +261,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="hci.artedu.pojo.AssessAndPlan" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="hci.dky.pojo.AssessAndPlan" >
     update assess_and_plan
     set plan_type = #{planType,jdbcType=VARCHAR},
       assess_id = #{assessId,jdbcType=BIGINT},
@@ -270,7 +270,7 @@
       table_id = #{tableId,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="hci.artedu.pojo.AssessAndPlan" >
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.AssessAndPlan" >
     update assess_and_plan
     set plan_type = #{planType,jdbcType=VARCHAR},
       assess_id = #{assessId,jdbcType=BIGINT},
