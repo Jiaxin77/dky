@@ -90,8 +90,8 @@ public class FillDataServiceImpl implements FillDataService {
         expert.setName(expertName);
         expert.setBackground(expertBackground);
         expert.setRemarks(expertDes);
-        expert.setAssess_object(assessAndPlan.getAssessObject());
-        expert.setPlan_id(assessAndPlan.getId());
+        expert.setAssessObject(assessAndPlan.getAssessObject());
+        expert.setPlanId(assessAndPlan.getId());
         expertMapper.insert(expert);
 
 

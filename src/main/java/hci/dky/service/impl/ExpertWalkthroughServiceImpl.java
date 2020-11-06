@@ -242,6 +242,7 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
             AnswerPaper.put("ConformanceScore",aver1);
             AnswerPaper.put("ImportanceScore",aver2);
             allAnswers.add(AnswerPaper);
+
         }
         return ServerResponse.createBySuccess("获取成功",allAnswers);
     }

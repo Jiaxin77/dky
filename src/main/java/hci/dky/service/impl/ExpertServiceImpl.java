@@ -65,11 +65,11 @@ public class ExpertServiceImpl implements ExpertService {
 
             Expert expert = new Expert();
             expert.setName(name);
-            expert.setAssess_object(assessPart);
+            expert.setAssessObject(assessPart);
             expert.setBackground(background);
             expert.setRemarks(remark);
 
-            expert.setPlan_id(thisPlan.getId());
+            expert.setPlanId(thisPlan.getId());
 
             expertMapper.insert(expert);
         }
