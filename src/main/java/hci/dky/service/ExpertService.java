@@ -10,5 +10,7 @@ public interface ExpertService {
     ServerResponse<ArrayList> getExpertList(int planId);
     //ServerResponse<ArrayList> postExpertTask(MultipartFile file,String taskName,String taskDes, int planId);
     ServerResponse<ArrayList> postExpertTask(String taskName,String taskDes,String taskObject, int planId);
+    ServerResponse deleteTask(int taskId);
+    ServerResponse deleteExpert(int expertId);
 
     }

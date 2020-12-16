@@ -222,6 +222,58 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
+    public ServerResponse deleteExpert(int expertId)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 删除专家清单中某专家//TODO
+         * @Date 11:06 上午 2020/12/16
+         * @Param [expertId]
+         * @return hci.dky.common.ServerResponse<boolean>
+         **/
+        try
+        {
+            Expert expert = expertMapper.selectByPrimaryKey((long)expertId);
+        }
+        catch (Exception e)
+        {
+            return ServerResponse.createByErrorMessage("专家不存在");
+        }
+        //删除
+        expertMapper.deleteByPrimaryKey((long)expertId);
+        return ServerResponse.createBySuccess();
+
+    }
+
+
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
+    public ServerResponse deleteTask(int taskId)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 删除任务清单中某任务//TODO
+         * @Date 11:06 上午 2020/12/16
+         * @Param [expertId]
+         * @return hci.dky.common.ServerResponse<boolean>
+         **/
+        try {
+            ExpertTask expertTask = expertTaskMapper.selectByPrimaryKey((long) taskId);
+        }
+        catch (Exception e)
+        {
+            return ServerResponse.createByErrorMessage("任务不存在");
+        }
+        //删除
+        expertTaskMapper.deleteByPrimaryKey((long)taskId);
+        return ServerResponse.createBySuccess();
+    }
+
+
+
 
 
 

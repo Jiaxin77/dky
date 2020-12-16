@@ -78,4 +78,18 @@ public class ExpertController {
 
     }
 
+    @PostMapping("/deleteExpert")
+    public ServerResponse deleteExpert(int expertId)
+    {
+        ServerResponse response = expertService.deleteExpert(expertId);
+        return response;
+    }
+
+    @PostMapping("/deleteTask")
+    public ServerResponse deleteTask(int taskId)
+    {
+        ServerResponse response = expertService.deleteTask(taskId);
+        return  response;
+    }
+
 }
