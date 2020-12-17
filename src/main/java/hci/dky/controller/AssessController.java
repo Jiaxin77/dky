@@ -204,6 +204,21 @@ public class AssessController {
         return  response;
     }
 
+    @GetMapping("/getAssessInfo")
+    public ServerResponse<HashMap<String, Object>> getAssessInfo(int assessId)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 获取方案名称+评估描述+评估对象
+         * @Date 9:57 下午 2020/12/17
+         * @Param [assessId]
+         * @return hci.dky.common.ServerResponse<java.util.HashMap<java.lang.String,java.lang.Object>>
+         **/
+        ServerResponse<HashMap<String, Object>> response = assessService.getAssessInfo(assessId);
+        return response;
+
+    }
+
 
     @PostMapping("/beginAssess")
     public ServerResponse<Boolean> beginAssess(@RequestBody Map<String,Object> assess)

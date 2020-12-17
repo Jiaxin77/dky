@@ -291,6 +291,7 @@ public class AssessServiceImpl implements AssessService {
 
                     //增加评估对象为category 评估指标为list add上此指标id
 
+
                     assessAndPlanMapper.insert(assessAndPlan);
                 }
 
@@ -323,6 +324,7 @@ public class AssessServiceImpl implements AssessService {
          * @return hci.dky.common.ServerResponse<java.util.ArrayList>
          **/
 
+
         AssessAndPlanExample assessAndPlanExample = new AssessAndPlanExample();
         AssessAndPlanExample.Criteria criteria= assessAndPlanExample.createCriteria();
         criteria.andAssessIdEqualTo((long) assessId);
@@ -331,6 +333,21 @@ public class AssessServiceImpl implements AssessService {
         return ServerResponse.createBySuccess("方案获取成功",planList);
 
     }
+
+    //获取方案名称+评估描述+评估对象
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public ServerResponse<HashMap<String, Object>> getAssessInfo(int assessId)
+    {
+        AssessLibrary thisAssess = assessLibraryMapper.selectByPrimaryKey((long)assessId);
+        HashMap<String,Object> map = new HashMap<String, Object>();
+        map.put("assessName",thisAssess.getAssessName());
+        map.put("assessDes",thisAssess.getAssessDes());
+        map.put("assessObject",thisAssess.getAssessObject());
+        return ServerResponse.createBySuccess("获取成功",map);
+
+    }
+
 
 
 
@@ -471,6 +488,7 @@ public class AssessServiceImpl implements AssessService {
          * @Param [assessId]
          * @return hci.dky.common.ServerResponse<java.util.ArrayList> 评估方法+评估对象+指标+数据表单+人员需求
          **/
+
 
         //找到此评估的方案列表
         AssessAndPlanExample assessAndPlanExample = new AssessAndPlanExample();
@@ -630,9 +648,18 @@ public class AssessServiceImpl implements AssessService {
             SusScaleExample susScaleExample = new SusScaleExample();
             SusScaleExample.Criteria criteria_sus = susScaleExample.createCriteria();
             criteria_sus.andPlanIdEqualTo((long) planId);
-            SusScale susScale = susScaleMapper.selectByExample(susScaleExample).get(0);
 
-            result.put("systemName", susScale.getSystemName());
+            List<SusScale> susScaleList = susScaleMapper.selectByExample(susScaleExample);
+
+            if (!susScaleList.isEmpty())//不为空
+            {
+                SusScale susScale = susScaleList.get(0);
+                result.put("systemName", susScale.getSystemName());
+            }
+            else // 为空
+            {
+                result.put("systemName", "");
+            }
 
 
         } else if (planType.equals("Borg疲劳度量表")) {
@@ -641,18 +668,34 @@ public class AssessServiceImpl implements AssessService {
             BorgScaleExample borgScaleExample = new BorgScaleExample();
             BorgScaleExample.Criteria criteria_borg = borgScaleExample.createCriteria();
             criteria_borg.andPlanIdEqualTo((long) planId);
-            BorgScale borgScale = borgScaleMapper.selectByExample(borgScaleExample).get(0);
+            List<BorgScale> borgScaleList = borgScaleMapper.selectByExample(borgScaleExample);
+            if(!borgScaleList.isEmpty()) //不为空
+            {
+                BorgScale borgScale = borgScaleList.get(0);
+                result.put("systemName", borgScale.getSystemname());
+            }
+            else
+            {
+                result.put("systemName", "");
+            }
 
-            result.put("systemName", borgScale.getSystemname());
 
             //返回table路径
 
             MethodLibraryExample methodLibraryExample = new MethodLibraryExample();
             MethodLibraryExample.Criteria criteria_method = methodLibraryExample.createCriteria();
             criteria_method.andMethodNameEqualTo("Borg疲劳度量表");
-            MethodLibrary methodLibrary = methodLibraryMapper.selectByExample(methodLibraryExample).get(0);
+            List<MethodLibrary> methodLibrarieList = methodLibraryMapper.selectByExample(methodLibraryExample);
+            if(!methodLibrarieList.isEmpty())
+            {
+                MethodLibrary methodLibrary = methodLibraryMapper.selectByExample(methodLibraryExample).get(0);
+                result.put("table_url", methodLibrary.getMethodTable());
+            }
+            else
+            {
+                result.put("table_url", "");
+            }
 
-            result.put("table_url", methodLibrary.getMethodTable());
 
         } else if (planType.equals("专家走查")) {
             //返回对应指标——类别+一级
@@ -699,7 +742,6 @@ public class AssessServiceImpl implements AssessService {
             }
             else {
                 result.put("survey", null);
-
             }
 
 

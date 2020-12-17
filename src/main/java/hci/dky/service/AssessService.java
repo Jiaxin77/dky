@@ -23,6 +23,8 @@ public interface AssessService {
     public ServerResponse<Boolean> beginAssess(int assessId);
     public ServerResponse<Boolean> finishAssess(int assessId);
 
+    public ServerResponse<HashMap<String, Object>> getAssessInfo(int assessId);
+
 
 
 
