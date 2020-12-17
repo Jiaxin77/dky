@@ -57,5 +57,36 @@ public class FillDataController {
 
 
 
+    @PostMapping("/editTask")
+    public ServerResponse editTask(@RequestBody Map<String,Object> taskInfo)
+    {
+        Integer taskId = (Integer) taskInfo.get("taskId");
+        String taskName = (String) taskInfo.get("taskName");
+        String taskObject = (String) taskInfo.get("taskObject");
+        String taskDes = (String) taskInfo.get("taskDes");
+
+        ServerResponse response = fillDataService.editTask(taskId,taskName,taskObject,taskDes);
+        return response;
+
+    }
+
+    @PostMapping("/editExpert")
+    public ServerResponse editExpert(@RequestBody Map<String,Object> peopleInfo)
+    {
+        Integer expertId = (Integer) peopleInfo.get("expertId");
+        String expertName = (String) peopleInfo.get("expertName");
+        String expertBackground = (String) peopleInfo.get("expertBackground");
+        String expertDes = (String) peopleInfo.get("expertDes");
+
+        ServerResponse response = fillDataService.editExpert(expertId,expertName,expertBackground,expertDes);
+        return response;
+
+    }
+
+
+
+
+
+
 
 }

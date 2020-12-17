@@ -106,6 +106,56 @@ public class FillDataServiceImpl implements FillDataService {
 
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
+    public ServerResponse editTask(int taskId, String taskName, String taskObject, String taskDes)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 添加任务，添加到任务清单中
+         * @Date 10:54 上午 2020/7/3
+         * @Param [planId, taskName, taskObject, taskDes]
+         * @return 添加后的任务清单
+         **/
+
+
+        ExpertTask expertTask = expertTaskMapper.selectByPrimaryKey((long)taskId);
+        expertTask.setSystemName(taskObject);
+        expertTask.setTaskName(taskName);
+        expertTask.setTaskDes(taskDes);
+
+        expertTaskMapper.updateByPrimaryKey(expertTask);
+
+        return ServerResponse.createBySuccess("成功编辑");
+
+
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
+    public ServerResponse editExpert(int expertId,String expertName,String expertBackground,String expertDes)
+    {
+        /**
+         * @Author jiaxin
+         * @Description 增加被试
+         * @Date 11:00 上午 2020/7/3
+         * @Param [planId, expertName, expertBackground, expertDes]
+         * @return 返回当前的专家清单
+         **/
+
+
+        Expert expert = expertMapper.selectByPrimaryKey((long)expertId);
+        expert.setName(expertName);
+        expert.setBackground(expertBackground);
+        expert.setRemarks(expertDes);
+
+        expertMapper.updateByPrimaryKey(expert);
+
+        return ServerResponse.createBySuccess("专家编辑成功");
+
+
+    }
+
 
 
 
