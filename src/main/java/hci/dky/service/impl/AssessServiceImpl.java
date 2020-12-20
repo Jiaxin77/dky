@@ -602,6 +602,19 @@ public class AssessServiceImpl implements AssessService {
 
     }
 
+    //删除评估
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
+    public ServerResponse deleteAssess(int assessId)
+    {
+        AssessLibrary assessLibrary = assessLibraryMapper.selectByPrimaryKey((long) assessId);
+        assessLibrary.setIsExist(false);
+        assessLibraryMapper.updateByPrimaryKey(assessLibrary);
+        return ServerResponse.createBySuccess("删除成功");
+
+    }
+
+
 
     //获取某方案信息
     @Override

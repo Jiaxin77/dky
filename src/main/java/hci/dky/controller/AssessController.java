@@ -173,7 +173,7 @@ public class AssessController {
         return response;
     }
 
-    @UserLoginToken
+   //@UserLoginToken
     @GetMapping("/getAssessList")
     public ServerResponse<ArrayList> getAssessList()
     {
@@ -252,6 +252,21 @@ public class AssessController {
         return response;
 
 
+
+    }
+
+    @PostMapping("/deleteAssess")
+    public ServerResponse deleteAssess(int assessId)
+    {
+        /**
+         * @Author jiaxin
+         * @Description //TODO
+         * @Date 8:32 下午 2020/12/19
+         * @Param [assessId]
+         * @return hci.dky.common.ServerResponse
+         **/
+        ServerResponse response = assessService.deleteAssess(assessId);
+        return response;
 
     }
 

@@ -24,6 +24,7 @@ public interface AssessService {
     public ServerResponse<Boolean> finishAssess(int assessId);
 
     public ServerResponse<HashMap<String, Object>> getAssessInfo(int assessId);
+    public ServerResponse deleteAssess(int assessId);
 
 
 
