@@ -39,29 +39,7 @@ public class SusServiceImpl implements SusService {
     @Autowired
     private ExpertMapper expertMapper;
 
-
-
-//    public ServerResponse<List> addSusTask(int planId,String taskName,String taskObject,String taskDes)
-//    {
-//        /**
-//         * @Author jiaxin
-//         * @Description 添加任务，添加到任务清单中
-//         * @Date 10:54 上午 2020/7/3
-//         * @Param [planId, taskName, taskObject, taskDes]
-//         * @return 添加后的任务清单
-//         **/
-//
-//    }
-//
-//
-//
-//    public ServerResponse<Boolean> fillSusData(int planId, List<Object> data)
-//    {
-//        AssessAndPlan assessAndPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
-//
-//
-//
-//    }
+    
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
@@ -231,5 +209,72 @@ public class SusServiceImpl implements SusService {
 
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
+    public ServerResponse<HashMap<String, Object>>  getSusAnalysis(int planId) {
+        /**
+         * TODO Sus分析
+         * @return hci.dky.common.ServerResponse<java.util.List>
+         * @Description 
+         * @Author Leaf
+         * @Date 2020/12/24 下午12:05
+         **/
+        AssessAndPlan assessAndPlan = assessAndPlanMapper.selectByPrimaryKey((long)planId);
+        HashMap<String, Object> res = new HashMap<String, Object>();
+        //返回当前的答案列表；按照任务 - 用户 - 分数？
+        ArrayList<Object> allAnswers = new ArrayList<>();
+        SusScaleAnswerPaperExample susScaleAnswerPaperExample1 = new SusScaleAnswerPaperExample();
+        SusScaleAnswerPaperExample.Criteria criteria3 = susScaleAnswerPaperExample1.createCriteria();
+        criteria3.andPlanIdEqualTo(assessAndPlan.getId());
+        List<SusScaleAnswerPaper> susScaleAnswerPaperList = susScaleAnswerPaperMapper.selectByExample(susScaleAnswerPaperExample1);
 
+        double totalSum = 0;
+        double totalAverage;
+        for(SusScaleAnswerPaper paper : susScaleAnswerPaperList)
+        {
+            HashMap<String,Object> AnswerPaper = new HashMap<>();
+            AnswerPaper.put("planId",paper.getPlanId());
+            AnswerPaper.put("taskId",paper.getTaskId());
+//            AnswerPaper.put("expertId",paper.getExpertId());
+            AnswerPaper.put("taskId",paper.getId());
+            //所有题目的答案
+            SusScaleQuestionScoreExample susScaleQuestionScoreExample1 = new SusScaleQuestionScoreExample();
+            SusScaleQuestionScoreExample.Criteria criteria4 = susScaleQuestionScoreExample1.createCriteria();
+            criteria4.andSusPaperIdEqualTo(paper.getId());
+            List<SusScaleQuestionScore> susScaleQuestionScoreList = susScaleQuestionScoreMapper.selectByExample(susScaleQuestionScoreExample1);
+            Long max, min, sum;
+            double standardDiviation, average;
+            max = susScaleQuestionScoreList.get(0).getScore();
+            min = max;
+            sum = 0L;
+            double diviationSum = 0;
+            for(SusScaleQuestionScore questionScore:susScaleQuestionScoreList)
+            {
+                if(questionScore.getScore() > max){
+                    max = questionScore.getScore();
+                }
+                if(questionScore.getScore() < min){
+                    min = questionScore.getScore();
+                }
+                sum += questionScore.getScore();
+            }
+            average = (double)sum/susScaleQuestionScoreList.size();
+            AnswerPaper.put("average", average);
+            AnswerPaper.put("min", min);
+            AnswerPaper.put("max", max);
+            for(SusScaleQuestionScore questionScore:susScaleQuestionScoreList)
+            {
+                diviationSum += (questionScore.getScore() - average) * (questionScore.getScore() - average);
+            }
+            standardDiviation = Math.sqrt(diviationSum/susScaleQuestionScoreList.size());
+            AnswerPaper.put("standardDiviation", standardDiviation);
+            allAnswers.add(AnswerPaper);
+            totalSum += average;
+        }
+        totalAverage = totalSum / susScaleAnswerPaperList.size();
+//        allAnswers.add(totalAverage);
+        res.put("allAnswers", allAnswers);
+        res.put("totalAverage",totalAverage);
+        return ServerResponse.createBySuccess("获取答案成功",res);
+    }
 }
