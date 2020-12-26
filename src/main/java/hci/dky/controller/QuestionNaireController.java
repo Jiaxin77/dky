@@ -36,12 +36,13 @@ public class QuestionNaireController {
     {
         Integer assessId = (Integer) questionNaire.get("assessId");
         Integer planId = (Integer) questionNaire.get("planId");
+        Integer surveyId = (Integer) questionNaire.get("surveyId");
         String title = (String) questionNaire.get("title");
         String des = (String) questionNaire.get("des");
         List<Integer> modelid = (List<Integer>) questionNaire.get("modelid");
         List<Object> questionList = (List<Object>) questionNaire.get("questionList");
 
-        ServerResponse<Long> response = questionNaireService.createQuestionNaire(assessId,planId,title,des,modelid,questionList);
+        ServerResponse<Long> response = questionNaireService.createQuestionNaire(assessId,planId,title,des,modelid,questionList,surveyId);
         return  response;
 
     }

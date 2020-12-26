@@ -11,7 +11,7 @@ public class SurveyLibraryExample {
     protected List<Criteria> oredCriteria;
 
     public SurveyLibraryExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     public void setOrderByClause(String orderByClause) {
@@ -68,7 +68,7 @@ public class SurveyLibraryExample {
 
         protected GeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<>();
         }
 
         public boolean isValid() {
@@ -543,10 +543,141 @@ public class SurveyLibraryExample {
             addCriterion("plan_id not between", value1, value2, "planId");
             return (Criteria) this;
         }
+
+        public Criteria andModelidIsNull() {
+            addCriterion("modelId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidIsNotNull() {
+            addCriterion("modelId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidEqualTo(String value) {
+            addCriterion("modelId =", value, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidNotEqualTo(String value) {
+            addCriterion("modelId <>", value, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidGreaterThan(String value) {
+            addCriterion("modelId >", value, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidGreaterThanOrEqualTo(String value) {
+            addCriterion("modelId >=", value, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidLessThan(String value) {
+            addCriterion("modelId <", value, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidLessThanOrEqualTo(String value) {
+            addCriterion("modelId <=", value, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidLike(String value) {
+            addCriterion("modelId like", value, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidNotLike(String value) {
+            addCriterion("modelId not like", value, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidIn(List<String> values) {
+            addCriterion("modelId in", values, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidNotIn(List<String> values) {
+            addCriterion("modelId not in", values, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidBetween(String value1, String value2) {
+            addCriterion("modelId between", value1, value2, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andModelidNotBetween(String value1, String value2) {
+            addCriterion("modelId not between", value1, value2, "modelid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistIsNull() {
+            addCriterion("isExist is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistIsNotNull() {
+            addCriterion("isExist is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistEqualTo(Boolean value) {
+            addCriterion("isExist =", value, "isexist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistNotEqualTo(Boolean value) {
+            addCriterion("isExist <>", value, "isexist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistGreaterThan(Boolean value) {
+            addCriterion("isExist >", value, "isexist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("isExist >=", value, "isexist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistLessThan(Boolean value) {
+            addCriterion("isExist <", value, "isexist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistLessThanOrEqualTo(Boolean value) {
+            addCriterion("isExist <=", value, "isexist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistIn(List<Boolean> values) {
+            addCriterion("isExist in", values, "isexist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistNotIn(List<Boolean> values) {
+            addCriterion("isExist not in", values, "isexist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistBetween(Boolean value1, Boolean value2) {
+            addCriterion("isExist between", value1, value2, "isexist");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsexistNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("isExist not between", value1, value2, "isexist");
+            return (Criteria) this;
+        }
     }
 
+    /**
+     */
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }

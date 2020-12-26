@@ -3,18 +3,15 @@ package hci.dky.dao;
 import hci.dky.pojo.SurveyLibrary;
 import hci.dky.pojo.SurveyLibraryExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
 public interface SurveyLibraryMapper {
-    int countByExample(SurveyLibraryExample example);
+    long countByExample(SurveyLibraryExample example);
 
     int deleteByExample(SurveyLibraryExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
     int insert(SurveyLibrary record);
 
     int insertSelective(SurveyLibrary record);

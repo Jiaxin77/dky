@@ -746,7 +746,9 @@ public class AssessServiceImpl implements AssessService {
             SurveyLibraryExample surveyLibraryExample = new SurveyLibraryExample();
             SurveyLibraryExample.Criteria criteria_survey = surveyLibraryExample.createCriteria();
             criteria_survey.andPlanIdEqualTo(thisPlan.getId());
+            criteria_survey.andIsexistNotEqualTo(false);
             List<SurveyLibrary> surveyLibraryList = surveyLibraryMapper.selectByExample(surveyLibraryExample);
+            System.out.println(surveyLibraryList.toString());
             if(!surveyLibraryList.isEmpty()) //不为空
             {
                 SurveyLibrary thisSurvey = surveyLibraryList.get(0);

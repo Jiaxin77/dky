@@ -86,7 +86,7 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
-    public ServerResponse<Long> createQuestionNaire(int assessId ,int planId, String title, String des, List<Integer> modelid, List<Object> questionList)
+    public ServerResponse<Long> createQuestionNaire(int assessId ,int planId, String title, String des, List<Integer> modelid, List<Object> questionList,int surveyId)//surveyId用于指示是新建还是编辑
     {
         /**
          * @Author jiaxin
@@ -96,11 +96,20 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
          * @return hci.dky.common.ServerResponse<java.lang.Long>
          **/
 
+        //把原问卷的isExist设为0
+        if(surveyId!=-1)
+        {
+            SurveyLibrary oldSurvey = surveyLibraryMapper.selectByPrimaryKey((long)surveyId);
+            oldSurvey.setIsexist(false);
+            surveyLibraryMapper.updateByPrimaryKey(oldSurvey);
+        }
+
         SurveyLibrary surveyLibrary = new SurveyLibrary();
         surveyLibrary.setSurveyTitle(title);
         surveyLibrary.setSurveyDes(des);
         surveyLibrary.setNowPeopleNum((long) 0);
         surveyLibrary.setIsModel(false);
+        surveyLibrary.setIsexist(true);
         surveyLibraryMapper.insert(surveyLibrary);
       //  System.out.println(surveyLibrary.getId());
         if(planId != -1) // 是基于评估基于方案的
@@ -111,9 +120,13 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
             surveyLibrary.setPlanId(thisPlan.getId()); //绑定方案
             surveyLibrary.setAssessId(thisPlan.getAssessId()); //绑定评估
             surveyLibraryMapper.updateByPrimaryKey(surveyLibrary);
-
-
             //将此assess的planid加到问卷的外键关联
+            if(surveyId!= -1)//是编辑问卷，不是新建问卷
+            {
+                SurveyLibrary oldSurvey = surveyLibraryMapper.selectByPrimaryKey((long)surveyId);
+                oldSurvey.setPlanId((long)-1); //旧的解除绑定
+            }
+
         }
         else // planId为-1 —— 不属于任何方案，只属于评估 / 不属于评估
         {
@@ -133,12 +146,19 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
                 surveyLibrary.setPlanId(assessAndPlan.getId()); //绑定方案
                 surveyLibraryMapper.updateByPrimaryKey(surveyLibrary);
 
+                if(surveyId!= -1)//是编辑问卷，不是新建问卷
+                {
+                    SurveyLibrary oldSurvey = surveyLibraryMapper.selectByPrimaryKey((long)surveyId);
+                    oldSurvey.setAssessId((long)-1); //旧的解除绑定
+                    oldSurvey.setPlanId((long)-1);//旧的解除绑定
+                }
+
             }
             //若不属于，则啥都不绑了
-
         }
-
         //遍历选择的基本信息模板题
+        surveyLibrary.setModelid(listToString1(modelid,','));//存下modelid
+        surveyLibraryMapper.updateByPrimaryKey(surveyLibrary);
         for (int id : modelid)
         {
            FibModel thisModelQuestion = fibModelMapper.selectByPrimaryKey((long) id);
@@ -149,7 +169,6 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
            modelQuestion.setSurveyId(surveyLibrary.getId());
            questionLibraryMapper.insert(modelQuestion);
         }
-
         //遍历提交的问题
         for(Object question:questionList) {
             Map entry = (Map) question;
@@ -159,8 +178,6 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
             QuestionLibrary thisQuestion = new QuestionLibrary();
             thisQuestion.setQuestionType(questionType);
-
-
             if(isMust == 0) {
                 thisQuestion.setIsMust(false);
             }
@@ -195,14 +212,7 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
             }
         }
-
-
-
         return ServerResponse.createBySuccess("添加问卷成功",surveyLibrary.getId());
-
-
-
-
 
     }
 
@@ -220,10 +230,19 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
 
         HashMap<String,Object> resultMap = new HashMap<>();
         SurveyLibrary thisSurvey = surveyLibraryMapper.selectByPrimaryKey(id);
+        if(!thisSurvey.getIsexist()) //如果问卷不存在
+        {
+            resultMap.put("error","该问卷不存在");
+            return resultMap;
+
+        }
+
+
         resultMap.put("id",thisSurvey.getId());
         resultMap.put("title",thisSurvey.getSurveyTitle());
         resultMap.put("des",thisSurvey.getSurveyDes());
         resultMap.put("nowPeopleNum",thisSurvey.getNowPeopleNum());
+        resultMap.put("modelId",thisSurvey.getModelid());
 
 
         QuestionLibraryExample questionLibraryExample = new QuestionLibraryExample();
@@ -237,8 +256,18 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
             HashMap<String,Object> questionMap = new HashMap<>();
             questionMap.put("questionId",question.getId());
             questionMap.put("questionTitle",question.getQuestionTitle());
-            questionMap.put("isMust",question.getIsMust());
-            questionMap.put("type",question.getQuestionType());
+            if(question.getIsMust())
+            {
+                questionMap.put("isMust", 1);
+            }
+            else
+            {
+                questionMap.put("isMust",0);
+            }
+
+           // questionMap.put("isMust",question.getIsMust());
+            questionMap.put("questionType",question.getQuestionType());
+
             if(question.getQuestionType().equals("SCP") || question.getQuestionType().equals("MCP")) //为选择题
             {
                 ArrayList<Object> choiceList = new ArrayList<Object>();
@@ -258,6 +287,13 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
                 questionMap.put("choices",choiceList);
 
             }
+        /*    else
+            {
+                questionMap.put("choices","");
+
+            }
+
+         */
             questionList.add(questionMap);
         }
 
@@ -430,7 +466,15 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
             questionMap.put("questionId", question.getId());
             questionMap.put("questionTitle", question.getQuestionTitle());
             questionMap.put("questionType", question.getQuestionType());
-            questionMap.put("isMust", question.getIsMust());
+            if(question.getIsMust())
+            {
+                questionMap.put("isMust", 1);
+            }
+            else
+            {
+                questionMap.put("isMust",0);
+            }
+
 
             AnswerLibraryExample answerLibraryExample0 = new AnswerLibraryExample();
             AnswerLibraryExample.Criteria answerCriteria0 = answerLibraryExample0.createCriteria();
@@ -618,6 +662,16 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
         }
         return resultList;
 
+    }
+
+
+    public String listToString1(List list, char separator) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i)).append(separator);
+
+        }
+        return sb.toString().substring(0, sb.toString().length() - 1);
     }
 
 
