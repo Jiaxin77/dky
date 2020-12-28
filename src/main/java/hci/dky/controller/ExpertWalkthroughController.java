@@ -38,4 +38,11 @@ public class ExpertWalkthroughController {
         ServerResponse<List> response = expertWalkthroughService.getExpertWalkthroughAnswer(planId);
         return response;
     }
+
+    @GetMapping("/getExpertWalkthroughAnswer1")
+    public ServerResponse<List> getExpertWalkthroughAnswer1(Integer planId)
+    {
+        ServerResponse<List> response = expertWalkthroughService.getExpertWalkthroughAnswer1(planId);
+        return response;
+    }
 }

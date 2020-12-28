@@ -11,7 +11,7 @@ public class ExpertExample {
     protected List<Criteria> oredCriteria;
 
     public ExpertExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     public void setOrderByClause(String orderByClause) {
@@ -68,7 +68,7 @@ public class ExpertExample {
 
         protected GeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<>();
         }
 
         public boolean isValid() {
@@ -165,72 +165,72 @@ public class ExpertExample {
         }
 
         public Criteria andNameIsNull() {
-            addCriterion("name is null");
+            addCriterion("`name` is null");
             return (Criteria) this;
         }
 
         public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
+            addCriterion("`name` is not null");
             return (Criteria) this;
         }
 
         public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
+            addCriterion("`name` =", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
+            addCriterion("`name` <>", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
+            addCriterion("`name` >", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
+            addCriterion("`name` >=", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
+            addCriterion("`name` <", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
+            addCriterion("`name` <=", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+            addCriterion("`name` like", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+            addCriterion("`name` not like", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
+            addCriterion("`name` in", values, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
+            addCriterion("`name` not in", values, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
+            addCriterion("`name` between", value1, value2, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
+            addCriterion("`name` not between", value1, value2, "name");
             return (Criteria) this;
         }
 
@@ -304,73 +304,73 @@ public class ExpertExample {
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectIsNull() {
+        public Criteria andAssess_objectIsNull() {
             addCriterion("assess_object is null");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectIsNotNull() {
+        public Criteria andAssess_objectIsNotNull() {
             addCriterion("assess_object is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectEqualTo(String value) {
-            addCriterion("assess_object =", value, "assessObject");
+        public Criteria andAssess_objectEqualTo(String value) {
+            addCriterion("assess_object =", value, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectNotEqualTo(String value) {
-            addCriterion("assess_object <>", value, "assessObject");
+        public Criteria andAssess_objectNotEqualTo(String value) {
+            addCriterion("assess_object <>", value, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectGreaterThan(String value) {
-            addCriterion("assess_object >", value, "assessObject");
+        public Criteria andAssess_objectGreaterThan(String value) {
+            addCriterion("assess_object >", value, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectGreaterThanOrEqualTo(String value) {
-            addCriterion("assess_object >=", value, "assessObject");
+        public Criteria andAssess_objectGreaterThanOrEqualTo(String value) {
+            addCriterion("assess_object >=", value, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectLessThan(String value) {
-            addCriterion("assess_object <", value, "assessObject");
+        public Criteria andAssess_objectLessThan(String value) {
+            addCriterion("assess_object <", value, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectLessThanOrEqualTo(String value) {
-            addCriterion("assess_object <=", value, "assessObject");
+        public Criteria andAssess_objectLessThanOrEqualTo(String value) {
+            addCriterion("assess_object <=", value, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectLike(String value) {
-            addCriterion("assess_object like", value, "assessObject");
+        public Criteria andAssess_objectLike(String value) {
+            addCriterion("assess_object like", value, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectNotLike(String value) {
-            addCriterion("assess_object not like", value, "assessObject");
+        public Criteria andAssess_objectNotLike(String value) {
+            addCriterion("assess_object not like", value, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectIn(List<String> values) {
-            addCriterion("assess_object in", values, "assessObject");
+        public Criteria andAssess_objectIn(List<String> values) {
+            addCriterion("assess_object in", values, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectNotIn(List<String> values) {
-            addCriterion("assess_object not in", values, "assessObject");
+        public Criteria andAssess_objectNotIn(List<String> values) {
+            addCriterion("assess_object not in", values, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectBetween(String value1, String value2) {
-            addCriterion("assess_object between", value1, value2, "assessObject");
+        public Criteria andAssess_objectBetween(String value1, String value2) {
+            addCriterion("assess_object between", value1, value2, "assess_object");
             return (Criteria) this;
         }
 
-        public Criteria andAssessObjectNotBetween(String value1, String value2) {
-            addCriterion("assess_object not between", value1, value2, "assessObject");
+        public Criteria andAssess_objectNotBetween(String value1, String value2) {
+            addCriterion("assess_object not between", value1, value2, "assess_object");
             return (Criteria) this;
         }
 
@@ -444,69 +444,70 @@ public class ExpertExample {
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdIsNull() {
+        public Criteria andPlan_idIsNull() {
             addCriterion("plan_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdIsNotNull() {
+        public Criteria andPlan_idIsNotNull() {
             addCriterion("plan_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdEqualTo(Long value) {
-            addCriterion("plan_id =", value, "planId");
+        public Criteria andPlan_idEqualTo(Long value) {
+            addCriterion("plan_id =", value, "plan_id");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdNotEqualTo(Long value) {
-            addCriterion("plan_id <>", value, "planId");
+        public Criteria andPlan_idNotEqualTo(Long value) {
+            addCriterion("plan_id <>", value, "plan_id");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdGreaterThan(Long value) {
-            addCriterion("plan_id >", value, "planId");
+        public Criteria andPlan_idGreaterThan(Long value) {
+            addCriterion("plan_id >", value, "plan_id");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("plan_id >=", value, "planId");
+        public Criteria andPlan_idGreaterThanOrEqualTo(Long value) {
+            addCriterion("plan_id >=", value, "plan_id");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdLessThan(Long value) {
-            addCriterion("plan_id <", value, "planId");
+        public Criteria andPlan_idLessThan(Long value) {
+            addCriterion("plan_id <", value, "plan_id");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdLessThanOrEqualTo(Long value) {
-            addCriterion("plan_id <=", value, "planId");
+        public Criteria andPlan_idLessThanOrEqualTo(Long value) {
+            addCriterion("plan_id <=", value, "plan_id");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdIn(List<Long> values) {
-            addCriterion("plan_id in", values, "planId");
+        public Criteria andPlan_idIn(List<Long> values) {
+            addCriterion("plan_id in", values, "plan_id");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdNotIn(List<Long> values) {
-            addCriterion("plan_id not in", values, "planId");
+        public Criteria andPlan_idNotIn(List<Long> values) {
+            addCriterion("plan_id not in", values, "plan_id");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdBetween(Long value1, Long value2) {
-            addCriterion("plan_id between", value1, value2, "planId");
+        public Criteria andPlan_idBetween(Long value1, Long value2) {
+            addCriterion("plan_id between", value1, value2, "plan_id");
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdNotBetween(Long value1, Long value2) {
-            addCriterion("plan_id not between", value1, value2, "planId");
+        public Criteria andPlan_idNotBetween(Long value1, Long value2) {
+            addCriterion("plan_id not between", value1, value2, "plan_id");
             return (Criteria) this;
         }
     }
 
+    /**
+     */
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }

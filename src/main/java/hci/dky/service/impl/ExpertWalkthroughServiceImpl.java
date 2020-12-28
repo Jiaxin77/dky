@@ -35,9 +35,16 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
     @Autowired
     private AssessAndPlanMapper assessAndPlanMapper;
 
+    @Autowired
+    private  ExpertObjectMapper expertObjectMapper;
 
     @Autowired
     private ExpertTaskMapper expertTaskMapper;
+
+    @Autowired
+    private IndexLibraryMapper indexLibraryMapper;
+
+
 
 
 
@@ -187,5 +194,56 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
 
         return ServerResponse.createBySuccess("获取成功",allAnswers);
 
+    }
+
+    @Override
+    public ServerResponse<List> getExpertWalkthroughAnswer1(int planId) {
+        AssessAndPlan assessAndPlan=assessAndPlanMapper.selectByPrimaryKey((long)planId);
+
+        ArrayList<Object> allAnswers = new ArrayList<>();
+        ExpertAnswerPaperExample expertAnswerPaperExample = new ExpertAnswerPaperExample();
+        ExpertAnswerPaperExample.Criteria criteria = expertAnswerPaperExample.createCriteria();
+        criteria.andPlanIdEqualTo(assessAndPlan.getId());
+        List<ExpertAnswerPaper> expertAnswerPaperList = expertAnswerPaperMapper.selectByExample(expertAnswerPaperExample);
+        String Object[] ={"流程", "系统", "控件", "表单", "状态栏", "导航栏", "用语", "图形", "工具栏",
+                "按钮", "输入框", "列表", "窗口", "色彩", "布局", "席位（软件）","平台（软件）",
+                "控件（硬件）", "指示灯", "控制器", "视听信号", "设备", "标识", "作业空间", "开关",
+                "系统", "流程", "席位（硬件）", "平台（硬件）", "席位之间的协调性", "人机分工合理性",
+                "流程复杂程度", "任务操作便捷性", "系统响应及时性"
+        };
+        for (String object: Object) {
+            ExpertObjectExample expertObjectExample = new ExpertObjectExample();
+            ExpertObjectExample.Criteria criteria1 = expertObjectExample.createCriteria();
+            criteria1.andObjectEqualTo(object);
+            List<ExpertObject> expertObjectList = expertObjectMapper.selectByExample(expertObjectExample);
+            Double aver1;
+            Double aver2;
+            Integer len = expertObjectList.size();
+            Double sum1 = 0.0;
+            Double sum2 = 0.0;
+            for (ExpertObject expertObject: expertObjectList) {
+                for(ExpertAnswerPaper paper : expertAnswerPaperList) {
+                    ExpertQuestionScoreExample expertQuestionScoreExample1 = new ExpertQuestionScoreExample();
+                    ExpertQuestionScoreExample.Criteria criteria4 = expertQuestionScoreExample1.createCriteria();
+                    criteria4.andPaperIdEqualTo(paper.getId());
+                    List<ExpertQuestionScore> expertQuestionScoreList = expertQuestionScoreMapper.selectByExample(expertQuestionScoreExample1);
+                    for(ExpertQuestionScore questionScore:expertQuestionScoreList) {
+                        if (questionScore.getQuestionNumber() == (long)expertObject.getId()) {
+                            sum1 += questionScore.getConformanceScore();
+                            sum2 += questionScore.getImportanceScore();
+                        }
+                    }
+                }
+            }
+            aver1 = sum1/len;
+            aver2 = sum2/len;
+            HashMap<String,Object> AnswerPaper = new HashMap<>();
+            AnswerPaper.put("name",object);
+            AnswerPaper.put("ConformanceScore",aver1);
+            AnswerPaper.put("ImportanceScore",aver2);
+            allAnswers.add(AnswerPaper);
+
+        }
+        return ServerResponse.createBySuccess("获取成功",allAnswers);
     }
 }

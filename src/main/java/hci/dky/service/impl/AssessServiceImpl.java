@@ -25,12 +25,15 @@ import java.util.*;
 @Service
 public class AssessServiceImpl implements AssessService {
 
-    @Autowired
-    private IndexLibraryMapper indexLibraryMapper;
+
     @Autowired
     private IndexAndMethodMapper indexAndMethodMapper;
     @Autowired
     private MethodLibraryMapper methodLibraryMapper;
+
+    @Autowired
+    private IndexLibraryMapper indexLibraryMapper;
+
 
     @Autowired
     private AssessLibraryMapper assessLibraryMapper;
@@ -636,7 +639,7 @@ public class AssessServiceImpl implements AssessService {
         //如果有专家列表 放专家列表信息
         ExpertExample expertExample = new ExpertExample();
         ExpertExample.Criteria criteria = expertExample.createCriteria();
-        criteria.andPlanIdEqualTo(thisPlan.getId());
+        criteria.andPlan_idEqualTo(thisPlan.getId());
         List<Expert> expertList = expertMapper.selectByExample(expertExample);
 
         if (!expertList.isEmpty()) //不为空

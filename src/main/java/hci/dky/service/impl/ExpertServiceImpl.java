@@ -52,7 +52,7 @@ public class ExpertServiceImpl implements ExpertService {
         //先删除已有的 —— 编辑用
         ExpertExample expertExample = new ExpertExample();
         ExpertExample.Criteria expertCriteria = expertExample.createCriteria();
-        expertCriteria.andPlanIdEqualTo((long)planId);
+        expertCriteria.andPlan_idEqualTo((long)planId);
         expertMapper.deleteByExample(expertExample);
 
         for (Object expertInfo:expertList)
@@ -88,7 +88,7 @@ public class ExpertServiceImpl implements ExpertService {
 
         ExpertExample expertExample = new ExpertExample();
         ExpertExample.Criteria expertCriteria = expertExample.createCriteria();
-        expertCriteria.andPlanIdEqualTo((long)planId);
+        expertCriteria.andPlan_idEqualTo((long)planId);
         List<Expert> experts = expertMapper.selectByExample(expertExample);
 
         ArrayList<Object> expertList = new ArrayList<Object>(experts);

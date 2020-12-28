@@ -97,7 +97,7 @@ public class FillDataServiceImpl implements FillDataService {
 
         ExpertExample expertExample = new ExpertExample();
         ExpertExample.Criteria expertCriteria = expertExample.createCriteria();
-        expertCriteria.andPlanIdEqualTo((long)planId);
+        expertCriteria.andPlan_idEqualTo((long)planId);
         List<Expert> experts = expertMapper.selectByExample(expertExample);
 
         ArrayList<Object> expertList = new ArrayList<Object>(experts);
