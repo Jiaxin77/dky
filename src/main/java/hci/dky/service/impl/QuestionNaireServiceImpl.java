@@ -139,7 +139,7 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
                 AssessAndPlan assessAndPlan = new AssessAndPlan();
                 assessAndPlan.setAssessObject("整体");
                 assessAndPlan.setPlanType("自定义问卷");
-                assessAndPlan.setIndexList(thisAssess.getIndexList());
+                assessAndPlan.setIndexList(thisAssess.getIndexList().replaceAll("[\\[\\]]","").replace(" ",""));//.replaceAll("[\\[\\]]","")
                 assessAndPlan.setAssessId(thisAssess.getAssessId());
                 assessAndPlanMapper.insert(assessAndPlan);
 
