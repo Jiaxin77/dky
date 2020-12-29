@@ -197,10 +197,10 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
     }
 
     @Override
-    public ServerResponse<List> getExpertWalkthroughAnswer1(int planId) {
+    public ServerResponse<HashMap<String, Object>> getExpertWalkthroughAnswer1(int planId) {
         AssessAndPlan assessAndPlan=assessAndPlanMapper.selectByPrimaryKey((long)planId);
-
-        ArrayList<Object> allAnswers = new ArrayList<>();
+        HashMap<String, Object> res = new HashMap<>();
+        ArrayList<Object>  allAnswers = new ArrayList<>();
         ExpertAnswerPaperExample expertAnswerPaperExample = new ExpertAnswerPaperExample();
         ExpertAnswerPaperExample.Criteria criteria = expertAnswerPaperExample.createCriteria();
         criteria.andPlanIdEqualTo(assessAndPlan.getId());
@@ -211,16 +211,21 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
                 "系统", "流程", "席位（硬件）", "平台（硬件）", "席位之间的协调性", "人机分工合理性",
                 "流程复杂程度", "任务操作便捷性", "系统响应及时性"
         };
+        double totalConformance = 0;
+        double totalConformanceDeviation = 0;
+        double totalImportance = 0;
+        double totalImportanceDeviation = 0;
+        
         for (String object: Object) {
             ExpertObjectExample expertObjectExample = new ExpertObjectExample();
             ExpertObjectExample.Criteria criteria1 = expertObjectExample.createCriteria();
             criteria1.andObjectEqualTo(object);
             List<ExpertObject> expertObjectList = expertObjectMapper.selectByExample(expertObjectExample);
-            Double aver1;
-            Double aver2;
-            Integer len = expertObjectList.size();
-            Double sum1 = 0.0;
-            Double sum2 = 0.0;
+            double conformance;
+            double importance;
+            int len = expertObjectList.size();
+            double conformanceSum = 0.0;
+            double importanceSum = 0.0;
             for (ExpertObject expertObject: expertObjectList) {
                 for(ExpertAnswerPaper paper : expertAnswerPaperList) {
                     ExpertQuestionScoreExample expertQuestionScoreExample1 = new ExpertQuestionScoreExample();
@@ -229,21 +234,76 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
                     List<ExpertQuestionScore> expertQuestionScoreList = expertQuestionScoreMapper.selectByExample(expertQuestionScoreExample1);
                     for(ExpertQuestionScore questionScore:expertQuestionScoreList) {
                         if (questionScore.getQuestionNumber() == (long)expertObject.getId()) {
-                            sum1 += questionScore.getConformanceScore();
-                            sum2 += questionScore.getImportanceScore();
+                            conformanceSum += questionScore.getConformanceScore();
+                            importanceSum += questionScore.getImportanceScore();
                         }
                     }
                 }
             }
-            aver1 = sum1/len;
-            aver2 = sum2/len;
-            HashMap<String,Object> AnswerPaper = new HashMap<>();
-            AnswerPaper.put("name",object);
-            AnswerPaper.put("ConformanceScore",aver1);
-            AnswerPaper.put("ImportanceScore",aver2);
-            allAnswers.add(AnswerPaper);
+            conformance = conformanceSum/len;
+            importance = importanceSum/len;
+            double conformanceStandardDeviationSum = 0;
+            double importanceStandardDeviationSum = 0;
+            for (ExpertObject expertObject: expertObjectList) {
+                for(ExpertAnswerPaper paper : expertAnswerPaperList) {
+                    ExpertQuestionScoreExample expertQuestionScoreExample1 = new ExpertQuestionScoreExample();
+                    ExpertQuestionScoreExample.Criteria criteria4 = expertQuestionScoreExample1.createCriteria();
+                    criteria4.andPaperIdEqualTo(paper.getId());
+                    List<ExpertQuestionScore> expertQuestionScoreList = expertQuestionScoreMapper.selectByExample(expertQuestionScoreExample1);
+                    for(ExpertQuestionScore questionScore:expertQuestionScoreList) {
+                        if (questionScore.getQuestionNumber() == (long)expertObject.getId()) {
+                            conformanceStandardDeviationSum += (questionScore.getConformanceScore() - conformance) *  (questionScore.getConformanceScore() - conformance);
+                            importanceStandardDeviationSum += (questionScore.getImportanceScore() - importance) *  (questionScore.getImportanceScore() - importance);
+                        }
+                    }
+                }
+            }
 
+            HashMap<String,Object> answerPaper = new HashMap<>();
+            answerPaper.put("name",object);
+            answerPaper.put("ConformanceScore",conformance);
+            answerPaper.put("ImportanceScore",importance);
+            allAnswers.add(answerPaper);
+            double conformanceStandardDeviation = Math.sqrt(conformanceStandardDeviationSum/len);
+            double importanceStandardDeviation =  Math.sqrt(importanceStandardDeviationSum/len);
+            answerPaper.put("comformanceStandardDeviation", conformanceStandardDeviation);
+            answerPaper.put("importanceStandardDeviation", importanceStandardDeviation);
+            totalConformance += conformance;
+            totalImportance += importance;
+            totalConformanceDeviation += conformanceStandardDeviation;
+            totalImportanceDeviation += importanceStandardDeviation;
         }
-        return ServerResponse.createBySuccess("获取成功",allAnswers);
+        totalConformance = totalConformance/Object.length;
+        totalImportance = totalImportance/Object.length;
+        totalConformanceDeviation = totalConformanceDeviation / Object.length;
+        totalImportanceDeviation = totalImportanceDeviation / Object.length;
+
+        String conclution1 = " ";
+        String conclusion2 = " ";
+        if (totalConformance >= 1 && totalConformance < 2.5){
+            conclution1 ="总体符合程度为"+ totalConformance +"说明软件界面中违反设计规则的情况较多。会影响用户的的使用体验。建议参照设计规则进行修改";
+        }
+        else if(totalConformance >=2.5 && totalConformance < 3.5){
+            conclution1 = "总体符合程度为"+ totalConformance + "，分值中等。说明软件界面中对设计规则的应用还有待提升。在时间和资源允许的情况下。建议酌情修改";
+        }
+        else if( totalConformance >= 3.5 && totalConformance < 5){
+            conclution1 = "总体符合程度为"+ totalConformance+ "，分值偏高，说明软件界面较好地符合了设计规范。建议对某些符合度低重要度高的问题进行修改。";
+        }
+        if (totalImportance >= 1 && totalImportance < 2.5){
+            conclusion2 = "不重要";
+        }
+        else if (totalImportance >= 2.5 && totalImportance < 3.5){
+            conclusion2 = "一般，可改可不改";
+        }
+        else if(totalImportance >= 3.5 && totalImportance < 5){
+            conclusion2 = "很重要";
+        }
+        res.put("conculsion",conclution1 + conclusion2);
+        res.put("comformance",totalConformance);
+        res.put("conformanceStandardDeviation", totalConformanceDeviation);
+        res.put("importance", totalImportance);
+        res.put("importanceStandardDeviation", totalImportanceDeviation);
+        res.put("allAnswers", allAnswers);
+        return ServerResponse.createBySuccess("获取成功",res);
     }
 }

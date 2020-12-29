@@ -235,8 +235,7 @@ public class SusServiceImpl implements SusService {
             HashMap<String,Object> AnswerPaper = new HashMap<>();
             AnswerPaper.put("planId",paper.getPlanId());
             AnswerPaper.put("taskId",paper.getTaskId());
-//            AnswerPaper.put("expertId",paper.getExpertId());
-            AnswerPaper.put("taskId",paper.getId());
+            AnswerPaper.put("Id",paper.getId());
             //所有题目的答案
             SusScaleQuestionScoreExample susScaleQuestionScoreExample1 = new SusScaleQuestionScoreExample();
             SusScaleQuestionScoreExample.Criteria criteria4 = susScaleQuestionScoreExample1.createCriteria();
