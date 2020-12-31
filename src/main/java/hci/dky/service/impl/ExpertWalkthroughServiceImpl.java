@@ -215,63 +215,76 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
         double totalConformanceDeviation = 0;
         double totalImportance = 0;
         double totalImportanceDeviation = 0;
-        
-        for (String object: Object) {
-            ExpertObjectExample expertObjectExample = new ExpertObjectExample();
-            ExpertObjectExample.Criteria criteria1 = expertObjectExample.createCriteria();
-            criteria1.andObjectEqualTo(object);
-            List<ExpertObject> expertObjectList = expertObjectMapper.selectByExample(expertObjectExample);
-            double conformance;
-            double importance;
-            int len = expertObjectList.size();
-            double conformanceSum = 0.0;
-            double importanceSum = 0.0;
-            for (ExpertObject expertObject: expertObjectList) {
-                for(ExpertAnswerPaper paper : expertAnswerPaperList) {
-                    ExpertQuestionScoreExample expertQuestionScoreExample1 = new ExpertQuestionScoreExample();
-                    ExpertQuestionScoreExample.Criteria criteria4 = expertQuestionScoreExample1.createCriteria();
-                    criteria4.andPaperIdEqualTo(paper.getId());
-                    List<ExpertQuestionScore> expertQuestionScoreList = expertQuestionScoreMapper.selectByExample(expertQuestionScoreExample1);
-                    for(ExpertQuestionScore questionScore:expertQuestionScoreList) {
-                        if (questionScore.getQuestionNumber() == (long)expertObject.getId()) {
-                            conformanceSum += questionScore.getConformanceScore();
-                            importanceSum += questionScore.getImportanceScore();
+        for(ExpertAnswerPaper paper : expertAnswerPaperList) {
+            HashMap<String, Object> task = new HashMap<>();
+            ArrayList<Object>  taskAnswers = new ArrayList<>();
+            for (String object : Object) {
+                ExpertObjectExample expertObjectExample = new ExpertObjectExample();
+                ExpertObjectExample.Criteria criteria1 = expertObjectExample.createCriteria();
+                criteria1.andObjectEqualTo(object);
+                List<ExpertObject> expertObjectList = expertObjectMapper.selectByExample(expertObjectExample);
+                double conformance;
+                double importance;
+                int len = expertObjectList.size();
+                double conformanceSum = 0.0;
+                double importanceSum = 0.0;
+                for (ExpertObject expertObject : expertObjectList) {
+//                    for (ExpertAnswerPaper paper : expertAnswerPaperList) {
+                        ExpertQuestionScoreExample expertQuestionScoreExample1 = new ExpertQuestionScoreExample();
+                        ExpertQuestionScoreExample.Criteria criteria4 = expertQuestionScoreExample1.createCriteria();
+                        criteria4.andPaperIdEqualTo(paper.getId());
+                        List<ExpertQuestionScore> expertQuestionScoreList = expertQuestionScoreMapper.selectByExample(expertQuestionScoreExample1);
+                        for (ExpertQuestionScore questionScore : expertQuestionScoreList) {
+                            if (questionScore.getQuestionNumber() == (long) expertObject.getId()) {
+                                conformanceSum += questionScore.getConformanceScore();
+                                importanceSum += questionScore.getImportanceScore();
+                            }
                         }
-                    }
+//                    }
                 }
-            }
-            conformance = conformanceSum/len;
-            importance = importanceSum/len;
-            double conformanceStandardDeviationSum = 0;
-            double importanceStandardDeviationSum = 0;
-            for (ExpertObject expertObject: expertObjectList) {
-                for(ExpertAnswerPaper paper : expertAnswerPaperList) {
-                    ExpertQuestionScoreExample expertQuestionScoreExample1 = new ExpertQuestionScoreExample();
-                    ExpertQuestionScoreExample.Criteria criteria4 = expertQuestionScoreExample1.createCriteria();
-                    criteria4.andPaperIdEqualTo(paper.getId());
-                    List<ExpertQuestionScore> expertQuestionScoreList = expertQuestionScoreMapper.selectByExample(expertQuestionScoreExample1);
-                    for(ExpertQuestionScore questionScore:expertQuestionScoreList) {
-                        if (questionScore.getQuestionNumber() == (long)expertObject.getId()) {
-                            conformanceStandardDeviationSum += (questionScore.getConformanceScore() - conformance) *  (questionScore.getConformanceScore() - conformance);
-                            importanceStandardDeviationSum += (questionScore.getImportanceScore() - importance) *  (questionScore.getImportanceScore() - importance);
+                conformance = conformanceSum / len;
+                importance = importanceSum / len;
+                double conformanceStandardDeviationSum = 0;
+                double importanceStandardDeviationSum = 0;
+                for (ExpertObject expertObject : expertObjectList) {
+//                    for (ExpertAnswerPaper paper : expertAnswerPaperList) {
+                        ExpertQuestionScoreExample expertQuestionScoreExample1 = new ExpertQuestionScoreExample();
+                        ExpertQuestionScoreExample.Criteria criteria4 = expertQuestionScoreExample1.createCriteria();
+                        criteria4.andPaperIdEqualTo(paper.getId());
+                        List<ExpertQuestionScore> expertQuestionScoreList = expertQuestionScoreMapper.selectByExample(expertQuestionScoreExample1);
+                        for (ExpertQuestionScore questionScore : expertQuestionScoreList) {
+                            if (questionScore.getQuestionNumber() == (long) expertObject.getId()) {
+                                conformanceStandardDeviationSum += (questionScore.getConformanceScore() - conformance) * (questionScore.getConformanceScore() - conformance);
+                                importanceStandardDeviationSum += (questionScore.getImportanceScore() - importance) * (questionScore.getImportanceScore() - importance);
+                            }
                         }
-                    }
+//                    }
                 }
-            }
 
-            HashMap<String,Object> answerPaper = new HashMap<>();
-            answerPaper.put("name",object);
-            answerPaper.put("ConformanceScore",conformance);
-            answerPaper.put("ImportanceScore",importance);
-            allAnswers.add(answerPaper);
-            double conformanceStandardDeviation = Math.sqrt(conformanceStandardDeviationSum/len);
-            double importanceStandardDeviation =  Math.sqrt(importanceStandardDeviationSum/len);
-            answerPaper.put("comformanceStandardDeviation", conformanceStandardDeviation);
-            answerPaper.put("importanceStandardDeviation", importanceStandardDeviation);
-            totalConformance += conformance;
-            totalImportance += importance;
-            totalConformanceDeviation += conformanceStandardDeviation;
-            totalImportanceDeviation += importanceStandardDeviation;
+                HashMap<String, Object> answerPaper = new HashMap<>();
+//                HashMap<String, Object> answerPaper = new HashMap<>();
+                answerPaper.put("name", object);
+                answerPaper.put("ConformanceScore", conformance);
+                answerPaper.put("ImportanceScore", importance);
+                taskAnswers.add(answerPaper);
+
+                double conformanceStandardDeviation = Math.sqrt(conformanceStandardDeviationSum / len);
+                double importanceStandardDeviation = Math.sqrt(importanceStandardDeviationSum / len);
+                answerPaper.put("comformanceStandardDeviation", conformanceStandardDeviation);
+                answerPaper.put("importanceStandardDeviation", importanceStandardDeviation);
+//                answerPaper.put("planId",paper.getPlanId());
+//                answerPaper.put("taskId",paper.getTaskId());
+//                answerPaper.put("expertId",paper.getExpertId());
+                totalConformance += conformance;
+                totalImportance += importance;
+                totalConformanceDeviation += conformanceStandardDeviation;
+                totalImportanceDeviation += importanceStandardDeviation;
+            }
+            allAnswers.add(task);
+            task.put("answers",taskAnswers);
+            task.put("planId", paper.getPlanId());
+            task.put("taskId", paper.getTaskId());
+            task.put("expertId", paper.getExpertId());
         }
         totalConformance = totalConformance/Object.length;
         totalImportance = totalImportance/Object.length;
