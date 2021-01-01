@@ -291,27 +291,26 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
         totalConformanceDeviation = totalConformanceDeviation / Object.length;
         totalImportanceDeviation = totalImportanceDeviation / Object.length;
 
-        String conclution1 = " ";
-        String conclusion2 = " ";
-        if (totalConformance >= 1 && totalConformance < 2.5){
-            conclution1 ="总体符合程度为"+ totalConformance +"说明软件界面中违反设计规则的情况较多。会影响用户的的使用体验。建议参照设计规则进行修改";
+        String conclusion = " ";
+        if (totalConformance >= 0 && totalConformance < 2.5){
+            if (totalImportance >= 0 && totalImportance < 2.5){
+                conclusion = "有待改善";
+            }
+            else if (totalImportance >= 2.5 && totalImportance < 5){
+                conclusion = "重大修改";
+            }
         }
-        else if(totalConformance >=2.5 && totalConformance < 3.5){
-            conclution1 = "总体符合程度为"+ totalConformance + "，分值中等。说明软件界面中对设计规则的应用还有待提升。在时间和资源允许的情况下。建议酌情修改";
+        else if(totalConformance >=2.5 && totalConformance <5){
+            if (totalImportance >= 0 && totalImportance < 2.5){
+                conclusion = "表现优秀";
+            }
+            else if (totalImportance >= 2.5 && totalImportance < 5){
+                conclusion = "稳定提升";
+            }
+
         }
-        else if( totalConformance >= 3.5 && totalConformance < 5){
-            conclution1 = "总体符合程度为"+ totalConformance+ "，分值偏高，说明软件界面较好地符合了设计规范。建议对某些符合度低重要度高的问题进行修改。";
-        }
-        if (totalImportance >= 1 && totalImportance < 2.5){
-            conclusion2 = "不重要";
-        }
-        else if (totalImportance >= 2.5 && totalImportance < 3.5){
-            conclusion2 = "一般，可改可不改";
-        }
-        else if(totalImportance >= 3.5 && totalImportance < 5){
-            conclusion2 = "很重要";
-        }
-        res.put("conculsion",conclution1 + conclusion2);
+
+        res.put("conculsion",conclusion);
         res.put("comformance",totalConformance);
         res.put("conformanceStandardDeviation", totalConformanceDeviation);
         res.put("importance", totalImportance);
