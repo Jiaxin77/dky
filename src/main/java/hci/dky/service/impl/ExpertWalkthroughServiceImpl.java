@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.DeflaterOutputStream;
 
 /**
  * @program: dky
@@ -242,8 +243,12 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
                         }
 //                    }
                 }
+
                 conformance = conformanceSum / len;
+
+
                 importance = importanceSum / len;
+
                 double conformanceStandardDeviationSum = 0;
                 double importanceStandardDeviationSum = 0;
                 for (ExpertObject expertObject : expertObjectList) {
@@ -264,14 +269,33 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
                 HashMap<String, Object> answerPaper = new HashMap<>();
 //                HashMap<String, Object> answerPaper = new HashMap<>();
                 answerPaper.put("name", object);
-                answerPaper.put("ConformanceScore", conformance);
-                answerPaper.put("ImportanceScore", importance);
+                if (conformanceSum != 0) {
+                    answerPaper.put("ConformanceScore", conformance);
+                }else{
+                    answerPaper.put("ConformanceScore", Double.NaN);
+                }
+                if (importanceSum != 0) {
+                    answerPaper.put("ImportanceScore", importance);
+                }
+                else {
+                    answerPaper.put("ImportanceScore", Double.NaN);
+                }
                 taskAnswers.add(answerPaper);
 
                 double conformanceStandardDeviation = Math.sqrt(conformanceStandardDeviationSum / len);
                 double importanceStandardDeviation = Math.sqrt(importanceStandardDeviationSum / len);
-                answerPaper.put("comformanceStandardDeviation", conformanceStandardDeviation);
-                answerPaper.put("importanceStandardDeviation", importanceStandardDeviation);
+                if (conformanceStandardDeviation == 0){
+                    answerPaper.put("comformanceStandardDeviation", Double.NaN);
+                }
+                else{
+                    answerPaper.put("comformanceStandardDeviation", conformanceStandardDeviation);
+                }
+                if (importanceStandardDeviation == 0){
+                    answerPaper.put("importanceStandardDeviation", Double.NaN);
+                }
+                else{
+                    answerPaper.put("importanceStandardDeviation", importanceStandardDeviation);
+                }
 //                answerPaper.put("planId",paper.getPlanId());
 //                answerPaper.put("taskId",paper.getTaskId());
 //                answerPaper.put("expertId",paper.getExpertId());
