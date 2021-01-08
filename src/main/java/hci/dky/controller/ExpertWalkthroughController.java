@@ -45,7 +45,7 @@ public class ExpertWalkthroughController {
     }
     @ApiOperation(value = "获取专家走查分析结果")
     @ApiParam(name="planId",value="任务Id",required=true)
-    @GetMapping("/getExpertWalkthroughAnswer1")
+    @GetMapping("/getExpertWalkthroughAnalysis")
     public ServerResponse<HashMap<String, Object>> getExpertWalkthroughAnswer1(Integer planId)
     {
         ServerResponse<HashMap<String, Object>> response = expertWalkthroughService.getExpertWalkthroughAnswer1(planId);
