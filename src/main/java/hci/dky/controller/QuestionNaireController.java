@@ -1,6 +1,7 @@
 package hci.dky.controller;
 
 import hci.dky.common.ServerResponse;
+import hci.dky.pojo.SurveyLibrary;
 import hci.dky.service.QuestionNaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -76,5 +77,12 @@ public class QuestionNaireController {
     {
         ServerResponse<HashMap<String, Object>> response = questionNaireService.getSurveyResult(id);
         return response;
+    }
+
+    @GetMapping("/getQuestionNaireList")
+    public  ServerResponse<List<SurveyLibrary>> getQuestionNaireList()
+    {
+        ServerResponse<List<SurveyLibrary>> response = questionNaireService.getQuestionNaireList();
+        return  response;
     }
 }

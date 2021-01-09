@@ -1,6 +1,7 @@
 package hci.dky.service;
 
 import hci.dky.common.ServerResponse;
+import hci.dky.pojo.SurveyLibrary;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,4 +14,5 @@ public interface QuestionNaireService {
     HashMap<String, Object> getQuestionNaire(Long id);
     ServerResponse<Boolean> postSurveyPaper(int id,List<Object> questionList);
     ServerResponse<HashMap<String, Object>> getSurveyResult(int id);
+    ServerResponse<List<SurveyLibrary>> getQuestionNaireList();
 }

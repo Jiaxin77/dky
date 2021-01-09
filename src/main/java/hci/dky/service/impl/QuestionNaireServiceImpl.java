@@ -165,7 +165,7 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
            QuestionLibrary modelQuestion = new QuestionLibrary();
            modelQuestion.setIsMust(true);
            modelQuestion.setQuestionTitle(thisModelQuestion.getFibTitle());
-           modelQuestion.setQuestionType("FIB");
+           modelQuestion.setQuestionType("MODELFIB");
            modelQuestion.setSurveyId(surveyLibrary.getId());
            questionLibraryMapper.insert(modelQuestion);
         }
@@ -602,6 +602,19 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
         return resultList;
     }
 
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public ServerResponse<List<SurveyLibrary>> getQuestionNaireList()
+    {
+        //获取当前已有的问卷列表
+        SurveyLibraryExample surveyLibraryExample = new SurveyLibraryExample();
+        SurveyLibraryExample.Criteria criteria = surveyLibraryExample.createCriteria();
+        criteria.andIsexistEqualTo(true);
+        List<SurveyLibrary> surveyLibraryList = surveyLibraryMapper.selectByExample(surveyLibraryExample);
+        return  ServerResponse.createBySuccess("获取问卷列表成功",surveyLibraryList);
+
+    }
+
     private String listToString(List<String> wordlist)
     {
         return String.join(",",wordlist);
@@ -673,6 +686,9 @@ public class QuestionNaireServiceImpl implements QuestionNaireService {
         }
         return sb.toString().substring(0, sb.toString().length() - 1);
     }
+
+
+
 
 
 
