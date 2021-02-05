@@ -189,7 +189,7 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
     }
 
     @Override
-    public ServerResponse<HashMap<String, Object>> getExpertWalkthroughAnswer1(int planId) {
+    public ServerResponse<List> getExpertWalkthroughAnswer1(int planId) {
         AssessAndPlan assessAndPlan = assessAndPlanMapper.selectByPrimaryKey((long) planId);
         HashMap<String, Object> res = new HashMap<>();
         ArrayList<Object> allAnswers = new ArrayList<>();
@@ -200,13 +200,11 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
         String Object[] = {"流程", "系统", "控件", "表单", "状态栏", "导航栏", "用语", "图形", "工具栏",
                 "按钮", "输入框", "列表", "窗口", "色彩", "布局", "席位（软件）", "平台（软件）",
                 "控件（硬件）", "指示灯", "控制器", "视听信号", "设备", "标识", "作业空间", "开关",
-                "系统", "流程", "席位（硬件）", "平台（硬件）", "席位之间的协调性", "人机分工合理性",
-                "流程复杂程度", "任务操作便捷性", "系统响应及时性"
+                "席位（硬件）", "平台（硬件）", "席位之间的协调性", "人机分工合理性",
+                "流程复杂程度", "任务操作便捷性", "系统响应及时性人机分工合理性", "流程复杂程度",
+                "任务操作便捷性", "系统响应及时性", "出错频率", "完成时间", "成功率",
+                "路径操作数", "负荷感知", "用户期望", "使用意愿", "故障次数", "重启或异常退出次数"
         };
-        double totalConformance = 0;
-        double totalConformanceDeviation = 0;
-        double totalImportance = 0;
-        double totalImportanceDeviation = 0;
         HashSet<Long> taskSet = new HashSet<>();
         for (ExpertAnswerPaper paper : expertAnswerPaperList) {
             taskSet.add(paper.getTaskId());
@@ -216,6 +214,10 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
             ExpertSet.add(paper.getExpertId());
         }
         for (Long taskId : taskSet) {
+            double totalConformance = 0;
+            double totalConformanceDeviation = 0;
+            double totalImportance = 0;
+            double totalImportanceDeviation = 0;
             HashSet<Long> expertSet = new HashSet<>();
             HashMap<String, Object> task = new HashMap<>();
             ArrayList<Object> taskAnswers = new ArrayList<>();
@@ -283,23 +285,23 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
                 answerPaper.put("name", object);
                 answerPaper.put("expert", expertSet.size());
                 if (conformanceSum != 0) {
-                    answerPaper.put("ConformanceScore", String.format("%.2f", conformance));
+                    answerPaper.put("conformanceScore", String.format("%.2f", conformance));
                 } else {
-                    answerPaper.put("ConformanceScore", Double.NaN);
+                    answerPaper.put("conformanceScore", Double.NaN);
                 }
                 if (importanceSum != 0) {
-                    answerPaper.put("ImportanceScore", String.format("%.2f", importance));
+                    answerPaper.put("importanceScore", String.format("%.2f", importance));
                 } else {
-                    answerPaper.put("ImportanceScore", Double.NaN);
+                    answerPaper.put("importanceScore", Double.NaN);
                 }
                 taskAnswers.add(answerPaper);
 
                 double conformanceStandardDeviation = Math.sqrt(conformanceStandardDeviationSum / (len * expertSet.size()));
                 double importanceStandardDeviation = Math.sqrt(importanceStandardDeviationSum / (len * expertSet.size()));
                 if (conformanceStandardDeviation == 0) {
-                    answerPaper.put("comformanceStandardDeviation", Double.NaN);
+                    answerPaper.put("conformanceStandardDeviation", Double.NaN);
                 } else {
-                    answerPaper.put("comformanceStandardDeviation", String.format("%.2f", conformanceStandardDeviation));
+                    answerPaper.put("conformanceStandardDeviation", String.format("%.2f", conformanceStandardDeviation));
                 }
                 if (importanceStandardDeviation == 0) {
                     answerPaper.put("importanceStandardDeviation", Double.NaN);
@@ -316,35 +318,34 @@ public class ExpertWalkthroughServiceImpl implements ExpertWalkthroughService {
             allAnswers.add(task);
             task.put("answers", taskAnswers);
             task.put("taskId", taskId);
-        }
-        totalConformance = totalConformance / (Object.length * taskSet.size());
-        totalImportance = totalImportance / (Object.length * taskSet.size());
-        totalConformanceDeviation = totalConformanceDeviation / (Object.length * taskSet.size());
-        totalImportanceDeviation = totalImportanceDeviation / (Object.length * taskSet.size());
+            totalConformance = totalConformance / Object.length;
+            totalImportance = totalImportance / Object.length ;
+            totalConformanceDeviation = totalConformanceDeviation / Object.length * taskSet.size();
+            totalImportanceDeviation = totalImportanceDeviation / Object.length * taskSet.size();
 
-        String conclusion = " ";
-        if (totalConformance >= 0 && totalConformance < 2.5) {
-            if (totalImportance >= 0 && totalImportance < 2.5) {
-                conclusion = "有待改善";
-            } else if (totalImportance >= 2.5 && totalImportance < 5) {
-                conclusion = "重大修改";
+            String conclusion = " ";
+            if (totalConformance >= 0 && totalConformance < 2.5) {
+                if (totalImportance >= 0 && totalImportance < 2.5) {
+                    conclusion = "有待改善";
+                } else if (totalImportance >= 2.5 && totalImportance < 5) {
+                    conclusion = "重大修改";
+                }
+            } else if (totalConformance >= 2.5 && totalConformance < 5) {
+                if (totalImportance >= 0 && totalImportance < 2.5) {
+                    conclusion = "表现优秀";
+                } else if (totalImportance >= 2.5 && totalImportance < 5) {
+                    conclusion = "稳定提升";
+                }
+
             }
-        } else if (totalConformance >= 2.5 && totalConformance < 5) {
-            if (totalImportance >= 0 && totalImportance < 2.5) {
-                conclusion = "表现优秀";
-            } else if (totalImportance >= 2.5 && totalImportance < 5) {
-                conclusion = "稳定提升";
-            }
 
+            task.put("conculsion", conclusion);
+            task.put("conformance", String.format("%.2f", totalConformance));
+            task.put("conformanceStandardDeviation", String.format("%.2f", totalConformanceDeviation));
+            task.put("importance", String.format("%.2f", totalImportance));
+            task.put("importanceStandardDeviation", String.format("%.2f", totalImportanceDeviation));
+            task.put("expert", expertSet.size());
         }
-
-        res.put("conculsion", conclusion);
-        res.put("comformance", String.format("%.2f", totalConformance));
-        res.put("conformanceStandardDeviation", String.format("%.2f", totalConformanceDeviation));
-        res.put("importance", String.format("%.2f", totalImportance));
-        res.put("importanceStandardDeviation", String.format("%.2f", totalImportanceDeviation));
-        res.put("allAnswers", allAnswers);
-        res.put("expert", ExpertSet.size());
-        return ServerResponse.createBySuccess("获取成功", res);
+        return ServerResponse.createBySuccess("获取成功", allAnswers);
     }
 }

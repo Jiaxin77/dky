@@ -15,5 +15,5 @@ import java.util.List;
 public interface ExpertWalkthroughService {
     public ServerResponse<List> postExpertWalkthroughAnswer(int planId, List<Object> answer);
     public ServerResponse<List> getExpertWalkthroughAnswer(int planId);
-    public ServerResponse<HashMap<String, Object>> getExpertWalkthroughAnswer1(int planId);
+    public ServerResponse<List> getExpertWalkthroughAnswer1(int planId);
 }

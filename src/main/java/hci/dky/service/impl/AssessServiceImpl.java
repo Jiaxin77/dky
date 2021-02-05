@@ -43,6 +43,13 @@ public class AssessServiceImpl implements AssessService {
 
     @Autowired
     private BorgScaleMapper borgScaleMapper;
+
+    @Autowired
+    private ExpertIndexMapper expertIndexMapper;
+
+    @Autowired
+    private ExpertObjectMapper expertObjectMapper;
+
     @Autowired
     private ExpertPlanMapper expertPlanMapper;
     @Autowired
@@ -630,7 +637,14 @@ public class AssessServiceImpl implements AssessService {
          * @Param [planId]
          * @return hci.dky.common.ServerResponse<java.util.HashMap<java.lang.String,java.lang.Object>>
          **/
-
+        String Object[] = {"流程", "系统", "控件", "表单", "状态栏", "导航栏", "用语", "图形", "工具栏",
+                "按钮", "输入框", "列表", "窗口", "色彩", "布局", "席位（软件）", "平台（软件）",
+                "控件（硬件）", "指示灯", "控制器", "视听信号", "设备", "标识", "作业空间", "开关",
+                "席位（硬件）", "平台（硬件）", "席位之间的协调性", "人机分工合理性",
+                "流程复杂程度", "任务操作便捷性", "系统响应及时性人机分工合理性", "流程复杂程度",
+                "任务操作便捷性", "系统响应及时性", "出错频率", "完成时间", "成功率",
+                "路径操作数", "负荷感知", "用户期望", "使用意愿", "故障次数", "重启或异常退出次数"
+        };
         HashMap<String, Object> result = new HashMap<>();
         //首先获取plan信息
         AssessAndPlan thisPlan = assessAndPlanMapper.selectByPrimaryKey((long) planId);
@@ -723,7 +737,37 @@ public class AssessServiceImpl implements AssessService {
             }
             result.put("indexList", planIndexList);
 
-
+            ArrayList<Object> evaluationList = new ArrayList<>();
+            ArrayList<Integer> expertIndexList = new ArrayList<>();
+            for (String indexId : indexList) {
+                IndexLibrary thisIndex = indexLibraryMapper.selectByPrimaryKey(Long.parseLong(indexId));
+                String firstIndex = thisIndex.getFirstIndex();
+                ExpertIndexExample expertIndexExample = new ExpertIndexExample();
+                ExpertIndexExample.Criteria criteria2 = expertIndexExample.createCriteria();
+                criteria2.andIndexEqualTo(firstIndex);
+                List<ExpertIndex> expertIndex = expertIndexMapper.selectByExample(expertIndexExample);
+                for ( ExpertIndex expertIndex1 : expertIndex){
+                    expertIndexList.add(expertIndex1.getId());
+                }
+            }
+            for(String object:Object){
+                ExpertObjectExample expertObjectExample = new ExpertObjectExample();
+                ExpertObjectExample.Criteria criteria3 = expertObjectExample.createCriteria();
+                criteria3.andObjectEqualTo(object);
+                List<ExpertObject> expertObject = expertObjectMapper.selectByExample(expertObjectExample);
+                for (ExpertObject expertObject1 : expertObject){
+                    for ( int e : expertIndexList ){
+                        if(expertObject1.getQuestion_number().equals(e)){
+                            HashMap<String, Object> evaluation = new HashMap<>();
+                            evaluation.put("questionNumber",expertObject1.getQuestion_number());
+                            evaluation.put("object",expertObject1.getObject());
+                            evaluation.put("question",expertObject1.getQuestion());
+                            evaluationList.add(evaluation);
+                        }
+                    }
+                }
+            }
+            result.put("evaluationList", evaluationList);
             //返回table路径
 
             MethodLibraryExample methodLibraryExample = new MethodLibraryExample();
