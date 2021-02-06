@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName SusServiceImpl
@@ -227,54 +224,70 @@ public class SusServiceImpl implements SusService {
         SusScaleAnswerPaperExample.Criteria criteria3 = susScaleAnswerPaperExample1.createCriteria();
         criteria3.andPlanIdEqualTo(assessAndPlan.getId());
         List<SusScaleAnswerPaper> susScaleAnswerPaperList = susScaleAnswerPaperMapper.selectByExample(susScaleAnswerPaperExample1);
-
-        double totalSum = 0;
-        double totalAverage;
+        HashSet<Long> taskSet = new HashSet<>();
         for(SusScaleAnswerPaper paper : susScaleAnswerPaperList)
         {
-            HashMap<String,Object> AnswerPaper = new HashMap<>();
-            AnswerPaper.put("planId",paper.getPlanId());
-            AnswerPaper.put("taskId",paper.getTaskId());
-//            AnswerPaper.put("expertId",paper.getExpertId());
-            AnswerPaper.put("taskId",paper.getId());
-            //所有题目的答案
-            SusScaleQuestionScoreExample susScaleQuestionScoreExample1 = new SusScaleQuestionScoreExample();
-            SusScaleQuestionScoreExample.Criteria criteria4 = susScaleQuestionScoreExample1.createCriteria();
-            criteria4.andSusPaperIdEqualTo(paper.getId());
-            List<SusScaleQuestionScore> susScaleQuestionScoreList = susScaleQuestionScoreMapper.selectByExample(susScaleQuestionScoreExample1);
-            Long max, min, sum;
-            double standardDiviation, average;
-            max = susScaleQuestionScoreList.get(0).getScore();
-            min = max;
-            sum = 0L;
-            double diviationSum = 0;
-            for(SusScaleQuestionScore questionScore:susScaleQuestionScoreList)
-            {
-                if(questionScore.getScore() > max){
-                    max = questionScore.getScore();
-                }
-                if(questionScore.getScore() < min){
-                    min = questionScore.getScore();
-                }
-                sum += questionScore.getScore();
-            }
-            average = (double)sum/susScaleQuestionScoreList.size();
-            AnswerPaper.put("average", average);
-            AnswerPaper.put("min", min);
-            AnswerPaper.put("max", max);
-            for(SusScaleQuestionScore questionScore:susScaleQuestionScoreList)
-            {
-                diviationSum += (questionScore.getScore() - average) * (questionScore.getScore() - average);
-            }
-            standardDiviation = Math.sqrt(diviationSum/susScaleQuestionScoreList.size());
-            AnswerPaper.put("standardDiviation", standardDiviation);
-            allAnswers.add(AnswerPaper);
-            totalSum += average;
+            taskSet.add(paper.getTaskId());//获得taskId的set
         }
-        totalAverage = totalSum / susScaleAnswerPaperList.size();
-//        allAnswers.add(totalAverage);
+        for (Long taskId:taskSet){
+            HashMap<String,Object> answerPaper = new HashMap<>();
+            answerPaper.put("taskId",taskId);
+            double totalAverage = 0;
+            double totalSum;
+            ArrayList<Object> allScores = new ArrayList<>();
+            int size = 0;
+            for(SusScaleAnswerPaper paper : susScaleAnswerPaperList) {
+                if (Objects.equals(paper.getTaskId(), taskId)) {
+                    SusScaleQuestionScoreExample susScaleQuestionScoreExample1 = new SusScaleQuestionScoreExample();
+                    SusScaleQuestionScoreExample.Criteria criteria4 = susScaleQuestionScoreExample1.createCriteria();
+                    criteria4.andSusPaperIdEqualTo(paper.getId());
+                    List<SusScaleQuestionScore> susScaleQuestionScoreList = susScaleQuestionScoreMapper.selectByExample(susScaleQuestionScoreExample1);
+                    size = susScaleQuestionScoreList.size();
+                }
+            }
+            for (int questionNumber = 1 ; questionNumber <= size ; questionNumber++){
+                double max = Double.MIN_VALUE, min = Double.MAX_VALUE, sum = 0, standardDeviation , count = 0, average = 0, deviationSum = 0;
+                for(SusScaleAnswerPaper paper : susScaleAnswerPaperList) {
+                    if (Objects.equals(paper.getTaskId(), taskId)) {
+                        SusScaleQuestionScoreExample susScaleQuestionScoreExample1 = new SusScaleQuestionScoreExample();
+                        SusScaleQuestionScoreExample.Criteria criteria4 = susScaleQuestionScoreExample1.createCriteria();
+                        criteria4.andSusPaperIdEqualTo(paper.getId());
+                        List<SusScaleQuestionScore> susScaleQuestionScoreList = susScaleQuestionScoreMapper.selectByExample(susScaleQuestionScoreExample1);
+                        for(SusScaleQuestionScore questionScore:susScaleQuestionScoreList) {
+                            if (questionScore.getQuestionNumber() == questionNumber) {
+                                if(questionScore.getScore() > max){
+                                    max = questionScore.getScore();
+                                }
+                                if(questionScore.getScore() < min){
+                                    min = questionScore.getScore();
+                                }
+                                sum += questionScore.getScore();
+                                count += 1;
+                            }
+                        }
+                        average = sum / count;
+                        for(SusScaleQuestionScore questionScore:susScaleQuestionScoreList) {
+                            if (questionScore.getQuestionNumber() == questionNumber) {
+                                deviationSum += (questionScore.getScore() - average) * (questionScore.getScore() - average);
+                            }
+                        }
+                    }
+                }
+                standardDeviation = Math.sqrt(deviationSum/count);
+                HashMap<String,Object> thisScore = new HashMap<>();
+                thisScore.put("min", min);
+                thisScore.put("max", max);
+                thisScore.put("average", String.format("%.2f", average));
+                thisScore.put("standardDeviation", String.format("%.2f", standardDeviation));
+                thisScore.put("questionNum",questionNumber);
+                allScores.add(thisScore);
+                totalAverage += average;
+            }
+            answerPaper.put("scores", allScores);
+            answerPaper.put("average", String.format("%.2f", totalAverage/size));
+            allAnswers.add(answerPaper);
+        }
         res.put("allAnswers", allAnswers);
-        res.put("totalAverage",totalAverage);
         return ServerResponse.createBySuccess("获取答案成功",res);
     }
 }

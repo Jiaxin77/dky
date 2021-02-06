@@ -2,12 +2,16 @@ package hci.dky.controller;
 
 import hci.dky.common.ServerResponse;
 import hci.dky.service.ExpertWalkthroughService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +22,7 @@ import java.util.Map;
  * @create: 2020-08-27 15:33
  * @Version: 1.0
  **/
+@Api(value="ExpertWalkthroughController",tags={"专家走查操作接口"})
 @RestController
 public class ExpertWalkthroughController {
     @Autowired
@@ -38,8 +43,9 @@ public class ExpertWalkthroughController {
         ServerResponse<List> response = expertWalkthroughService.getExpertWalkthroughAnswer(planId);
         return response;
     }
-
-    @GetMapping("/getExpertWalkthroughAnswer1")
+    @ApiOperation(value = "获取专家走查分析结果")
+    @ApiParam(name="planId",value="任务Id",required=true)
+    @GetMapping("/getExpertWalkthroughAnalysis")
     public ServerResponse<List> getExpertWalkthroughAnswer1(Integer planId)
     {
         ServerResponse<List> response = expertWalkthroughService.getExpertWalkthroughAnswer1(planId);
