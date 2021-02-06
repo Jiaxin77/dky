@@ -150,7 +150,7 @@ public class AssessServiceImpl implements AssessService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
-    public ServerResponse<Long> postIndexes(Integer assessId,List<Object> indexAndMethod) {
+    public ServerResponse<Long> postIndexes(Integer assessId,List<Object> indexAndMethod, Integer isModel) {
         /**
      * @Author jiaxin
      * @Description 提交选择的指标，生成方案//TODO
@@ -182,9 +182,14 @@ public class AssessServiceImpl implements AssessService {
             thisAssess.setBeginTime(new Date());
         }
 
+        if(isModel == 1) {
+            thisAssess.setIsModel(true);
+            assessLibraryMapper.updateByPrimaryKey(thisAssess);
+        }
     //    System.out.println(thisAssess);
     //    System.out.println(thisAssess.getAssessId());
         //assessId = thisAssess.getAssessId().intValue();
+
 
 
         ArrayList<Long> indexIdList = new ArrayList<Long>();
@@ -606,6 +611,7 @@ public class AssessServiceImpl implements AssessService {
         AssessLibraryExample assessLibraryExample = new AssessLibraryExample();
         AssessLibraryExample.Criteria criteria = assessLibraryExample.createCriteria();
         criteria.andIsExistEqualTo(Boolean.TRUE);
+        criteria.andIsModelEqualTo(false);
         List<AssessLibrary> assessLibraryList = assessLibraryMapper.selectByExample(assessLibraryExample);
         ArrayList<Object> assessList = new ArrayList<>(assessLibraryList);
         return ServerResponse.createBySuccess("评估列表获取成功",assessList);
