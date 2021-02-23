@@ -1,44 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hci.dky.dao.AssessAndPlanMapper" >
-  <resultMap id="BaseResultMap" type="hci.dky.pojo.AssessAndPlan" >
-    <constructor >
-      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="plan_type" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="assess_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="assess_object" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="index_list" jdbcType="VARCHAR" javaType="java.lang.String" />
-    </constructor>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hci.dky.dao.AssessAndPlanMapper">
+  <resultMap id="BaseResultMap" type="hci.dky.pojo.AssessAndPlan">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="plan_type" jdbcType="VARCHAR" property="planType" />
+    <result column="assess_id" jdbcType="BIGINT" property="assessId" />
+    <result column="assess_object" jdbcType="VARCHAR" property="assessObject" />
+    <result column="index_list" jdbcType="VARCHAR" property="indexList" />
+    <result column="table_id" jdbcType="BIGINT" property="tableId" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="hci.dky.pojo.AssessAndPlan" >
-    <constructor >
-      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="plan_type" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="assess_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="assess_object" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="index_list" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="table_id" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
-    </constructor>
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -49,25 +38,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -78,204 +67,154 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
-    id, plan_type, assess_id, assess_object, index_list
+  <sql id="Base_Column_List">
+    id, plan_type, assess_id, assess_object, index_list, table_id
   </sql>
-  <sql id="Blob_Column_List" >
-    table_id
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="hci.dky.pojo.AssessAndPlanExample" >
+  <select id="selectByExample" parameterType="hci.dky.pojo.AssessAndPlanExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
-    'true' as QUERYID,
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from assess_and_plan
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="hci.dky.pojo.AssessAndPlanExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from assess_and_plan
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from assess_and_plan
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from assess_and_plan
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="hci.dky.pojo.AssessAndPlanExample" >
+  <delete id="deleteByExample" parameterType="hci.dky.pojo.AssessAndPlanExample">
     delete from assess_and_plan
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="hci.dky.pojo.AssessAndPlan" keyColumn="id" keyProperty="id" useGeneratedKeys="true" >
-    insert into assess_and_plan (id, plan_type, assess_id, 
-      assess_object, index_list, table_id
-      )
-    values (#{id,jdbcType=BIGINT}, #{planType,jdbcType=VARCHAR}, #{assessId,jdbcType=BIGINT}, 
-      #{assessObject,jdbcType=VARCHAR}, #{indexList,jdbcType=VARCHAR}, #{tableId,jdbcType=LONGVARCHAR}
-      )
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.AssessAndPlan" useGeneratedKeys="true">
+    insert into assess_and_plan (plan_type, assess_id, assess_object, 
+      index_list, table_id)
+    values (#{planType,jdbcType=VARCHAR}, #{assessId,jdbcType=BIGINT}, #{assessObject,jdbcType=VARCHAR}, 
+      #{indexList,jdbcType=VARCHAR}, #{tableId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="hci.dky.pojo.AssessAndPlan" >
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="hci.dky.pojo.AssessAndPlan" useGeneratedKeys="true">
     insert into assess_and_plan
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="planType != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="planType != null">
         plan_type,
       </if>
-      <if test="assessId != null" >
+      <if test="assessId != null">
         assess_id,
       </if>
-      <if test="assessObject != null" >
+      <if test="assessObject != null">
         assess_object,
       </if>
-      <if test="indexList != null" >
+      <if test="indexList != null">
         index_list,
       </if>
-      <if test="tableId != null" >
+      <if test="tableId != null">
         table_id,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="planType != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="planType != null">
         #{planType,jdbcType=VARCHAR},
       </if>
-      <if test="assessId != null" >
+      <if test="assessId != null">
         #{assessId,jdbcType=BIGINT},
       </if>
-      <if test="assessObject != null" >
+      <if test="assessObject != null">
         #{assessObject,jdbcType=VARCHAR},
       </if>
-      <if test="indexList != null" >
+      <if test="indexList != null">
         #{indexList,jdbcType=VARCHAR},
       </if>
-      <if test="tableId != null" >
-        #{tableId,jdbcType=LONGVARCHAR},
+      <if test="tableId != null">
+        #{tableId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="hci.dky.pojo.AssessAndPlanExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="hci.dky.pojo.AssessAndPlanExample" resultType="java.lang.Long">
     select count(*) from assess_and_plan
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update assess_and_plan
-    <set >
-      <if test="record.id != null" >
+    <set>
+      <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.planType != null" >
+      <if test="record.planType != null">
         plan_type = #{record.planType,jdbcType=VARCHAR},
       </if>
-      <if test="record.assessId != null" >
+      <if test="record.assessId != null">
         assess_id = #{record.assessId,jdbcType=BIGINT},
       </if>
-      <if test="record.assessObject != null" >
+      <if test="record.assessObject != null">
         assess_object = #{record.assessObject,jdbcType=VARCHAR},
       </if>
-      <if test="record.indexList != null" >
+      <if test="record.indexList != null">
         index_list = #{record.indexList,jdbcType=VARCHAR},
       </if>
-      <if test="record.tableId != null" >
-        table_id = #{record.tableId,jdbcType=LONGVARCHAR},
+      <if test="record.tableId != null">
+        table_id = #{record.tableId,jdbcType=BIGINT},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update assess_and_plan
     set id = #{record.id,jdbcType=BIGINT},
       plan_type = #{record.planType,jdbcType=VARCHAR},
       assess_id = #{record.assessId,jdbcType=BIGINT},
       assess_object = #{record.assessObject,jdbcType=VARCHAR},
       index_list = #{record.indexList,jdbcType=VARCHAR},
-      table_id = #{record.tableId,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
+      table_id = #{record.tableId,jdbcType=BIGINT}
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.AssessAndPlan">
     update assess_and_plan
-    set id = #{record.id,jdbcType=BIGINT},
-      plan_type = #{record.planType,jdbcType=VARCHAR},
-      assess_id = #{record.assessId,jdbcType=BIGINT},
-      assess_object = #{record.assessObject,jdbcType=VARCHAR},
-      index_list = #{record.indexList,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="hci.dky.pojo.AssessAndPlan" >
-    update assess_and_plan
-    <set >
-      <if test="planType != null" >
+    <set>
+      <if test="planType != null">
         plan_type = #{planType,jdbcType=VARCHAR},
       </if>
-      <if test="assessId != null" >
+      <if test="assessId != null">
         assess_id = #{assessId,jdbcType=BIGINT},
       </if>
-      <if test="assessObject != null" >
+      <if test="assessObject != null">
         assess_object = #{assessObject,jdbcType=VARCHAR},
       </if>
-      <if test="indexList != null" >
+      <if test="indexList != null">
         index_list = #{indexList,jdbcType=VARCHAR},
       </if>
-      <if test="tableId != null" >
-        table_id = #{tableId,jdbcType=LONGVARCHAR},
+      <if test="tableId != null">
+        table_id = #{tableId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="hci.dky.pojo.AssessAndPlan" >
+  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.AssessAndPlan">
     update assess_and_plan
     set plan_type = #{planType,jdbcType=VARCHAR},
       assess_id = #{assessId,jdbcType=BIGINT},
       assess_object = #{assessObject,jdbcType=VARCHAR},
       index_list = #{indexList,jdbcType=VARCHAR},
-      table_id = #{tableId,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="hci.dky.pojo.AssessAndPlan" >
-    update assess_and_plan
-    set plan_type = #{planType,jdbcType=VARCHAR},
-      assess_id = #{assessId,jdbcType=BIGINT},
-      assess_object = #{assessObject,jdbcType=VARCHAR},
-      index_list = #{indexList,jdbcType=VARCHAR}
+      table_id = #{tableId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

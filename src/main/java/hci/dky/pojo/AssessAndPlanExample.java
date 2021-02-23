@@ -11,7 +11,7 @@ public class AssessAndPlanExample {
     protected List<Criteria> oredCriteria;
 
     public AssessAndPlanExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     public void setOrderByClause(String orderByClause) {
@@ -68,7 +68,7 @@ public class AssessAndPlanExample {
 
         protected GeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<>();
         }
 
         public boolean isValid() {
@@ -433,10 +433,71 @@ public class AssessAndPlanExample {
             addCriterion("index_list not between", value1, value2, "indexList");
             return (Criteria) this;
         }
+
+        public Criteria andTableIdIsNull() {
+            addCriterion("table_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdIsNotNull() {
+            addCriterion("table_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdEqualTo(Long value) {
+            addCriterion("table_id =", value, "tableId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdNotEqualTo(Long value) {
+            addCriterion("table_id <>", value, "tableId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdGreaterThan(Long value) {
+            addCriterion("table_id >", value, "tableId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("table_id >=", value, "tableId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdLessThan(Long value) {
+            addCriterion("table_id <", value, "tableId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdLessThanOrEqualTo(Long value) {
+            addCriterion("table_id <=", value, "tableId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdIn(List<Long> values) {
+            addCriterion("table_id in", values, "tableId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdNotIn(List<Long> values) {
+            addCriterion("table_id not in", values, "tableId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdBetween(Long value1, Long value2) {
+            addCriterion("table_id between", value1, value2, "tableId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTableIdNotBetween(Long value1, Long value2) {
+            addCriterion("table_id not between", value1, value2, "tableId");
+            return (Criteria) this;
+        }
     }
 
+    /**
+     */
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }

@@ -148,9 +148,22 @@ public class ModelServiceImpl implements ModelService {
             newAssessAndPlan.setPlanType(assessAndPlan.getPlanType());
             newAssessAndPlan.setAssessObject(assessAndPlan.getAssessObject());
             newAssessAndPlan.setTableId(assessAndPlan.getTableId());
+            // 如果是问卷
+            if("自定义问卷".equals(assessAndPlan.getPlanType())) {
+                // 看下问卷库里有没有
+                SurveyLibraryExample surveyLibraryExample = new SurveyLibraryExample();
+                SurveyLibraryExample.Criteria criteria1 = surveyLibraryExample.createCriteria();
+                criteria1.andPlanIdEqualTo(assessAndPlan.getId());
+                criteria1.andIsexistEqualTo(true);
+                List<SurveyLibrary> surveyLibraryList = surveyLibraryMapper.selectByExample(surveyLibraryExample);
+                if(!surveyLibraryList.isEmpty()) { //有此问卷
+                    newAssessAndPlan.setTableId(surveyLibraryList.get(0).getId());
+                }
+            }
             //新方案绑到新评估上
             newAssessAndPlan.setAssessId(newAssess.getAssessId());
             assessAndPlanMapper.insert(newAssessAndPlan);
+
         }
     }
 

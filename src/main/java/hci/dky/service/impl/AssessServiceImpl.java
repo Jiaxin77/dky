@@ -801,19 +801,21 @@ public class AssessServiceImpl implements AssessService {
             criteria_survey.andPlanIdEqualTo(thisPlan.getId());
             criteria_survey.andIsexistNotEqualTo(false);
             List<SurveyLibrary> surveyLibraryList = surveyLibraryMapper.selectByExample(surveyLibraryExample);
-            System.out.println(surveyLibraryList.toString());
             if(!surveyLibraryList.isEmpty()) //不为空
             {
                 SurveyLibrary thisSurvey = surveyLibraryList.get(0);
                 HashMap<String, Object> survey = questionNaireService.getQuestionNaire(thisSurvey.getId());
                 result.put("survey", survey);
             }
+            else if (thisPlan.getTableId() != null) {
+                SurveyLibrary thisSurvey = surveyLibraryMapper.selectByPrimaryKey(thisPlan.getTableId());
+                HashMap<String, Object> survey = questionNaireService.getQuestionNaire(thisSurvey.getId());
+                survey.put("id",-1);
+                result.put("survey", survey);
+            }
             else {
                 result.put("survey", null);
             }
-
-
-
 
         }
 
