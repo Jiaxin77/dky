@@ -2,8 +2,6 @@ package hci.dky.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
@@ -35,7 +33,6 @@ public class AssessLibrary implements Serializable {
     /**
      * 发起者
      */
-    @JsonInclude(JsonInclude.Include.NON_NULL) // 为空的话不会显示给前端
     private String creator;
 
     /**
@@ -64,6 +61,11 @@ public class AssessLibrary implements Serializable {
      * 所选指标对应方法id
      */
     private String indexMethodList;
+
+    /**
+     * 是否是问卷评估
+     */
+    private Boolean isSurvey;
 
     private static final long serialVersionUID = 1L;
 }

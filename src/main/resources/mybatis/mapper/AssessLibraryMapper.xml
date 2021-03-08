@@ -13,6 +13,7 @@
     <result column="index_list" jdbcType="VARCHAR" property="indexList" />
     <result column="is_exist" jdbcType="BOOLEAN" property="isExist" />
     <result column="index_method_list" jdbcType="VARCHAR" property="indexMethodList" />
+    <result column="is_survey" jdbcType="BOOLEAN" property="isSurvey" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     assess_id, assess_name, assess_des, assess_object, creator, begin_time, assess_state, 
-    is_model, index_list, is_exist, index_method_list
+    is_model, index_list, is_exist, index_method_list, is_survey
   </sql>
   <select id="selectByExample" parameterType="hci.dky.pojo.AssessLibraryExample" resultMap="BaseResultMap">
     select
@@ -110,11 +111,11 @@
     insert into assess_library (assess_name, assess_des, assess_object, 
       creator, begin_time, assess_state, 
       is_model, index_list, is_exist, 
-      index_method_list)
+      index_method_list, is_survey)
     values (#{assessName,jdbcType=VARCHAR}, #{assessDes,jdbcType=VARCHAR}, #{assessObject,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{assessState,jdbcType=VARCHAR}, 
       #{isModel,jdbcType=BOOLEAN}, #{indexList,jdbcType=VARCHAR}, #{isExist,jdbcType=BOOLEAN}, 
-      #{indexMethodList,jdbcType=VARCHAR})
+      #{indexMethodList,jdbcType=VARCHAR}, #{isSurvey,jdbcType=BOOLEAN})
   </insert>
   <insert id="insertSelective" keyColumn="assess_id" keyProperty="assessId" parameterType="hci.dky.pojo.AssessLibrary" useGeneratedKeys="true">
     insert into assess_library
@@ -149,6 +150,9 @@
       <if test="indexMethodList != null">
         index_method_list,
       </if>
+      <if test="isSurvey != null">
+        is_survey,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="assessName != null">
@@ -180,6 +184,9 @@
       </if>
       <if test="indexMethodList != null">
         #{indexMethodList,jdbcType=VARCHAR},
+      </if>
+      <if test="isSurvey != null">
+        #{isSurvey,jdbcType=BOOLEAN},
       </if>
     </trim>
   </insert>
@@ -225,6 +232,9 @@
       <if test="record.indexMethodList != null">
         index_method_list = #{record.indexMethodList,jdbcType=VARCHAR},
       </if>
+      <if test="record.isSurvey != null">
+        is_survey = #{record.isSurvey,jdbcType=BOOLEAN},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -242,7 +252,8 @@
       is_model = #{record.isModel,jdbcType=BOOLEAN},
       index_list = #{record.indexList,jdbcType=VARCHAR},
       is_exist = #{record.isExist,jdbcType=BOOLEAN},
-      index_method_list = #{record.indexMethodList,jdbcType=VARCHAR}
+      index_method_list = #{record.indexMethodList,jdbcType=VARCHAR},
+      is_survey = #{record.isSurvey,jdbcType=BOOLEAN}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -280,6 +291,9 @@
       <if test="indexMethodList != null">
         index_method_list = #{indexMethodList,jdbcType=VARCHAR},
       </if>
+      <if test="isSurvey != null">
+        is_survey = #{isSurvey,jdbcType=BOOLEAN},
+      </if>
     </set>
     where assess_id = #{assessId,jdbcType=BIGINT}
   </update>
@@ -294,7 +308,8 @@
       is_model = #{isModel,jdbcType=BOOLEAN},
       index_list = #{indexList,jdbcType=VARCHAR},
       is_exist = #{isExist,jdbcType=BOOLEAN},
-      index_method_list = #{indexMethodList,jdbcType=VARCHAR}
+      index_method_list = #{indexMethodList,jdbcType=VARCHAR},
+      is_survey = #{isSurvey,jdbcType=BOOLEAN}
     where assess_id = #{assessId,jdbcType=BIGINT}
   </update>
 </mapper>

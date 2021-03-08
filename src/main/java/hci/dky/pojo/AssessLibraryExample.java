@@ -834,6 +834,66 @@ public class AssessLibraryExample {
             addCriterion("index_method_list not between", value1, value2, "indexMethodList");
             return (Criteria) this;
         }
+
+        public Criteria andIsSurveyIsNull() {
+            addCriterion("is_survey is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyIsNotNull() {
+            addCriterion("is_survey is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyEqualTo(Boolean value) {
+            addCriterion("is_survey =", value, "isSurvey");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyNotEqualTo(Boolean value) {
+            addCriterion("is_survey <>", value, "isSurvey");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyGreaterThan(Boolean value) {
+            addCriterion("is_survey >", value, "isSurvey");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_survey >=", value, "isSurvey");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyLessThan(Boolean value) {
+            addCriterion("is_survey <", value, "isSurvey");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_survey <=", value, "isSurvey");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyIn(List<Boolean> values) {
+            addCriterion("is_survey in", values, "isSurvey");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyNotIn(List<Boolean> values) {
+            addCriterion("is_survey not in", values, "isSurvey");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_survey between", value1, value2, "isSurvey");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsSurveyNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_survey not between", value1, value2, "isSurvey");
+            return (Criteria) this;
+        }
     }
 
     /**

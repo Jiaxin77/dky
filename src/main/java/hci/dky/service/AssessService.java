@@ -9,7 +9,7 @@ import java.util.List;
 public interface AssessService {
 
     public ServerResponse<ArrayList> getIndexesAndMethods();
-    public ServerResponse<Long> postIndexes(Integer assessId, List<Object> indexAndMethod,Integer isModel);
+    public ServerResponse<Long> postIndexes(Integer assessId,List<Object> indexAndMethod, Integer isModel, Integer isSurvey);
     public ServerResponse<ArrayList> getAssessPlan(int assessId);
     public ServerResponse<Boolean> postAssessInfo(int assessId,String assessName,String assessDes,String assessObject);
     public ServerResponse<Boolean> postSusSystemName(int planId,String systemName);

@@ -54,7 +54,9 @@ public class AssessController {
         Integer assessId = (Integer) assessIndex.get("assessId");
         List<Object> indexData = (List<Object>) assessIndex.get("indexData");
         Integer isModel = (Integer) assessIndex.get("isModel");
-        ServerResponse<Long> response = assessService.postIndexes(assessId,indexData,isModel);
+        Integer isSurvey = (Integer) assessIndex.get("isSurvey");
+
+        ServerResponse<Long> response = assessService.postIndexes(assessId,indexData,isModel, isSurvey);
         return response;
     }
 

@@ -150,7 +150,7 @@ public class AssessServiceImpl implements AssessService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)//增加事务回滚
-    public ServerResponse<Long> postIndexes(Integer assessId,List<Object> indexAndMethod, Integer isModel) {
+    public ServerResponse<Long> postIndexes(Integer assessId,List<Object> indexAndMethod, Integer isModel, Integer isSurvey) {
         /**
      * @Author jiaxin
      * @Description 提交选择的指标，生成方案//TODO
@@ -180,6 +180,11 @@ public class AssessServiceImpl implements AssessService {
         {
             thisAssess = assessLibraryMapper.selectByPrimaryKey((long)assessId);
             thisAssess.setBeginTime(new Date());
+        }
+
+        if(isSurvey == 1) {
+            thisAssess.setIsSurvey(true);
+            assessLibraryMapper.updateByPrimaryKey(thisAssess);
         }
 
         if(isModel == 1) {
